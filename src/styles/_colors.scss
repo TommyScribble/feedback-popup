@@ -1,0 +1,50 @@
+//------------------------------------------------------------\\
+//      ALL COLOR VARIABLES CAN BE FOUND HERE                 \\
+//------------------------------------------------------------\\
+
+$white: #fff !default;
+$black: #1f1f1f !default;
+
+$tulip-tree-yellow: #E5A638 !default;
+$chhaya-grey: #4D4D4D !default;
+$ebony-clay-purple: #292D44 !default;
+$venice-blue: #074C98 !default;
+$jaffa-orange: #F0884D !default;
+
+$alto-grey: #DFDEDE !default;
+$silver-grey: #b8b8b8 !default;
+$cotton-seed: #c1bdb9 !default;
+
+$disabled-color: $alto-grey !default;
+$cta-color: $venice-blue !default;
+$alert-color: $jaffa-orange !default;
+
+/*----------- IN TOUCH NETWORKS BRANDING -------------*/
+$brand-color: $tulip-tree-yellow !default;
+$primary-color: $chhaya-grey !default;
+$secondary-color: $ebony-clay-purple !default;
+$emphasis-color:  $venice-blue !default;
+
+//text color helpers
+.white {color: $white !important}
+.black {color: $chhaya-grey !important}
+.brand {color: $brand-color !important}
+//bg color helpers
+.bg-black {background-color:$black !important; color: $white;}
+.bg-white {background-color:$white !important; color: $black;}
+.alert-color {color: $alert-color;}
+
+$link-color: $brand-color !default;
+$hover-color: $primary-color !default;
+
+::-moz-selection {
+  background: $chhaya-grey;
+  color: $white;
+  text-shadow: none;
+}
+
+::selection {
+  background: $chhaya-grey;
+  color: $white;
+  text-shadow: none;
+}

@@ -1,0 +1,40 @@
+//------------------------------------------------------\\
+//      Styles for the Buttons                          \\
+//------------------------------------------------------\\
+
+.btn {
+    border-radius: 1px;
+    font-size: 9px;
+    text-transform: uppercase;
+    height: 24px;
+    width: 66px;
+    line-height: 2.42em;
+    cursor: pointer;
+    transition: all .5s ease;
+    &.btn-confirm {
+        background-color: $brand-color;
+        border: 1px solid $brand-color;
+        color: $white;
+        margin-left: .7em;
+        &:hover,
+        &:focus {
+            background-color: darken($brand-color, 10%);
+        }
+    }
+    &.btn-cancel {
+        background-color: transparent;
+        border: 1px solid transparent;
+        color: $black;
+        &:hover,
+        &:focus {
+            background-color: lighten($chhaya-grey, 60%);
+        }
+    }
+    &.btn-diolog {
+        background-color: transparent;
+        border: 1px solid transparent;
+        color: $brand-color;
+        font-size: 14px;
+    }
+}
+

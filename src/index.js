@@ -1,10 +1,10 @@
 let app = document.querySelector('body')
 
-app.innerHTML = Popup;
+app.innerHTML = Popup();
 
 let popup = {
     isOpen: true,
-}
+};
 
 function Popup() {
     return `<div class="feedback__container">
@@ -25,14 +25,14 @@ function Popup() {
 
           <div class="feedback__add-screenshot">
 
-            //   <label 
-            //   // onLoad={screenShot()} 
-            //   class="control control-checkbox">
-            //     Send screenshot
-            //     <input type="checkbox"/>
-            //     <div class="control_indicator">
-            //     </div>
-            //   </label>
+              <label 
+              {// onLoad={screenShot()} }
+              class="control control-checkbox">
+                Send screenshot
+                <input type="checkbox"/>
+                <div class="control_indicator">
+                </div>
+              </label>
 
 
           </div>
