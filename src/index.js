@@ -6,6 +6,23 @@ let popup = {
   isOpen: true,
 };
 
+
+function feeedBackButton() {
+  return `<div class="button__container">
+            <div class="button__text">
+              <span>Spotted a glitch?</span>
+            </div>
+          </div>`;
+}
+
+
+
+const loadScreenshot = () => { 
+  html2canvas(document.querySelector("#capture")).then(canvas => {
+    document.body.appendChild(canvas)
+});
+};
+
 function Header() {
 
   const heading = "Support our continuous improvement.";
@@ -28,17 +45,14 @@ function TextArea() {
 
 function screenShot() {
   return `<div class="feedback__add-screenshot">
-            <label 
-            {// onLoad={screenShot()} }
-            class="control control-checkbox">
+            <label class="control control-checkbox">
               Send screenshot
               <input type="checkbox"/>
-              <div class="control_indicator">
+                <div class="control_indicator">
               </div>
             </label>
-            </div>
-            <div class="feedback__screenshot">
-          </div>`;
+          </div>
+        <div class="feedback__screenshot"></div>`;
 }
 
 function confirmation() {
