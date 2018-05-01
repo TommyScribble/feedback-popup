@@ -566,6 +566,9 @@ template {
     color: #E5A638;
     font-size: 14px; }
 
+html head [content*="Nonexecutove Directors"] {
+  background-color: #2fa78e; }
+
 .widget__container {
   position: absolute;
   bottom: 0;
@@ -573,13 +576,26 @@ template {
   width: 136px;
   min-height: 25px; }
   .widget__container .widget__button {
-    background-color: #2fa78e;
-    background-image: url("../assets/icon-button-background.png") no-repeat;
+    background-color: transparent;
+    background-image: url("../assets/icon-button-background.png");
+    background-repeat: no-repeat;
     border: transparent;
     color: #fff;
     font-size: .8em;
     cursor: pointer;
     padding: 4px 18px; }
+  .widget__container.network-ref-itn {
+    background-color: #E5A638; }
+  .widget__container.network-ref-ned {
+    background-color: #2fa78e; }
+  .widget__container.network-ref-tch {
+    background-color: #ff931e; }
+  .widget__container.network-ref-fdn {
+    background-color: #60222f; }
+  .widget__container.network-ref-wd {
+    background-color: #6B4C61; }
+  .widget__container.network-ref-id {
+    background-color: #F2961D; }
 
 .control {
   display: block;
