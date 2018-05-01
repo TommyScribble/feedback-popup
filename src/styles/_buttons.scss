@@ -38,3 +38,20 @@
     }
 }
 
+.widget__container {
+    position: absolute;
+    bottom: 0;
+    right: 8%;
+    width: 136px;
+    min-height: 25px;
+    .widget__button {
+        background-color: $ned-brand-color;
+        background-image: url("../assets/icon-button-background.png") no-repeat;
+        border: transparent;
+        color: $white;
+        font-size: .8em;
+        cursor: pointer;
+        padding: 4px 18px;
+    }
+}
+

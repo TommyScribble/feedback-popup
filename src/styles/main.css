@@ -537,6 +537,7 @@ template {
   color: #fff;
   text-shadow: none; }
 
+/*----------- INDIVIDUAL NETWORKS BRANDING -------------*/
 .btn {
   border-radius: 1px;
   font-size: 9px;
@@ -564,6 +565,21 @@ template {
     border: 1px solid transparent;
     color: #E5A638;
     font-size: 14px; }
+
+.widget__container {
+  position: absolute;
+  bottom: 0;
+  right: 8%;
+  width: 136px;
+  min-height: 25px; }
+  .widget__container .widget__button {
+    background-color: #2fa78e;
+    background-image: url("../assets/icon-button-background.png") no-repeat;
+    border: transparent;
+    color: #fff;
+    font-size: .8em;
+    cursor: pointer;
+    padding: 4px 18px; }
 
 .control {
   display: block;
