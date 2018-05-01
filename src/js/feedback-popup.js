@@ -5,9 +5,11 @@ class FeedbackPopup {
         this.networkRef = document.getElementById("network-ref"),
         this.container = {
             buttonHTML: `<div class="widget__container network-ref-${this.networkRef.innerHTML}">
-            <button id="widget" class="widget__button">Spotted a glitch?</button>
+            <button id="feedback-popup-btn-show" class="widget__button">Spotted a glitch?</button>
           </div>`,
-            mainDiv: document.getElementById('feedback-popup-content'),
+            mainDiv: document.getElementById('feedback-popup'),
+            contentDiv: document.getElementById('feedback-popup-content'),
+            buttonShowDiv: document.getElementById('feedback-popup-btn-show'),
             popupHTML: `<div class="feedback__container">
 
             <div class="feedback__container--inner">
@@ -47,7 +49,7 @@ class FeedbackPopup {
               <div class="feedback__confirm">
                 <ul>
                   <li>
-                    <button class="btn btn-cancel">cancel</button>
+                    <button id="feedback-popup-btn-cancel" class="btn btn-cancel">cancel</button>
                   </li>
                   <li>
                     <button class="btn btn-confirm">send</button>
@@ -68,12 +70,22 @@ class FeedbackPopup {
       // send screenshot close feedbackform and open confirmation
     }
     show() {
-      this.container.mainDiv.innerHTML = this.container.popupHTML;
+      this.container.contentDiv.innerHTML = this.container.popupHTML;
+      this.container.contentDiv.style.display = 'block';
       console.warn('set container html');
+      const buttonCancel = document.getElementById("feedback-popup-btn-cancel");
+      const that = this;
+      this.container.buttonShowDiv.style.display = 'none';
+      buttonCancel.addEventListener("click", function(){
+          console.warn('clicked button, now showing popup')
+          that.hideContentDiv()
+      });      
     }
 
-    hide() {
-      this.style.display = "none";
+    hideContentDiv() {
+      this.container.contentDiv.style.display = "none";
+      this.container.buttonShowDiv.style.display = "block";
+    //   this.buttonWidget();
     }
 
     toggleScreenshot() {
@@ -87,10 +99,10 @@ class FeedbackPopup {
     buttonWidget() {
         console.log(document.getElementById('feedback-popup-content'));
         console.log('button widget displayed')
-        this.container.mainDiv.innerHTML = this.container.buttonHTML;
-        const buttonClick = document.getElementById("widget");
+        this.container.buttonShowDiv.innerHTML = this.container.buttonHTML;
+        const buttonShow = document.getElementById("feedback-popup-btn-show");
         const that = this;
-        buttonClick.addEventListener("click", function(){
+        buttonShow.addEventListener("click", function(){
             console.warn('clicked button, now showing popup')
             that.show()
         });      
