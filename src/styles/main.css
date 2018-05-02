@@ -663,6 +663,8 @@ html head [content*="Nonexecutove Directors"] {
 body {
   background-color: rgba(0, 0, 0, 0.2); }
   body .feedback__container {
+    position: relative;
+    z-index: 5;
     font-family: "Helvetica Neue", Helvetica, sans-serif; }
     body .feedback__container .feedback__container--inner {
       background-color: #fff;

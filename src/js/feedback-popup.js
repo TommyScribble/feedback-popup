@@ -1,3 +1,5 @@
+import html2canvas from "html2canvas";
+
 class FeedbackPopup {
     constructor(title) {
       this.title = title,
@@ -7,9 +9,9 @@ class FeedbackPopup {
             buttonHTML: `<div class="widget__container network-ref-${this.networkRef.innerHTML}">
             <button id="feedback-popup-btn-show" class="widget__button">Spotted a glitch?</button>
           </div>`,
-            mainDiv: document.getElementById('feedback-popup'),
-            contentDiv: document.getElementById('feedback-popup-content'),
-            buttonShowDiv: document.getElementById('feedback-popup-btn-show'),
+            mainDiv: document.getElementById("feedback-popup"),
+            contentDiv: document.getElementById("feedback-popup-content"),
+            buttonShowDiv: document.getElementById("feedback-popup-btn-show"),
             popupHTML: `<div class="feedback__container">
 
             <div class="feedback__container--inner">
@@ -79,7 +81,8 @@ class FeedbackPopup {
       buttonCancel.addEventListener("click", function(){
           console.warn('clicked button, now showing popup')
           that.hideContentDiv()
-      });      
+      });
+      return this;
     }
 
     hideContentDiv() {
@@ -104,7 +107,7 @@ class FeedbackPopup {
         const that = this;
         buttonShow.addEventListener("click", function(){
             console.warn('clicked button, now showing popup')
-            that.show()
+            that.show().createScreenshot();
         });      
     }
 
@@ -112,13 +115,11 @@ class FeedbackPopup {
 
 
     createScreenshot() {
-      const html2canvas = html2canvas(element, options)
-
-      html2canvas(document.body).then(function (canvas) {
-        document.body.appendChild(canvas)
-      })
+        html2canvas(document.body).then(function(canvas) {
+            document.body.appendChild(canvas);
+        });
     }
 
   }
 
-  module.exports = FeedbackPopup
+export default FeedbackPopup;

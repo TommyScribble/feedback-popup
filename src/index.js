@@ -4,7 +4,7 @@ let feedbackPopup = new FeedbackPopup(
   "Support our continuous improvement."
 )
 
-// feedbackPopup.buttonWidget()
+feedbackPopup.buttonWidget()
 // feedbackPopup.createScreenshot().
 
 // console.log(feedbackPopup.buttonWidget())

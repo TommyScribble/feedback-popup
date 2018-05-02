@@ -10,6 +10,8 @@
 body {
     background-color: rgba(0, 0, 0, .2);
 .feedback__container {
+    position: relative;
+    z-index: 5;
     font-family: $sans-serif-stack;
     .feedback__container--inner {
         background-color: $white;
