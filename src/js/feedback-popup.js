@@ -6,12 +6,18 @@ class FeedbackPopup {
         this.isOpen = false;
         this.networkRef = document.getElementById("network-ref"),
         this.container = {
+            confiramtionHTML: `<div class="feedback-popup__confirmation-container">
+              <p>Thank you for your help!</p>
+              <button class="btn btn-cancel">OK</button>
+            </div>`,
             buttonHTML: `<div class="widget__container network-ref-${this.networkRef.innerHTML}">
             <button id="feedback-popup-btn-show" class="widget__button">Spotted a glitch?</button>
           </div>`,
             mainDiv: document.getElementById("feedback-popup"),
             contentDiv: document.getElementById("feedback-popup-content"),
             buttonShowDiv: document.getElementById("feedback-popup-btn-show"),
+            confirmationShowDiv: document.getElementById("feedback-popup-confiramtion"),
+            buttonSend: document.getElementById("feedback-post"),
             popupHTML: `<div class="feedback__container">
 
             <div class="feedback__container--inner">
@@ -28,33 +34,13 @@ class FeedbackPopup {
 
               </div>
 
-              <div class="feedback__add-screenshot">
-
-                  <label class="control control-checkbox">
-
-                    Send screenshot
-
-                    <input onClick="toggleScreenshot()" id="capture" type="checkbox" checked/>
-
-                    <div class="control_indicator">
-
-                    </div>
-
-                  </label>
-
-              </div>
-
-              <div class="feedback__screenshot">
-
-              </div>
-
               <div class="feedback__confirm">
                 <ul>
                   <li>
                     <button id="feedback-popup-btn-cancel" class="btn btn-cancel">cancel</button>
                   </li>
                   <li>
-                    <button class="btn btn-confirm">send</button>
+                    <button id="feedback-post" class="btn btn-confirm">send</button>
                   </li>
                 </ul>
 
@@ -69,7 +55,15 @@ class FeedbackPopup {
         this.buttonWidget();
     }
     send() {
-      // send screenshot close feedbackform and open confirmation
+      // send text to ..API.. and open confirmation
+      this.container.confirmationShowDiv.innerHTML = this.container.confiramtionHTML;
+      this.container.confirmationShowDiv.style.display = "block";
+      const buttonSend = document.getElementById("feedback-post");
+      const that = this;
+      that.container.popupHTML.style.display = "none";
+      buttonSend.addEventListener("click", function() {
+
+      });
     }
     show() {
       this.container.contentDiv.innerHTML = this.container.popupHTML;

@@ -15,7 +15,7 @@ body {
     font-family: $sans-serif-stack;
     .feedback__container--inner {
         background-color: $white;
-        height: 536px;
+        height: 309px;
         width: 324px;
         max-height: calc(100% - 100px);
         position: fixed;
@@ -84,5 +84,11 @@ body {
                 }
             }
         }
+    }
+    .feedback-popup__confirmation-container {
+        width: 303px;
+        height: 113px;
+        background-color: $white;
+        padding: 25px 30px;
     }
 }

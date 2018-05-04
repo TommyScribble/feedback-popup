@@ -668,7 +668,7 @@ body {
     font-family: "Helvetica Neue", Helvetica, sans-serif; }
     body .feedback__container .feedback__container--inner {
       background-color: #fff;
-      height: 536px;
+      height: 309px;
       width: 324px;
       max-height: calc(100% - 100px);
       position: fixed;
@@ -726,3 +726,8 @@ body {
           margin: 0; }
           body .feedback__container .feedback__container--inner .feedback__confirm ul li {
             display: inline-block; }
+  body .feedback-popup__confirmation-container {
+    width: 303px;
+    height: 113px;
+    background-color: #fff;
+    padding: 25px 30px; }
