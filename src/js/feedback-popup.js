@@ -73,13 +73,11 @@ class FeedbackPopup {
     }
     show() {
       this.container.contentDiv.innerHTML = this.container.popupHTML;
-      this.container.contentDiv.style.display = 'block';
-      console.warn('set container html');
+      this.container.contentDiv.style.display = "block";
       const buttonCancel = document.getElementById("feedback-popup-btn-cancel");
       const that = this;
-      this.container.buttonShowDiv.style.display = 'none';
+      this.container.buttonShowDiv.style.display = "none";
       buttonCancel.addEventListener("click", function(){
-          console.warn('clicked button, now showing popup')
           that.hideContentDiv()
       });
       return this;
@@ -88,7 +86,6 @@ class FeedbackPopup {
     hideContentDiv() {
       this.container.contentDiv.style.display = "none";
       this.container.buttonShowDiv.style.display = "block";
-    //   this.buttonWidget();
     }
 
     toggleScreenshot() {
@@ -100,19 +97,14 @@ class FeedbackPopup {
     }
 
     buttonWidget() {
-        console.log(document.getElementById('feedback-popup-content'));
-        console.log('button widget displayed')
         this.container.buttonShowDiv.innerHTML = this.container.buttonHTML;
         const buttonShow = document.getElementById("feedback-popup-btn-show");
         const that = this;
         buttonShow.addEventListener("click", function(){
-            console.warn('clicked button, now showing popup')
-            that.show().createScreenshot();
+            that.show()
+            // .createScreenshot();
         });      
     }
-
-
-
 
     createScreenshot() {
         html2canvas(document.body).then(function(canvas) {
