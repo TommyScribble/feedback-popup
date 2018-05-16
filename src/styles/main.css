@@ -730,4 +730,14 @@ body {
     width: 303px;
     height: 113px;
     background-color: #fff;
-    padding: 25px 30px; }
+    padding: 25px 30px;
+    max-height: calc(100% - 100px);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+    body .feedback-popup__confirmation-container .feedback-popup__confirmation-text p {
+      margin: 0;
+      margin-bottom: 20px; }
+    body .feedback-popup__confirmation-container .feedback-popup__confirmation-button {
+      text-align: right; }

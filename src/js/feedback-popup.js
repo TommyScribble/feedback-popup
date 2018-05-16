@@ -1,4 +1,4 @@
-import html2canvas from "html2canvas";
+// import html2canvas from "html2canvas";
 
 class FeedbackPopup {
     constructor(title) {
@@ -6,18 +6,14 @@ class FeedbackPopup {
         this.isOpen = false;
         this.networkRef = document.getElementById("network-ref"),
         this.container = {
-            confiramtionHTML: `<div class="feedback-popup__confirmation-container">
-              <p>Thank you for your help!</p>
-              <button class="btn btn-cancel">OK</button>
-            </div>`,
             buttonHTML: `<div class="widget__container network-ref-${this.networkRef.innerHTML}">
-            <button id="feedback-popup-btn-show" class="widget__button">Spotted a glitch?</button>
+            <button class="widget__button">Spotted a glitch?</button>
           </div>`,
-            mainDiv: document.getElementById("feedback-popup"),
-            contentDiv: document.getElementById("feedback-popup-content"),
-            buttonShowDiv: document.getElementById("feedback-popup-btn-show"),
-            confirmationShowDiv: document.getElementById("feedback-popup-confiramtion"),
-            buttonSend: document.getElementById("feedback-post"),
+            mainDiv: document.getElementsByClassName("js-feedback-popup")[0],
+            contentDiv: document.getElementsByClassName("js-feedback-popup-content")[0],
+            buttonShowDiv: document.getElementsByClassName("js-feedback-popup-btn-show")[0],
+            confirmationShowDiv: document.getElementsByClassName("js-feedback-popup-confiramtion")[0],
+            buttonSend: document.getElementsByClassName("js-feedback-post")[0],
             popupHTML: `<div class="feedback__container">
 
             <div class="feedback__container--inner">
@@ -30,17 +26,17 @@ class FeedbackPopup {
 
               <div class="feedback__textarea">
 
-              <textarea autoFocus placeholder="Describe your issue or share your ideas" name="feedback" id="main-textarea"></textarea>
+                <textarea autoFocus placeholder="Describe your issue or share your ideas" name="feedback"></textarea>
 
               </div>
 
               <div class="feedback__confirm">
                 <ul>
                   <li>
-                    <button id="feedback-popup-btn-cancel" class="btn btn-cancel">cancel</button>
+                    <button class="btn btn-cancel js-feedback-popup-btn-cancel">cancel</button>
                   </li>
                   <li>
-                    <button id="feedback-post" class="btn btn-confirm">send</button>
+                    <button class="btn btn-confirm js-feedback-post">send</button>
                   </li>
                 </ul>
 
@@ -49,30 +45,42 @@ class FeedbackPopup {
 
             </div>
 
-          </div>`
+          </div>`,
+          confirmtionHTML: `<div class="feedback-popup__confirmation-container">
+          <div class="feedback-popup__confirmation-text">
+            <p class="thank-you">Thank you for your help!</p>
+          </div>
+            <div class="feedback-popup__confirmation-button">
+              <button class="btn btn-cancel js-feedback-OK">OK</button>
+            </div>
+          </div>`,
         }
-
-        this.buttonWidget();
     }
+
     send() {
       // send text to ..API.. and open confirmation
-      this.container.confirmationShowDiv.innerHTML = this.container.confiramtionHTML;
-      this.container.confirmationShowDiv.style.display = "block";
-      const buttonSend = document.getElementById("feedback-post");
+      this.container.contentDiv.innerHTML = this.container.confirmtionHTML;
+      this.container.contentDiv.style.display = "block";
+      const buttonOK = document.getElementsByClassName("js-feedback-OK")[0];
       const that = this;
-      that.container.popupHTML.style.display = "none";
-      buttonSend.addEventListener("click", function() {
-
+      buttonOK.addEventListener("click", function(){
+        that.container.confirmationShowDiv.style.display = "none";
+        that.hideContentDiv();
       });
     }
+
     show() {
       this.container.contentDiv.innerHTML = this.container.popupHTML;
       this.container.contentDiv.style.display = "block";
-      const buttonCancel = document.getElementById("feedback-popup-btn-cancel");
+      const buttonCancel = document.getElementsByClassName("js-feedback-popup-btn-cancel")[0];
+      const buttonSend = document.getElementsByClassName("js-feedback-post")[0];
       const that = this;
       this.container.buttonShowDiv.style.display = "none";
       buttonCancel.addEventListener("click", function(){
           that.hideContentDiv()
+      });
+      buttonSend.addEventListener("click", function() {
+          that.send()
       });
       return this;
     }
@@ -82,17 +90,17 @@ class FeedbackPopup {
       this.container.buttonShowDiv.style.display = "block";
     }
 
-    toggleScreenshot() {
-      let _checked = this.input.checkbox.checked
+    // toggleScreenshot() {
+    //   let _checked = this.input.checkbox.checked
 
-      if (_checked === false) {
-        this.input.checkbox.checked
-      } else !this.input.checkbox.checked
-    }
+    //   if (_checked === false) {
+    //     this.input.checkbox.checked
+    //   } else !this.input.checkbox.checked
+    // }
 
     buttonWidget() {
         this.container.buttonShowDiv.innerHTML = this.container.buttonHTML;
-        const buttonShow = document.getElementById("feedback-popup-btn-show");
+        const buttonShow = document.getElementsByClassName("js-feedback-popup-btn-show")[0];
         const that = this;
         buttonShow.addEventListener("click", function(){
             that.show()
@@ -100,11 +108,11 @@ class FeedbackPopup {
         });      
     }
 
-    createScreenshot() {
-        html2canvas(document.body).then(function(canvas) {
-            document.body.appendChild(canvas);
-        });
-    }
+    // createScreenshot() {
+    //     html2canvas(document.body).then(function(canvas) {
+    //         document.body.appendChild(canvas);
+    //     });
+    // }
 
   }
 
