@@ -37,46 +37,42 @@
         font-size: 14px;
     }
 }
-html {
-    head {
-        [content*="Nonexecutove Directors"] {
-               background-color: $ned-brand-color;
-            }
-    }
-}
 .widget__container {
-    position: absolute;
-    bottom: 0;
-    right: 8%;
-    width: 136px;
-    min-height: 25px;
-    .widget__button {
-        background-color: transparent;
-        background-image: url("../assets/icon-button-background.png");
-        background-repeat: no-repeat;
-        border: transparent;
-        color: $white;
-        font-size: .8em;
-        cursor: pointer;
-        padding: 4px 18px;
-    }
-    &.network-ref-itn {
-        background-color: $brand-color;
-    }
-    &.network-ref-ned {
-        background-color: $ned-brand-color;
-    }
-    &.network-ref-tch {
-        background-color: $tch-brand-color;
-    }
-    &.network-ref-fdn {
-        background-color: $fdn-brand-color;
-    }
-    &.network-ref-wd {
-        background-color: $wd-brand-color;
-    }
-    &.network-ref-id {
-        background-color: $id-brand-color;
+    background-color: none;
+    .widget__container-inner {
+        position: absolute;
+        bottom: 0;
+        right: 8%;
+        width: 136px;
+        min-height: 25px;
+        .widget__button {
+            background-color: transparent;
+            background-image: url("../assets/icon-button-background.png");
+            background-repeat: no-repeat;
+            border: transparent;
+            color: $white;
+            font-size: .8em;
+            cursor: pointer;
+            padding: 4px 18px;
+        }
+        &.network-ref-itn {
+            background-color: $brand-color;
+        }
+        &.network-ref-ned {
+            background-color: $ned-brand-color;
+        }
+        &.network-ref-tch {
+            background-color: $tch-brand-color;
+        }
+        &.network-ref-fdn {
+            background-color: $fdn-brand-color;
+        }
+        &.network-ref-wd {
+            background-color: $wd-brand-color;
+        }
+        &.network-ref-id {
+            background-color: $id-brand-color;
+        }
     }
 }
 

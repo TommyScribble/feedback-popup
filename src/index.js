@@ -5,10 +5,3 @@ let feedbackPopup = new FeedbackPopup(
 )
 
 feedbackPopup.buttonWidget()
-// feedbackPopup.createScreenshot().
-
-// console.log(feedbackPopup.buttonWidget())
-
-// Set app body
-// let popupContainer = document.querySelector("#feedback-popup-content")
-// popupContainer.innerHTML = feedbackPopup.buttonWidget()

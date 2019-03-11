@@ -6,12 +6,15 @@
 @import 'colors';
 @import 'buttons';
 @import 'checkbox';
-body {
-    background-color: rgba(0, 0, 0, .2);
+.ITN-feedback-popup {
     .feedback__container {
+        background-color: rgba(0, 0, 0, .2);
+        height: 100vh;
+        width: auto;
         position: relative;
         z-index: 5;
         font-family: $sans-serif-stack;
+        transition: all .3s ease;
         .feedback__container--inner {
             background-color: $white;
             height: 309px;
@@ -83,25 +86,25 @@ body {
                 }
             }
         }
-    }
-    .feedback-popup__confirmation-container {
-        width: 303px;
-        height: 113px;
-        background-color: $white;
-        padding: 25px 30px;
-        max-height: calc(100% - 100px);
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        .feedback-popup__confirmation-text {
-            .thank-you {
-                margin: 0;
-                margin-bottom: 20px;
+        .feedback-popup__confirmation-inner {
+            width: 303px;
+            height: 113px;
+            background-color: $white;
+            padding: 25px 30px;
+            max-height: calc(100% - 100px);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            .feedback-popup__confirmation-text {
+                .thank-you {
+                    margin: 0;
+                    margin-bottom: 20px;
+                }
             }
-        }
-        .feedback-popup__confirmation-button {
-            text-align: right;
+            .feedback-popup__confirmation-button {
+                text-align: right;
+            }
         }
     }
 }
