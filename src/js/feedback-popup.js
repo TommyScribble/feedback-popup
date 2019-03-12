@@ -1,5 +1,3 @@
-import html2canvas from "html2canvas";
-
 class FeedbackPopup {
     constructor(title) {
       this.title = title,
@@ -9,7 +7,7 @@ class FeedbackPopup {
             buttonHTML: `
             <div class="widget__container">
                 <div class="widget__container-inner network-ref-${this.networkRef.innerHTML}">
-                    <button class="widget__button">Spotted a glitch?</button>
+                    <button id="capture" class="widget__button">Spotted a glitch?</button>
                 </div>
             </div>`,
             mainDiv: document.getElementsByClassName("js-feedback-popup")[0],
@@ -113,11 +111,9 @@ class FeedbackPopup {
         });      
     }
 
-    // createScreenshot() {
-    //     html2canvas(document.body).then(function(canvas) {
-    //         document.body.appendChild(canvas);
-    //     });
-    // }
+    createScreenshot() {
+
+    }
   }
 
 export default FeedbackPopup;
