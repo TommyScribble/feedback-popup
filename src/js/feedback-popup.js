@@ -34,7 +34,10 @@ class FeedbackPopup {
                                 </div>
 
                                 <div class="feedback__add-screenshot">
-                                    
+                                    <label class="control control-checkbox">
+                                        <input id="js-checkbox" type="checkbox" checked/> Include a screenshot?
+                                        <div class="control_indicator"></div>
+                                    </label>
                                 </div>
 
                                 <div class="feedback__screenshot">
@@ -70,45 +73,52 @@ class FeedbackPopup {
     }
 
     send() {
-      // send text to ..API.. and open confirmation
-      this.container.contentDiv.innerHTML = this.container.confirmtionHTML;
-      this.container.contentDiv.style.display = "block";
-      const buttonOK = document.getElementsByClassName("js-feedback-OK")[0];
-      const that = this;
-      buttonOK.addEventListener("click", function(){
-        that.container.confirmationShowDiv.style.display = "none";
-        that.hideContentDiv();
-      });
+        // send text to ..API.. and open confirmation
+        this.container.contentDiv.innerHTML = this.container.confirmtionHTML;
+        this.container.contentDiv.style.display = "block";
+        const buttonOK = document.getElementsByClassName("js-feedback-OK")[0];
+        const that = this;
+        buttonOK.addEventListener("click", function(){
+            that.container.confirmationShowDiv.style.display = "none";
+            that.hideContentDiv();
+        });
     }
 
     show() {
-      this.container.contentDiv.innerHTML = this.container.popupHTML;
-      this.container.contentDiv.style.display = "block";
-      const buttonCancel = document.getElementsByClassName("js-feedback-popup-btn-cancel")[0];
-      const buttonSend = document.getElementsByClassName("js-feedback-post")[0];
-      const that = this;
-      this.container.buttonShowDiv.style.display = "none";//??? does this do anything?
-      buttonCancel.addEventListener("click", function(){
-          that.hideContentDiv()
-      });
-      buttonSend.addEventListener("click", function() {
-          that.send()
-      });
-      return this;
+        this.container.contentDiv.innerHTML = this.container.popupHTML;
+        this.container.contentDiv.style.display = "block";
+        const buttonCancel = document.getElementsByClassName("js-feedback-popup-btn-cancel")[0];
+        const buttonSend = document.getElementsByClassName("js-feedback-post")[0];
+        const that = this;
+        this.container.buttonShowDiv.style.display = "none";
+        buttonCancel.addEventListener("click", function(){
+            that.hideContentDiv()
+        });
+        buttonSend.addEventListener("click", function() {
+            that.send()
+        });
+        this.toggleScreenshot()
+        return this;
     }
 
     hideContentDiv() {
-      this.container.contentDiv.style.display = "none";
-      this.container.buttonShowDiv.style.display = "block";
+        this.container.contentDiv.style.display = "none";
+        this.container.buttonShowDiv.style.display = "block";
     }
 
-    // toggleScreenshot() {
-    //   let _checked = this.input.checkbox.checked
-
-    //   if (_checked === false) {
-    //     this.input.checkbox.checked
-    //   } else !this.input.checkbox.checked
-    // }
+    toggleScreenshot() {
+        const checkbox = document.getElementById('js-checkbox');
+        const isChecked = true;
+        
+        checkbox.addEventListener( 'click', () => {
+            if (!isChecked === checkbox.checked) {
+                const screenShotParent = document.getElementsByClassName("feedback__screenshot")[0];
+                screenShotParent.removeChild(document.getElementsByTagName('canvas')[0]);
+            } else if (isChecked === checkbox.checked) {
+                this.createScreenshot();
+            }
+        })
+    }
 
     buttonWidget() {
         this.container.buttonShowDiv.innerHTML = this.container.buttonHTML;

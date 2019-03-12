@@ -26,9 +26,6 @@
     border: 0px solid #000000;
     border-radius: 3px;
 }
-.control-radio .control_indicator {
-    border-radius: 0;
-}
 
 .control:hover input ~ .control_indicator,
 .control input:focus ~ .control_indicator {
