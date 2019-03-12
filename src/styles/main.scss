@@ -68,10 +68,15 @@
                 width: 100%;
             }
             .feedback__screenshot {
+                position: relative;
                 background-color: lighten($chhaya-grey, 55%);
                 height: 190px;
                 width: 100%;
-                padding: 0 3px 0 5px;
+                padding: 3px;
+                canvas {
+                    max-height: 100%;
+                    max-width: 100%;
+                }
             }
             .feedback__confirm {
                 padding: 9px;

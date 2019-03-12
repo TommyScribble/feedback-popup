@@ -1,3 +1,5 @@
+import html2canvas from 'html2canvas';
+
 class FeedbackPopup {
     constructor(title) {
       this.title = title,
@@ -29,6 +31,13 @@ class FeedbackPopup {
 
                                     <textarea autoFocus placeholder="Describe your issue or share your ideas" name="feedback"></textarea>
 
+                                </div>
+
+                                <div class="feedback__add-screenshot">
+                                    
+                                </div>
+
+                                <div class="feedback__screenshot">
                                 </div>
 
                                 <div class="feedback__confirm">
@@ -112,8 +121,10 @@ class FeedbackPopup {
     }
 
     createScreenshot() {
-
+        html2canvas(document.querySelector("#main-body")).then(canvas => {
+            document.getElementsByClassName("feedback__screenshot")[0].appendChild(canvas);
+        })
     }
-  }
+}
 
 export default FeedbackPopup;
