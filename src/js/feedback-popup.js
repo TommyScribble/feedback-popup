@@ -128,7 +128,7 @@ class FeedbackPopup {
         buttonShow.addEventListener("click", function(){
             that.show()
             that.createScreenshot();
-            that.getInfo();
+            that.collectData();
         });      
     }
 
@@ -138,9 +138,10 @@ class FeedbackPopup {
         })
     }
 
-    getInfo() {
-        console.log('User platform is' ,platform.description);
-        document.getElementById('textarea').innerHTML += `User Platform is ${platform.description}`
+    collectData() {
+        const screenShotImage = document.getElementsByTagName('canvas')[0];
+        const userInfo = platform.description;
+        const userFeedback = document.getElementById('textarea').value;
     }
 }
 
