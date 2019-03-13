@@ -133,7 +133,7 @@ class FeedbackPopup {
     }
 
     createScreenshot() {
-        html2canvas(document.querySelector("#main-body")).then(canvas => {
+        html2canvas(document.getElementsByTagName("body")[0]).then(canvas => {
             document.getElementsByClassName("feedback__screenshot")[0].appendChild(canvas);
         })
     }
