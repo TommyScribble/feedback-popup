@@ -46,10 +46,10 @@
         width: 136px;
         min-height: 25px;
         .widget__button {
-            background-color: transparent;
+            background-color: $brand-color;
             background-image: url("../assets/icon-button-background.png");
             background-repeat: no-repeat;
-            border: transparent;
+            border: $brand-color;
             color: $white;
             font-size: .8em;
             cursor: pointer;

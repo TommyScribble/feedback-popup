@@ -5,11 +5,11 @@ class FeedbackPopup {
     constructor(title) {
         this.title = title,
             this.isOpen = false,
-            this.networkRef = document.getElementById("network-ref"),
+            // this.networkRef = document.getElementById("network-ref"),
             this.container = {
                 buttonHTML: `
             <div class="widget__container">
-                <div class="widget__container-inner network-ref-${this.networkRef.innerHTML}">
+                <div class="widget__container-inner">
                     <button id="capture" class="widget__button">Spotted a glitch?</button>
                 </div>
             </div>`,
