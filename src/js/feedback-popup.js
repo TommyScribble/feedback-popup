@@ -1,4 +1,5 @@
 import html2canvas from 'html2canvas';
+import platform from 'platform';
 
 class FeedbackPopup {
     constructor(title) {
@@ -29,7 +30,7 @@ class FeedbackPopup {
 
                                 <div class="feedback__textarea">
 
-                                    <textarea autoFocus placeholder="Describe your issue or share your ideas" name="feedback"></textarea>
+                                    <textarea autoFocus placeholder="Describe your issue or share your ideas" name="feedback" id="textarea"></textarea>
 
                                 </div>
 
@@ -127,6 +128,7 @@ class FeedbackPopup {
         buttonShow.addEventListener("click", function(){
             that.show()
             that.createScreenshot();
+            that.getInfo();
         });      
     }
 
@@ -134,6 +136,11 @@ class FeedbackPopup {
         html2canvas(document.querySelector("#main-body")).then(canvas => {
             document.getElementsByClassName("feedback__screenshot")[0].appendChild(canvas);
         })
+    }
+
+    getInfo() {
+        console.log('User platform is' ,platform.description);
+        document.getElementById('textarea').innerHTML += `User Platform is ${platform.description}`
     }
 }
 
