@@ -145,9 +145,7 @@ class FeedbackPopup {
             userFeedback = document.getElementById('textarea').value;
         const screenshotIncluded = canvas ? "Incuded" : "Not Included";
         Email.send({
-            Host : "smtp25.elasticemail.com",
-            Username : "tommy@scribbledesign.co.uk",
-            Password : "a834b561-6cea-4175-ab87-037e06ef049e",
+            SecureToken: "8fbffa50-a991-4321-80a7-680c11f36aac",
             To : 'tommy.ollerenshaw+feedback@intouchnetworks.com',
             From : "tommy@scribbledesign.co.uk",
             Subject : "Feedback",
