@@ -3,22 +3,22 @@ import platform from 'platform';
 
 class FeedbackPopup {
     constructor(title) {
-      this.title = title,
-        this.isOpen = false;
+        this.title = title,
+            this.isOpen = false;
         this.networkRef = document.getElementById("network-ref"),
-        this.container = {
-            buttonHTML: `
+            this.container = {
+                buttonHTML: `
             <div class="widget__container">
                 <div class="widget__container-inner network-ref-${this.networkRef.innerHTML}">
                     <button id="capture" class="widget__button">Spotted a glitch?</button>
                 </div>
             </div>`,
-            mainDiv: document.getElementsByClassName("js-feedback-popup")[0],
-            contentDiv: document.getElementsByClassName("js-feedback-popup-content")[0],
-            buttonShowDiv: document.getElementsByClassName("js-feedback-popup-btn-show")[0],
-            confirmationShowDiv: document.getElementsByClassName("js-feedback-popup-confiramtion")[0],
-            buttonSend: document.getElementsByClassName("js-feedback-post")[0],
-            popupHTML: `<div class="feedback__container">
+                mainDiv: document.getElementsByClassName("js-feedback-popup")[0],
+                contentDiv: document.getElementsByClassName("js-feedback-popup-content")[0],
+                buttonShowDiv: document.getElementsByClassName("js-feedback-popup-btn-show")[0],
+                confirmationShowDiv: document.getElementsByClassName("js-feedback-popup-confiramtion")[0],
+                buttonSend: document.getElementsByClassName("js-feedback-post")[0],
+                popupHTML: `<div class="feedback__container">
 
                             <div class="feedback__container--inner">
 
@@ -60,7 +60,7 @@ class FeedbackPopup {
                             </div>
 
                         </div>`,
-          confirmtionHTML: `<div class="feedback__container">
+                confirmtionHTML: `<div class="feedback__container">
                                 <div class="feedback-popup__confirmation-inner">
                                 <div class="feedback-popup__confirmation-text">
                                     <p class="thank-you">Thank you for your help!</p>
@@ -70,16 +70,15 @@ class FeedbackPopup {
                                     </div>
                                 </div>
                             </div>`,
-        }
+            }
     }
 
     send() {
-        // send text to ..API.. and open confirmation
         this.container.contentDiv.innerHTML = this.container.confirmtionHTML;
         this.container.contentDiv.style.display = "block";
         const buttonOK = document.getElementsByClassName("js-feedback-OK")[0];
         const that = this;
-        buttonOK.addEventListener("click", function(){
+        buttonOK.addEventListener("click", function () {
             that.container.confirmationShowDiv.style.display = "none";
             that.hideContentDiv();
         });
@@ -92,10 +91,10 @@ class FeedbackPopup {
         const buttonSend = document.getElementsByClassName("js-feedback-post")[0];
         const that = this;
         this.container.buttonShowDiv.style.display = "none";
-        buttonCancel.addEventListener("click", function(){
+        buttonCancel.addEventListener("click", function () {
             that.hideContentDiv()
         });
-        buttonSend.addEventListener("click", function() {
+        buttonSend.addEventListener("click", function () {
             that.sendData();
             that.send()
         });
@@ -111,8 +110,8 @@ class FeedbackPopup {
     toggleScreenshot() {
         const checkbox = document.getElementById('js-checkbox');
         const isChecked = true;
-        
-        checkbox.addEventListener( 'click', () => {
+
+        checkbox.addEventListener('click', () => {
             if (!isChecked === checkbox.checked) {
                 const screenShotParent = document.getElementsByClassName("feedback__screenshot")[0];
                 screenShotParent.removeChild(document.getElementsByTagName('canvas')[0]);
@@ -126,10 +125,10 @@ class FeedbackPopup {
         this.container.buttonShowDiv.innerHTML = this.container.buttonHTML;
         const buttonShow = document.getElementsByClassName("js-feedback-popup-btn-show")[0];
         const that = this;
-        buttonShow.addEventListener("click", function(){
+        buttonShow.addEventListener("click", function () {
             that.show()
             that.createScreenshot();
-        });      
+        });
     }
 
     createScreenshot() {
@@ -146,19 +145,19 @@ class FeedbackPopup {
         const screenshotIncluded = canvas ? "Incuded" : "Not Included";
         Email.send({
             SecureToken: "8fbffa50-a991-4321-80a7-680c11f36aac",
-            To : 'tommy.ollerenshaw+feedback@intouchnetworks.com',
-            From : "tommy@scribbledesign.co.uk",
-            Subject : "Feedback",
-            Body : `PLATFORM: ${userPlatform}<br/>
+            To: 'tommy.ollerenshaw+feedback@intouchnetworks.com',
+            From: "tommy@scribbledesign.co.uk",
+            Subject: "Feedback",
+            Body: `PLATFORM: ${userPlatform}<br/>
                     FEEDBACK: ${userFeedback}<br/>
                     SCREENSHOT: ${screenshotIncluded}`,
-            Attachments : [
-            {
-                name: "feedback-image.png",
-                data : userScreenshot || "no screenshot"
-            }]
+            Attachments: [
+                {
+                    name: "feedback-image.png",
+                    data: userScreenshot || "no screenshot"
+                }]
         }).then(
-          message => alert(message)
+            message => alert(message)
         );
     }
 }
