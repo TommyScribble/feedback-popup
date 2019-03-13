@@ -96,6 +96,7 @@ class FeedbackPopup {
             that.hideContentDiv()
         });
         buttonSend.addEventListener("click", function() {
+            that.sendData();
             that.send()
         });
         this.toggleScreenshot()
@@ -128,7 +129,6 @@ class FeedbackPopup {
         buttonShow.addEventListener("click", function(){
             that.show()
             that.createScreenshot();
-            that.collectData();
         });      
     }
 
@@ -138,10 +138,30 @@ class FeedbackPopup {
         })
     }
 
-    collectData() {
-        const screenShotImage = document.getElementsByTagName('canvas')[0];
-        const userInfo = platform.description;
-        const userFeedback = document.getElementById('textarea').value;
+    sendData() {
+        const canvas = document.getElementsByTagName('canvas')[0];
+        const userScreenshot = canvas && canvas.toDataURL('image/png', 1.0),
+            userPlatform = platform.description,
+            userFeedback = document.getElementById('textarea').value;
+        const screenshotIncluded = canvas ? "Incuded" : "Not Included";
+        Email.send({
+            Host : "smtp25.elasticemail.com",
+            Username : "tommy@scribbledesign.co.uk",
+            Password : "a834b561-6cea-4175-ab87-037e06ef049e",
+            To : 'tommy.ollerenshaw+feedback@intouchnetworks.com',
+            From : "tommy@scribbledesign.co.uk",
+            Subject : "Feedback",
+            Body : `PLATFORM: ${userPlatform}<br/>
+                    FEEDBACK: ${userFeedback}<br/>
+                    SCREENSHOT: ${screenshotIncluded}`,
+            Attachments : [
+            {
+                name: "feedback-image.png",
+                data : userScreenshot || "no screenshot"
+            }]
+        }).then(
+          message => alert(message)
+        );
     }
 }
 
