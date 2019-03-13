@@ -4,8 +4,8 @@ import platform from 'platform';
 class FeedbackPopup {
     constructor(title) {
         this.title = title,
-            this.isOpen = false;
-        this.networkRef = document.getElementById("network-ref"),
+            this.isOpen = false,
+            this.networkRef = document.getElementById("network-ref"),
             this.container = {
                 buttonHTML: `
             <div class="widget__container">
