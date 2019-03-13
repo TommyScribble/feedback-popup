@@ -5,60 +5,43 @@
 $white: #fff !default;
 $black: #1f1f1f !default;
 
-$tulip-tree-yellow: #E5A638 !default;
-$chhaya-grey: #4D4D4D !default;
-$ebony-clay-purple: #292D44 !default;
-$venice-blue: #074C98 !default;
-$jaffa-orange: #F0884D !default;
+// ----- Brand colours ----- \\
+$tangaroa: #03163D !default;
+$pomegranate: #E84E0F !default;
+$pacific-blue: #0C93BC !default;
+$outer-space: #30353A !default;
 
 $alto-grey: #DFDEDE !default;
 $silver-grey: #b8b8b8 !default;
 $cotton-seed: #c1bdb9 !default;
 
 $disabled-color: $alto-grey !default;
-$cta-color: $venice-blue !default;
-$alert-color: $jaffa-orange !default;
 
-/*----------- IN TOUCH NETWORKS BRANDING -------------*/
-$brand-color: $tulip-tree-yellow !default;
-$primary-color: $chhaya-grey !default;
-$secondary-color: $ebony-clay-purple !default;
-$emphasis-color:  $venice-blue !default;
+//----------- IN TOUCH NETWORKS BRANDING ------------- \\
+$brand-color: $tangaroa !default;
+$primary-color: $pomegranate !default;
+$secondary-color: $pacific-blue !default;
+$text-color: $outer-space !default;
 
 //text color helpers
 .white {color: $white !important}
-.black {color: $chhaya-grey !important}
+.black {color: $text-color !important}
 .brand {color: $brand-color !important}
 //bg color helpers
 .bg-black {background-color:$black !important; color: $white;}
 .bg-white {background-color:$white !important; color: $black;}
-.alert-color {color: $alert-color;}
 
 $link-color: $brand-color !default;
 $hover-color: $primary-color !default;
 
 ::-moz-selection {
-  background: $chhaya-grey;
+  background: $text-color;
   color: $white;
   text-shadow: none;
 }
 
 ::selection {
-  background: $chhaya-grey;
+  background: $text-color;
   color: $white;
   text-shadow: none;
 }
-
-/*----------- INDIVIDUAL NETWORKS BRANDING -------------*/
-//NED
-$ned-brand-color: #2fa78e !default;
-//TCH
-$tch-brand-color: #ff931e !default;
-//FDN
-$fdn-brand-color: #60222f !default;
-//WD
-$wd-brand-color: #6B4C61 !default;
-//ID
-$id-brand-color: #F2961D !default;
-//BT
-$bt-brand-color: #FA8015 !default;

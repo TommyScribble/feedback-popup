@@ -2,11 +2,13 @@
 //      Styles for the Feedback PopUp                   \\
 //------------------------------------------------------\\
 
-@import 'normalize';
-@import 'colors';
-@import 'buttons';
-@import 'checkbox';
-.ITN-feedback-popup {
+@import 'normalize',
+        'mixins.scss',
+        'colors',
+        'buttons',
+        'checkbox';
+        
+.feedback-popup {
     .feedback__container {
         background-color: rgba(0, 0, 0, .2);
         height: 100vh;
@@ -17,7 +19,6 @@
         transition: all .3s ease;
         .feedback__container--inner {
             background-color: $white;
-            height: 309px;
             width: 324px;
             max-height: calc(100% - 100px);
             position: fixed;
@@ -25,7 +26,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             .feedback__header {
-                background-color: $chhaya-grey;
+                background-color: $brand-color;
                 height: 50px;
                 width: 100%;
                 padding: 9px;
@@ -52,15 +53,15 @@
                     width: 100%;
                     height: 100%;
                     &::placeholder {
-                        color: lighten($chhaya-grey, 50%);
+                        color: lighten($text-color, 50%);
                         font-size: 15px;
                         font-weight: 300;
                     }
                 }
             }
             .feedback__add-screenshot {
-                background-color: lighten($chhaya-grey, 65%);
-                color: lighten($chhaya-grey, 20%);
+                background-color: tint($brand-color, 90%);
+                color: tint($brand-color, 20%);
                 font-size: 15px;
                 font-weight: 300;
                 padding: 9px;
@@ -69,10 +70,9 @@
             }
             .feedback__screenshot {
                 position: relative;
-                background-color: lighten($chhaya-grey, 55%);
+                background-color: tint($brand-color, 95%);
                 height: 190px;
                 width: 100%;
-                padding: 3px;
                 canvas {
                     max-height: 100%;
                     max-width: 100%;
