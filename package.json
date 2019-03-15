@@ -4,9 +4,13 @@
     "description": "A simple to use popup for collecting feedback from users about the sites that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then emails to an email address.",
     "private": false,
     "scripts": {
+        "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
         "build": "nwb build-web-app",
         "clean": "nwb clean-app",
         "start": "nwb serve-web-app --reload"
+    },
+    "babel": {
+        "presets": ["es2015"]
     },
     "dependencies": {
         "html2canvas": "^1.0.0-alpha.12",
@@ -14,6 +18,9 @@
     },
     "devDependencies": {
         "autoprefixer": "^9.4.10",
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.3",
+        "babel-preset-es2015": "^6.24.1",
         "browser-sync": "^2.26.3",
         "cssnano": "^4.1.10",
         "eslint": "^4.19.1",
