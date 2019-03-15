@@ -1,37 +1,51 @@
 {
-  "name": "feedback-popup",
-  "version": "1.0.0",
-  "description": "Describe feedback-popup here",
-  "private": true,
-  "scripts": {
-    "build": "nwb build-web-app",
-    "clean": "nwb clean-app",
-    "start": "nwb serve-web-app --reload",
-    "test": "nwb test",
-    "test:coverage": "nwb test --coverage",
-    "test:watch": "nwb test --server"
-  },
-  "dependencies": {
-    "autoprefixer": "^9.4.10",
-    "browser-sync": "^2.26.3",
-    "cssnano": "^4.1.10",
-    "gulp": "^3.9.1",
-    "gulp-plumber": "^1.2.1",
-    "gulp-postcss": "^8.0.0",
-    "gulp-sass": "^4.0.1",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-watch": "^5.0.0",
-    "html2canvas": "^1.0.0-alpha.12",
-    "platform": "^1.3.5",
-    "postcss-import": "^12.0.1",
-    "precss": "^4.0.0"
-  },
-  "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-plugin-react": "^7.7.0",
-    "nwb": "0.21.x"
-  },
-  "author": "",
-  "license": "MIT",
-  "repository": ""
+    "name": "feedbackpopup",
+    "version": "1.0.3",
+    "description": "A simple to use popup for collecting feedback from users about the sites that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then emails to an email address.",
+    "private": false,
+    "scripts": {
+        "build": "nwb build-web-app",
+        "clean": "nwb clean-app",
+        "start": "nwb serve-web-app --reload",
+        "test": "nwb test",
+        "test:coverage": "nwb test --coverage",
+        "test:watch": "nwb test --server"
+    },
+    "dependencies": {
+        "html2canvas": "^1.0.0-alpha.12",
+        "platform": "^1.3.5"
+    },
+    "devDependencies": {
+        "autoprefixer": "^9.4.10",
+        "browser-sync": "^2.26.3",
+        "cssnano": "^4.1.10",
+        "eslint": "^4.19.1",
+        "eslint-plugin-react": "^7.7.0",
+        "gulp": "^3.9.1",
+        "gulp-plumber": "^1.2.1",
+        "gulp-postcss": "^8.0.0",
+        "gulp-sass": "^4.0.1",
+        "gulp-sourcemaps": "^2.6.5",
+        "gulp-watch": "^5.0.0",
+        "nwb": "0.21.x",
+        "postcss-import": "^12.0.1",
+        "precss": "^4.0.0"
+    },
+    "author": "Tommy Scribble",
+    "email": "tommy@scribbledesign.co.uk",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://bitbucket.org/intouchnetworks/feedback-popup.git"
+    },
+    "homepage": "https://bitbucket.org/intouchnetworks/feedback-popup#readme",
+    "main": "src/index.js",
+    "keywords": [
+        "feedback",
+        "popup",
+        "widget",
+        "screenshot",
+        "platform",
+        "html2canvas"
+    ]
 }
