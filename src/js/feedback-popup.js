@@ -2,14 +2,16 @@ import html2canvas from 'html2canvas';
 import platform from 'platform';
 
 class FeedbackPopup {
-    constructor(title) {
+    constructor(title, snapshotBody, placeholderText) {
         this.title = title,
+        this.snapshotBody = snapshotBody,
+        this.placeholderText = placeholderText,
             this.isOpen = false,
             this.container = {
                 buttonHTML: `
             <div class="widget__container">
                 <div class="widget__container-inner">
-                    <button id="capture" class="widget__button">Spotted a glitch?</button>
+                    <button class="widget__button">Spotted a glitch?</button>
                 </div>
             </div>`,
                 mainDiv: document.getElementsByClassName("js-feedback-popup")[0],
@@ -23,13 +25,13 @@ class FeedbackPopup {
 
                                 <div class="feedback__header">
 
-                                    <h1>Support our continuous improvement.</h1>
+                                    <h1>${title}</h1>
 
                                 </div>
 
                                 <div class="feedback__textarea">
 
-                                    <textarea autoFocus placeholder="Describe your issue or share your ideas" name="feedback" id="textarea"></textarea>
+                                    <textarea autoFocus placeholder="${placeholderText}" name="feedback" id="textarea"></textarea>
 
                                 </div>
 
@@ -131,7 +133,8 @@ class FeedbackPopup {
     }
 
     createScreenshot() {
-        html2canvas(document.getElementsByTagName("body")[0]).then(canvas => {
+        console.log('BLAH', document.getElementById("main-body"));
+        html2canvas(document.getElementById(`${this.snapshotBody}`)).then(canvas => {
             document.getElementsByClassName("feedback__screenshot")[0].appendChild(canvas);
         })
     }
@@ -155,9 +158,10 @@ class FeedbackPopup {
                     name: "feedback-image.png",
                     data: userScreenshot || "no screenshot"
                 }]
-        }).then(
-            message => alert(message)
-        );
+        })
+        // .then(
+        //     message => alert(message)
+        // );
     }
 }
 
