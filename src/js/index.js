@@ -165,4 +165,6 @@ class FeedbackPopup {
     }
 }
 
-export default FeedbackPopup;
+module.exports = (title, snapshotBody, placeholderText) => {
+    return new FeedbackPopup(title, snapshotBody, placeholderText)
+};

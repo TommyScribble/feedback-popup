@@ -1,6 +1,6 @@
 {
     "name": "feedback-popup",
-    "version": "1.0.5",
+    "version": "1.0.63",
     "description": "A simple to use popup for collecting feedback from users about the sites that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then emails to an email address.",
     "private": false,
     "scripts": {
@@ -43,7 +43,7 @@
         "url": "git+https://bitbucket.org/intouchnetworks/feedback-popup.git"
     },
     "homepage": "https://bitbucket.org/intouchnetworks/feedback-popup#readme",
-    "main": "lib/js/feedback-popup.js",
+    "main": "lib/js/index.js",
     "keywords": [
         "feedback",
         "popup",

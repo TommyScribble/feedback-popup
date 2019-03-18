@@ -1,4 +1,4 @@
-import FeedbackPopup from './js/feedback-popup';
+import FeedbackPopup from './js';
 
 let feedbackPopup = new FeedbackPopup(
   "Support our continuous improvement.",
