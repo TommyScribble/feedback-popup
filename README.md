@@ -1,6 +1,6 @@
 # feedback-popup
 
-[![npm package][npm-badge]][npm]
+[![npm version][npm-badge]][npm]
 
 # Feedback Popup
 
@@ -64,5 +64,5 @@ git@bitbucket.org:intouchnetworks/feedback-popup.git
 - `npm run clean` will delete built resources.
 
 
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
+[npm-badge]: https://img.shields.io/npm/v/feedback-popup.png?style=flat-square
 [npm]: https://www.npmjs.org/package/feedback-popup
