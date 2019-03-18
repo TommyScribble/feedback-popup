@@ -1,3 +1,4 @@
-import FeedbackPopup from './js';
+const feedbackPopup = require("./js/index.js")("What the hell is this place", "main-body", "This is some placeholder");
 
-export default FeedbackPopup;
+feedbackPopup.buttonWidget();
+

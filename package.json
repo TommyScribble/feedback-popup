@@ -10,7 +10,9 @@
         "start": "nwb serve-web-app --reload"
     },
     "babel": {
-        "presets": ["es2015"]
+        "presets": [
+            "es2015"
+        ]
     },
     "dependencies": {
         "html2canvas": "^1.0.0-alpha.12",

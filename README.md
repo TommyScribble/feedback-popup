@@ -28,15 +28,9 @@ npm install feedback-popup
 Import the popup into your project, create a new instance of it (don't forget to add in your own paramters) and then call the WidgetButton method
 
 ```sh
-import FeedbackPopup from './js/feedback-popup';
+var FeedbackPopup = require("feedback-popup")("Welcome to theJungle", "main-body", "Placeholder");
 
-let feedbackPopup = new FeedbackPopup(
-  "Title for the popup",
-  "div id to screenshot from",
-  "Placeholder text for the textarea",
-);
-
-feedbackPopup.buttonWidget();
+FeedbackPopup.buttonWidget();
 ```
 
 
