@@ -17,7 +17,7 @@ More features to come!
 
 To use the popup in your project run 
 
-```
+```sh
 npm install feedback-popup
 ```
 
@@ -27,7 +27,7 @@ npm install feedback-popup
 
 Import the popup into your project, create a new instance of it (don't forget to add in your own paramters) and then call the WidgetButton method
 
-```
+```sh
 import FeedbackPopup from './js/feedback-popup';
 
 let feedbackPopup = new FeedbackPopup(
@@ -44,7 +44,7 @@ feedbackPopup.buttonWidget();
 
 Clone this project to get involved
 
-```
+```sh
 git@bitbucket.org:intouchnetworks/feedback-popup.git
 ```
 
