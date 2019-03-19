@@ -1,4 +1,5 @@
-const feedbackPopup = require("./js/index.js")("What the hell is this place", "main-body", "This is some placeholder");
+import FeedbackPopup from './js/index';
+
+const feedbackPopup = FeedbackPopup("What the hell is this place", "main-body", "This is some placeholder");
 
 feedbackPopup.buttonWidget();
-

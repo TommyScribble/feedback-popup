@@ -133,7 +133,6 @@ class FeedbackPopup {
     }
 
     createScreenshot() {
-        console.log('BLAH', document.getElementById("main-body"));
         html2canvas(document.getElementById(`${this.snapshotBody}`)).then(canvas => {
             document.getElementsByClassName("feedback__screenshot")[0].appendChild(canvas);
         })
@@ -158,12 +157,14 @@ class FeedbackPopup {
                     name: "feedback-image.png",
                     data: userScreenshot || "no screenshot"
                 }]
-        })
-        // .then(
-        //     message => alert(message)
-        // );
+        }).then(
+            message => alert(message)
+        );
     }
 }
+
+// export default FeedbackPopup;
+
 
 module.exports = (title, snapshotBody, placeholderText) => {
     return new FeedbackPopup(title, snapshotBody, placeholderText)
