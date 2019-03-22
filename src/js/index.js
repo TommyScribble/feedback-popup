@@ -157,15 +157,13 @@ class FeedbackPopup {
                     name: "feedback-image.png",
                     data: userScreenshot || "no screenshot"
                 }]
-        }).then(
-            message => alert(message)
-        );
+        })
+        // .then(
+        //     message => alert(message)
+        // );
     }
 }
 
-// export default FeedbackPopup;
+export default FeedbackPopup;
 
-
-module.exports = (title, snapshotBody, placeholderText) => {
-    return new FeedbackPopup(title, snapshotBody, placeholderText)
-};
+// module.exports = FeedbackPopup;
