@@ -25,12 +25,26 @@ npm install feedback-popup
 
 ## Usage
 
-Import the popup into your project, create a new instance of it (don't forget to add in your own paramters) and then call the WidgetButton method
+Import the popup into your project, create a new instance of it (don't forget to add in your own parameters) and then call the WidgetButton method on it
 
-```sh
-var FeedbackPopup = require("feedback-popup")("Welcome to theJungle", "main-body", "Placeholder");
+```js
+import FeedbackPopup from 'feedback-popup';
 
-FeedbackPopup.buttonWidget();
+var newFeedbackPopup = new FeedbackPopup("Welcome message", "id-to-screenshot", "Placeholder text");
+
+newFeedbackPopup.buttonWidget();
+```
+
+If you are using React, dont forget to add it to a compnentDidMount.
+
+Also make sure to add the html below to the component or page that you want the popup to appear on
+
+```html
+  <div class="feedback-popup js-feedback-popup">
+    <div class="js-feedback-popup-btn-show"></div>
+    <div class="js-feedback-popup-content"></div>
+    <div class="js-feedback-popup-confiramtion"></div>
+  </div>
 ```
 
 
