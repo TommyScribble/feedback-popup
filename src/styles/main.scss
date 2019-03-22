@@ -9,6 +9,26 @@
         'checkbox';
         
 .feedback-popup {
+    .widget__container {
+        background-color: none;
+        .widget__container-inner {
+            position: fixed;
+            bottom: 0;
+            right: 8%;
+            width: 136px;
+            min-height: 25px;
+            .widget__button {
+                background-color: $primary-color;
+                background-image: url("../assets/icon-button-background.png");
+                background-repeat: no-repeat;
+                border: $primary-color;
+                color: $white;
+                font-size: .8em;
+                cursor: pointer;
+                padding: 4px 18px;
+            }
+        }
+    }
     .feedback__container {
         background-color: rgba(0, 0, 0, .2);
         height: 100vh;
