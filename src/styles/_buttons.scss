@@ -39,7 +39,7 @@
 .widget__container {
     background-color: none;
     .widget__container-inner {
-        position: absolute;
+        position: fixed;
         bottom: 0;
         right: 8%;
         width: 136px;
