@@ -47,6 +47,7 @@ Also make sure to add the html below to the component or page that you want the 
   </div>
 ```
 
+If you want to use the styles included with this project be sure to import the main.scss file into your main stylesheet.
 
 ## Contributing
 
