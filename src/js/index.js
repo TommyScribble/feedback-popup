@@ -2,7 +2,7 @@ import html2canvas from 'html2canvas';
 import platform from 'platform';
 
 class FeedbackPopup {
-    constructor(title, snapshotBody, placeholderText) {
+    constructor(title, snapshotBody, placeholderText, emailToken, toEmailAddress, fromEmailAddress) {
         this.title = title,
         this.snapshotBody = snapshotBody,
         this.placeholderText = placeholderText,
@@ -71,6 +71,9 @@ class FeedbackPopup {
                                     </div>
                                 </div>
                             </div>`,
+                personalEmailToken: emailToken,
+                personalToEmailAddress: toEmailAddress,
+                personalFromEmailAddress: fromEmailAddress
             }
     }
 
@@ -145,9 +148,9 @@ class FeedbackPopup {
             userFeedback = document.getElementById('textarea').value;
         const screenshotIncluded = canvas ? "Incuded" : "Not Included";
         Email.send({
-            SecureToken: "8fbffa50-a991-4321-80a7-680c11f36aac",
-            To: 'tommy.ollerenshaw+feedback@intouchnetworks.com',
-            From: "tommy@scribbledesign.co.uk",
+            SecureToken: `${this.container.personalEmailToken}`,
+            To: `${this.container.personalToEmailAddress}`,
+            From: `${this.container.personalFromEmailAddress}`,
             Subject: "Feedback",
             Body: `PLATFORM: ${userPlatform}<br/>
                     FEEDBACK: ${userFeedback}<br/>
