@@ -2,6 +2,8 @@
 //      Styles for the Feedback PopUp                   \\
 //------------------------------------------------------\\
 
+.feedback-popup {
+
 @import 'variables',
         'mixins.scss',
         'colors',
@@ -16,7 +18,6 @@ html {
     box-sizing: inherit;
 }
 
-.feedback-popup {
     .widget__container {
         background-color: none;
         .widget__container-inner {
@@ -27,7 +28,6 @@ html {
             min-height: 25px;
             .widget__button {
                 background-color: $primary-color;
-                background-image: url("../assets/icon-button-background.png");
                 background-repeat: no-repeat;
                 border: $primary-color;
                 color: $white;
