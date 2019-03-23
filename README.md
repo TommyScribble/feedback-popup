@@ -27,15 +27,15 @@ npm install feedback-popup
 
 Import the popup into your project, create a new instance of it (don't forget to add in your own parameters) and then call the WidgetButton method on it
 
-```js
+```javascript
 import FeedbackPopup from 'feedback-popup';
 
-var newFeedbackPopup = new FeedbackPopup("Welcome message", "id-to-screenshot", "Placeholder text");
+var newFeedbackPopup = new FeedbackPopup("Header welcome message", "div-id-to-screenshot", "Text area placeholder text", "smtpJS secure token", "email address to send to", "email address to send from");
 
 newFeedbackPopup.buttonWidget();
 ```
 
-If you are using React, dont forget to add it to a compnentDidMount.
+If you are using React, add it to a compnentDidMount.
 
 Also make sure to add the html below to the component or page that you want the popup to appear on
 
@@ -48,6 +48,19 @@ Also make sure to add the html below to the component or page that you want the 
 ```
 
 If you want to use the styles included with this project be sure to import the main.scss file into your main stylesheet.
+
+#### Email
+
+To get the email sender working I am currently using Smtp.js. [Website here for more info](https://www.smtpjs.com/)  
+
+Include the script below in the head of your app
+
+```html
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+```
+
+Then get yourself a secure token from [here](https://www.smtpjs.com/#useit)
+
 
 ## Contributing
 
