@@ -1,0 +1,9 @@
+/src
+/lib/index*
+/lib/indexOLD.js
+/lib/indexTEST.js
+/lib/index*
+/node_modules
+npm-debug.log*
+Untitled.code-workspace
+yarn.lock

@@ -2,86 +2,142 @@
 //      Styles for the Feedback PopUp                   \\
 //------------------------------------------------------\\
 
-@import 'normalize';
-@import 'colors';
-@import 'buttons';
-@import 'checkbox';
+.feedback-popup {
 
-body {
-    background-color: rgba(0, 0, 0, .2);
-.feedback__container {
-    position: relative;
-    z-index: 5;
-    font-family: $sans-serif-stack;
-    .feedback__container--inner {
-        background-color: $white;
-        height: 536px;
-        width: 324px;
-        max-height: calc(100% - 100px);
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        .feedback__header {
-            background-color: $chhaya-grey;
-            height: 50px;
-            width: 100%;
-            padding: 9px;
-            h1 {
+@import 'variables',
+        'mixins.scss',
+        'colors',
+        'buttons',
+        'checkbox';
+        
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+    .widget__container {
+        background-color: none;
+        .widget__container-inner {
+            position: fixed;
+            bottom: 0;
+            right: 8%;
+            width: 136px;
+            min-height: 25px;
+            .widget__button {
+                background-color: $primary-color;
+                background-repeat: no-repeat;
+                border: $primary-color;
                 color: $white;
-                @include font-size(m);
-                font-weight: 400;
-                line-height: 1.8em;
-                margin: 0;
+                font-size: $font-size--widget;
+                cursor: pointer;
+                padding: 4px 18px;
             }
         }
-        .feedback__textarea {
+    }
+    .feedback__container {
+        background-color: rgba(0, 0, 0, .2);
+        height: 100vh;
+        width: auto;
+        position: relative;
+        z-index: 5;
+        font-family: $sans-serif-stack;
+        transition: all .3s ease;
+        .feedback__container--inner {
             background-color: $white;
-            height: 210px;
-            width: 100%;
-            padding: 10px 9px;
-            textarea {
-                border: none;
-                font-size: 15px;
-                font-weight: 300;
-                outline: none;
-                padding: 0;
-                resize: none;
+            width: 324px;
+            max-height: calc(100% - 100px);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            .feedback__header {
+                background-color: $brand-color;
+                height: 50px;
                 width: 100%;
-                height: 100%;
-                &::placeholder {
-                    color: lighten($chhaya-grey, 50%);
-                    font-size: 15px;
-                    font-weight: 300;
+                padding: 9px;
+                h1 {
+                    color: $white;
+                    font-size: $font-size--header;
+                    font-weight: 400;
+                    line-height: 1.8em;
+                    margin: 0;
                 }
             }
-        }
-        .feedback__add-screenshot {
-            background-color: lighten($chhaya-grey, 65%);
-            color: lighten($chhaya-grey, 20%);
-            font-size: 15px;
-            font-weight: 300;
-            padding: 9px;
-            height: 37px;
-            width: 100%;
-        }
-        .feedback__screenshot {
-            background-color: lighten($chhaya-grey, 55%);
-            height: 190px;
-            width: 100%;
-            padding: 0 3px 0 5px;
-        }
-        .feedback__confirm {
-            padding: 9px;
-            text-align: right;
-            ul {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                li {
-                     display: inline-block;
+            .feedback__textarea {
+                background-color: $white;
+                height: 210px;
+                width: 100%;
+                padding: 10px 9px;
+                textarea {
+                    border: none;
+                    font-size: $font-size--text;
+                    font-weight: 300;
+                    outline: none;
+                    padding: 0;
+                    resize: none;
+                    width: 100%;
+                    height: 100%;
+                    &::placeholder {
+                        font-family: $sans-serif-stack;
+                        color: lighten($text-color, 50%);
+                        font-size: $font-size--text;
+                        font-weight: 300;
                     }
                 }
+            }
+            .feedback__add-screenshot {
+                background-color: tint($brand-color, 90%);
+                color: tint($brand-color, 20%);
+                font-size: 15px;
+                font-weight: 300;
+                padding: 9px;
+                height: 37px;
+                width: 100%;
+            }
+            .feedback__screenshot {
+                position: relative;
+                background-color: tint($brand-color, 95%);
+                height: 190px;
+                overflow: scroll;
+                canvas {
+                    height: auto !important;
+                    max-width: 100%;
+                }
+            }
+            .feedback__confirm {
+                padding: 9px;
+                text-align: right;
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    li {
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+        .feedback-popup__confirmation-inner {
+            width: 303px;
+            height: 113px;
+            background-color: $white;
+            padding: 25px 30px;
+            max-height: calc(100% - 100px);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            .feedback-popup__confirmation-text {
+                .thank-you {
+                    margin: 0;
+                    margin-bottom: 20px;
+                }
+            }
+            .feedback-popup__confirmation-button {
+                text-align: right;
             }
         }
     }
