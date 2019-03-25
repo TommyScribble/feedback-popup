@@ -67,7 +67,7 @@ Then get yourself a secure token from [here](https://www.smtpjs.com/#useit)
 Clone this project to get involved
 
 ```sh
-git@github.com:in-touch-dev/feedback-popup.git
+git@github.com:TommyScribble/feedback-popup.git
 ```
 
 ### Prerequisites

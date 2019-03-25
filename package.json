@@ -42,9 +42,9 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/in-touch-dev/feedback-popup"
+        "url": "git+git@github.com:TommyScribble/feedback-popup.git"
     },
-    "homepage": "https://github.com/in-touch-dev/feedback-popup#readme",
+    "homepage": "git@github.com:TommyScribble/feedback-popup.git#readme",
     "main": "lib/js/index.js",
     "keywords": [
         "feedback",
