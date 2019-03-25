@@ -40,7 +40,7 @@ If you are using React, add it to a compnentDidMount.
 Also make sure to add the html below to the component or page that you want the popup to appear on
 
 ```html
-  <div class="feedback-popup js-feedback-popup">
+  <div class="feedback-popup js-feedback-popup" data-html2canvas-ignore="true">
     <div class="js-feedback-popup-btn-show"></div>
     <div class="js-feedback-popup-content"></div>
     <div class="js-feedback-popup-confiramtion"></div>
@@ -67,7 +67,7 @@ Then get yourself a secure token from [here](https://www.smtpjs.com/#useit)
 Clone this project to get involved
 
 ```sh
-git@bitbucket.org:intouchnetworks/feedback-popup.git
+git@github.com:in-touch-dev/feedback-popup.git
 ```
 
 ### Prerequisites
@@ -85,7 +85,8 @@ git@bitbucket.org:intouchnetworks/feedback-popup.git
 
 ### Building
 
-- `npm run build` creates a production build by default.
+- `node_modules/babel-cli/bin/babel.js src --out-dir lib` will transpile the js to es5 in the /lib folder.
+Then copy the styles folder into the /lib folder
 
    To create a development build, set the `NODE_ENV` environment variable to `development` while running this command.
 
