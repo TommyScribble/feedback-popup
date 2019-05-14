@@ -150,7 +150,6 @@ class FeedbackPopup {
 		const screenshotIncluded = canvas ? "Incuded" : "Not Included";
 
 		const apiConnection = `${this.container.personalEmailEndpoint}`;
-		console.log('API', apiConnection )
 
 		axios.post(`${apiConnection}`, {
 			userPlatform: userPlatform, 
@@ -158,8 +157,8 @@ class FeedbackPopup {
 			screenshotIncluded: screenshotIncluded,
 			userScreenshot: userScreenshot
 		}
-		).then( () => that.send()
-		).catch( error => alert(error)
+			).then( () => this.send()
+			).catch( error => alert(error)
 		)
 
     }
