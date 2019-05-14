@@ -1,7 +1,7 @@
 {
     "name": "feedback-popup",
-    "version": "1.0.91",
-    "description": "A simple to use popup for collecting feedback from users about the sites that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then emails to an email address.",
+    "version": "2.0.0-rc1",
+    "description": "A simple to use popup for collecting feedback from users about the sites that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information. I cuurently send it too an email address from the API.",
     "private": false,
     "scripts": {
         "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
