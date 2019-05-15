@@ -1,8 +1,9 @@
 import html2canvas from 'html2canvas';
 import platform from 'platform';
+import axios from 'axios';
 
 class FeedbackPopup {
-    constructor(title, snapshotBody, placeholderText, emailToken, toEmailAddress, fromEmailAddress) {
+    constructor(title, snapshotBody, placeholderText, emailEndpoint) {
         this.title = title,
         this.snapshotBody = snapshotBody,
         this.placeholderText = placeholderText,
@@ -71,9 +72,7 @@ class FeedbackPopup {
                                     </div>
                                 </div>
                             </div>`,
-                personalEmailToken: emailToken,
-                personalToEmailAddress: toEmailAddress,
-                personalFromEmailAddress: fromEmailAddress
+                personalEmailEndpoint: emailEndpoint
             }
     }
 
@@ -100,7 +99,7 @@ class FeedbackPopup {
         });
         buttonSend.addEventListener("click", function () {
             that.sendData();
-            that.send()
+            
         });
         this.toggleScreenshot()
         return this;
@@ -142,28 +141,26 @@ class FeedbackPopup {
     }
 
     sendData() {
-        const canvas = document.getElementsByTagName('canvas')[0];
+		const canvas = document.getElementsByTagName('canvas')[0];
+		
         const userScreenshot = canvas && canvas.toDataURL('image/png', 1.0),
             userPlatform = platform.description,
-            userFeedback = document.getElementById('textarea').value;
-        const screenshotIncluded = canvas ? "Incuded" : "Not Included";
-        Email.send({
-            SecureToken: `${this.container.personalEmailToken}`,
-            To: `${this.container.personalToEmailAddress}`,
-            From: `${this.container.personalFromEmailAddress}`,
-            Subject: "Feedback",
-            Body: `PLATFORM: ${userPlatform}<br/>
-                    FEEDBACK: ${userFeedback}<br/>
-                    SCREENSHOT: ${screenshotIncluded}`,
-            Attachments: [
-                {
-                    name: "feedback-image.png",
-                    data: userScreenshot || "no screenshot"
-                }]
-        })
-        // .then(
-        //     message => alert(message)
-        // );
+			userFeedback = document.getElementById('textarea').value;
+			
+		const screenshotIncluded = canvas ? "Incuded" : "Not Included";
+
+		const apiConnection = `${this.container.personalEmailEndpoint}`;
+
+		axios.post(`${apiConnection}`, {
+			userPlatform: userPlatform, 
+			userFeedback: userFeedback,
+			screenshotIncluded: screenshotIncluded,
+			userScreenshot: userScreenshot
+		}
+			).then( () => this.send()
+			).catch( error => alert(error)
+		)
+
     }
 }
 
