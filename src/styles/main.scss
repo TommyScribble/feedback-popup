@@ -76,7 +76,8 @@ html {
                 width: 100%;
                 padding: 10px 9px;
                 textarea {
-                    border: none;
+					border: none;
+					color: $text-color;
                     font-size: $font-size--text;
                     font-weight: 300;
                     outline: none;
