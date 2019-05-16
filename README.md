@@ -42,8 +42,6 @@ newFeedbackPopup.buttonWidget();
 "Header welcome message", "div-id-to-screenshot", "Text area placeholder text", "API URL"
 ```
 
-If you are using React, add it to a componentDidMount.
-
 Also make sure to add the html below to the component or page that you want the popup to appear on
 
 ```html
