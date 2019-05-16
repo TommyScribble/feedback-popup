@@ -1,6 +1,6 @@
 {
     "name": "feedback-popup",
-    "version": "2.0.1-rc1",
+    "version": "2.0.1-rc3",
     "description": "A simple to use popup for collecting feedback from users about the sites that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.",
     "private": false,
     "scripts": {
