@@ -139,16 +139,17 @@ class FeedbackPopup {
             document.getElementsByClassName("feedback__screenshot")[0].appendChild(canvas);
         })
     }
-
+	
     sendData() {
 		const canvas = document.getElementsByTagName('canvas')[0];
 		
-        const userScreenshot = canvas && canvas.toDataURL('image/png', 1.0),
-            userPlatform = platform.description,
-			userFeedback = document.getElementById('textarea').value;
-			
+		const base64result = canvas && canvas.toDataURL('image/png', 1.0),
+		userScreenshot = base64result && base64result.split(',')[1],
+		userPlatform = platform.description,
+		userFeedback = document.getElementById('textarea').value;
+		
 		const screenshotIncluded = canvas ? "Incuded" : "Not Included";
-
+		
 		const apiConnection = `${this.container.personalEmailEndpoint}`;
 
 		axios.post(`${apiConnection}`, {
