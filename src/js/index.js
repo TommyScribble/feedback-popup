@@ -3,7 +3,7 @@ import platform from 'platform';
 import axios from 'axios';
 
 class FeedbackPopup {
-    constructor(title, snapshotBody, placeholderText, emailEndpoint) {
+    constructor(widgetTitle, title, snapshotBody, placeholderText, emailEndpoint) {
         this.title = title,
         this.snapshotBody = snapshotBody,
         this.placeholderText = placeholderText,
@@ -12,7 +12,7 @@ class FeedbackPopup {
                 buttonHTML: `
             <div class="widget__container">
                 <div class="widget__container-inner">
-                    <button class="widget__button">Spotted a glitch?</button>
+                    <button class="widget__button">${widgetTitle}</button>
                 </div>
             </div>`,
                 mainDiv: document.getElementsByClassName("js-feedback-popup")[0],
@@ -165,6 +165,6 @@ class FeedbackPopup {
     }
 }
 
-// export default FeedbackPopup;
+export default FeedbackPopup;
 
-module.exports = FeedbackPopup;
+// module.exports = FeedbackPopup;
