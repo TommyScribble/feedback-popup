@@ -6,7 +6,7 @@
     "scripts": {
         "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files",
         "build": "nwb build-web-app",
-        "clean": "nwb clean-app",
+        "clean": "rm -rf lib",
         "start": "nwb serve-web-app --reload"
     },
     "babel": {
