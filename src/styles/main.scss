@@ -57,7 +57,11 @@ html {
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			overflow: scroll;
+			@media screen and ( max-width: 575px ) {
+				max-height: calc(100% - 8px);
+			}
             .feedback__header {
                 background-color: $brand-color;
                 height: 50px;
@@ -117,6 +121,7 @@ html {
                 }
             }
             .feedback__confirm {
+				background-color: $white;
                 padding: 9px;
 				text-align: right;
 				font-family: $sans-serif-stack;
