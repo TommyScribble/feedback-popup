@@ -165,6 +165,6 @@ class FeedbackPopup {
     }
 }
 
-export default FeedbackPopup;
+// export default FeedbackPopup;
 
-// module.exports = FeedbackPopup;
+module.exports = FeedbackPopup;
