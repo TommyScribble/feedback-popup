@@ -1,12 +1,12 @@
 {
     "name": "feedback-popup",
-    "version": "2.0.0-rc1",
+    "version": "2.0.2",
     "description": "A simple to use popup for collecting feedback from users about the sites that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.",
     "private": false,
     "scripts": {
-        "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
+        "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files",
         "build": "nwb build-web-app",
-        "clean": "nwb clean-app",
+        "clean": "rm -rf lib",
         "start": "nwb serve-web-app --reload"
     },
     "babel": {

@@ -8,7 +8,10 @@
     padding-left: 32px;
     margin-bottom: 5px;
     cursor: pointer;
-    font-size: 15px;
+	font-family: $sans-serif-stack;
+	font-size: 15px;
+	font-weight: 400;
+    text-align: left;
 }
 .control input {
     position: absolute;

@@ -30,10 +30,11 @@ html {
                 background-color: $primary-color;
                 background-repeat: no-repeat;
                 border: $primary-color;
-                color: $white;
+				color: $white;
+				font-family: $sans-serif-stack;
                 font-size: $font-size--widget;
                 cursor: pointer;
-                padding: 4px 18px;
+                padding: 12px 18px;
             }
         }
     }
@@ -56,14 +57,19 @@ html {
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			overflow: scroll;
+			@media screen and ( max-width: 575px ) {
+				max-height: calc(100% - 8px);
+			}
             .feedback__header {
                 background-color: $brand-color;
                 height: 50px;
                 width: 100%;
                 padding: 9px;
                 h1 {
-                    color: $white;
+					color: $white;
+					font-family: $sans-serif-stack;
                     font-size: $font-size--header;
                     font-weight: 400;
                     line-height: 1.8em;
@@ -76,7 +82,9 @@ html {
                 width: 100%;
                 padding: 10px 9px;
                 textarea {
-                    border: none;
+					border: none;
+					color: $text-color;
+					font-family: $sans-serif-stack;
                     font-size: $font-size--text;
                     font-weight: 300;
                     outline: none;
@@ -94,7 +102,8 @@ html {
             }
             .feedback__add-screenshot {
                 background-color: tint($brand-color, 90%);
-                color: tint($brand-color, 20%);
+				color: tint($brand-color, 20%);
+				font-family: $sans-serif-stack;
                 font-size: 15px;
                 font-weight: 300;
                 padding: 9px;
@@ -112,8 +121,10 @@ html {
                 }
             }
             .feedback__confirm {
+				background-color: $white;
                 padding: 9px;
-                text-align: right;
+				text-align: right;
+				font-family: $sans-serif-stack;
                 ul {
                     list-style: none;
                     padding: 0;
@@ -136,6 +147,9 @@ html {
             transform: translate(-50%, -50%);
             .feedback-popup__confirmation-text {
                 .thank-you {
+					font-family: $sans-serif-stack;
+					font-size: $font-size--text;
+					color: $text-color;
                     margin: 0;
                     margin-bottom: 20px;
                 }

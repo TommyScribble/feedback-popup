@@ -32,17 +32,15 @@ Import the popup into your project, create a new instance of it and then call th
 ```javascript
 import FeedbackPopup from 'feedback-popup';
 
-var newFeedbackPopup = new FeedbackPopup(title, snapshotBody, placeholderText, emailEndpoint);
+var newFeedbackPopup = new FeedbackPopup(widgetTitle, title, snapshotBody, placeholderText, emailEndpoint);
 
 newFeedbackPopup.buttonWidget();
 ```
 
 #### Parameters in plain english are
 ```
-"Header welcome message", "div-id-to-screenshot", "Text area placeholder text", "API URL"
+"Widget button title", "Header welcome message", "div-id-to-screenshot", "Text area placeholder text", "API URL"
 ```
-
-If you are using React, add it to a componentDidMount.
 
 Also make sure to add the html below to the component or page that you want the popup to appear on
 
