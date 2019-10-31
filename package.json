@@ -45,7 +45,7 @@
         "type": "git",
         "url": "git+git@github.com:TommyScribble/feedback-popup.git"
     },
-    "homepage": "git@github.com:TommyScribble/feedback-popup.git#readme",
+    "homepage": "github.com/TommyScribble/feedback-popup.git#readme",
     "main": "lib/js/index.js",
     "keywords": [
         "feedback",
