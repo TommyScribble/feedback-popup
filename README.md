@@ -48,7 +48,7 @@ Also make sure to add the html below to the component or page that you want the 
   <div class="feedback-popup js-feedback-popup" data-html2canvas-ignore="true">
     <div class="js-feedback-popup-btn-show"></div>
     <div class="js-feedback-popup-content"></div>
-    <div class="js-feedback-popup-confiramtion"></div>
+    <div class="js-feedback-popup-confirmation"></div>
   </div>
 ```
 

@@ -18,7 +18,7 @@ class FeedbackPopup {
                 mainDiv: document.getElementsByClassName("js-feedback-popup")[0],
                 contentDiv: document.getElementsByClassName("js-feedback-popup-content")[0],
                 buttonShowDiv: document.getElementsByClassName("js-feedback-popup-btn-show")[0],
-                confirmationShowDiv: document.getElementsByClassName("js-feedback-popup-confiramtion")[0],
+                confirmationShowDiv: document.getElementsByClassName("js-feedback-popup-confirmation")[0],
                 buttonSend: document.getElementsByClassName("js-feedback-post")[0],
                 popupHTML: `<div class="feedback__container">
 
