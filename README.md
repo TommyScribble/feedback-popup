@@ -13,6 +13,7 @@ More features to come!
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [New-Features](#new-features)
 - [Contributing](#contributing)
 
 ## Installation
@@ -62,6 +63,15 @@ userPlatform
 userFeedback  
 screenshotIncluded  
 userScreenshot  
+
+## New Features
+There are various ways that this plugin can be updated both in the code and in the UX. Some of my ideas are listed below. If you have requests then please repost an issue and I'll see what I can do
+### Code updates
+- Typescript
+- Testing
+### Feature updates
+- Loader whilst taking screenshot (thanks @jayaddison for this suggestion)
+- Choice to use server or personal email endpoint
 
 
 ## Contributing
