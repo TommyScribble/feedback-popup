@@ -20,7 +20,7 @@ More features to come!
 To use the popup in your project run 
 
 ```sh
-npm install feedback-popup
+yarn add feedback-popup
 ```
 
 
@@ -78,11 +78,11 @@ git@github.com:TommyScribble/feedback-popup.git
 
 ### Installation
 
-- Running `npm install` in the app's root directory will install everything you need for development.
+- Running `yarn` in the app's root directory will install everything you need for development.
 
 ### Development Server
 
-- `npm start` will run the app's development server at [http://localhost:3000](http://localhost:3000), automatically reloading the page on every JS change.
+- `yarn start` will run the app's development server at [http://localhost:3000](http://localhost:3000), automatically reloading the page on every JS change.
 - `gulp` will proxy the server to [http://localhost:3001](http://localhost:3001), compile the SCSS and automatically reload the page on every SCSS change
 
 ### Building
@@ -92,7 +92,7 @@ Then copy the styles folder into the /lib folder
 
    To create a development build, set the `NODE_ENV` environment variable to `development` while running this command.
 
-- `npm run clean` will delete built resources.
+- `yarn run clean` will delete built resources.
 
 
 [npm-badge]: https://img.shields.io/npm/v/feedback-popup.png?style=flat-square
