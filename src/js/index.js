@@ -43,7 +43,8 @@ class FeedbackPopup {
                                     </label>
                                 </div>
 
-                                <div class="feedback__screenshot">
+								<div class="feedback__screenshot">
+									<div class="spinner"></div>
                                 </div>
 
                                 <div class="feedback__confirm">
@@ -71,12 +72,12 @@ class FeedbackPopup {
                                     <button class="btn btn-cancel js-feedback-OK">OK</button>
                                     </div>
                                 </div>
-                            </div>`,
+							</div>`,
                 personalEmailEndpoint: emailEndpoint
             }
     }
 
-    send() {
+    showConfirmation() {
         this.container.contentDiv.innerHTML = this.container.confirmtionHTML;
         this.container.contentDiv.style.display = "block";
         const buttonOK = document.getElementsByClassName("js-feedback-OK")[0];
@@ -87,7 +88,7 @@ class FeedbackPopup {
         });
     }
 
-    show() {
+    showFeedbackModal() {
         this.container.contentDiv.innerHTML = this.container.popupHTML;
         this.container.contentDiv.style.display = "block";
         const buttonCancel = document.getElementsByClassName("js-feedback-popup-btn-cancel")[0];
@@ -103,7 +104,21 @@ class FeedbackPopup {
         });
         this.toggleScreenshot()
         return this;
-    }
+	}
+	
+	spinner(state) {
+		const spinnerElement = document.querySelector('.spinner');
+		switch (state) {
+			case 'show':
+				spinnerElement.classList.add('loading')
+				break;
+			case 'hide':
+				spinnerElement.classList.remove('loading');
+			break;
+			default:
+				break;
+		}
+	}
 
     hideContentDiv() {
         this.container.contentDiv.style.display = "none";
@@ -129,15 +144,17 @@ class FeedbackPopup {
         const buttonShow = document.getElementsByClassName("js-feedback-popup-btn-show")[0];
         const that = this;
         buttonShow.addEventListener("click", function () {
-            that.show()
+            that.showFeedbackModal()
             that.createScreenshot();
         });
     }
 
     createScreenshot() {
+		this.spinner('show');	
         html2canvas(document.getElementById(`${this.snapshotBody}`)).then(canvas => {
             document.getElementsByClassName("feedback__screenshot")[0].appendChild(canvas);
-        })
+		})
+		this.spinner('hide');
     }
 	
     sendData() {
@@ -158,13 +175,20 @@ class FeedbackPopup {
 			screenshotIncluded: screenshotIncluded,
 			userScreenshot: userScreenshot
 		}
-			).then( () => this.send()
+			).then( () => this.showConfirmation()
 			).catch( error => alert(error)
 		)
-
-    }
+		// uncomment for local dev
+		// alert('The message has been sent'); 
+		this.showConfirmation();
+	}
+	
+	init() {
+		this.buttonWidget();
+	}
 }
 
+// swicth comments below for local dev
 // export default FeedbackPopup;
 
 module.exports = FeedbackPopup;

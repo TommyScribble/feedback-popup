@@ -8,4 +8,4 @@ let feedbackPopup = new FeedbackPopup(
 	"http://localhost:3004/communications/feedbackPopup"
 );
 
-feedbackPopup.buttonWidget();
+feedbackPopup.init();
