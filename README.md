@@ -3,7 +3,7 @@
 [![npm version][npm-badge]][npm]
 
 # Feedback Popup
-## This version (v2.0.3) contains breaking changes as it no longer sends using smtpjs.
+## This version (v2.0.4) contains breaking changes as it no longer sends using smtpjs.
 
 A simple to use popup for collecting feedback from users about the sites that they are using. Currently it captures a screenshot of the page the user is browsing, the users OS and browser name + versions and also a personal message from the user. It then sends all data to an API.
 
@@ -69,8 +69,8 @@ There are various ways that this plugin can be updated both in the code and in t
 ### Code updates
 - Typescript
 - Testing
+- Update Gulp to version 4
 ### Feature updates
-- Loader whilst taking screenshot (thanks @jayaddison for this suggestion)
 - Choice to use server or personal email endpoint
 
 
@@ -84,16 +84,18 @@ git@github.com:TommyScribble/feedback-popup.git
 
 ### Prerequisites
 
-[Node.js](http://nodejs.org/) >= v4 must be installed.
+[Node.js](http://nodejs.org/) =10.22.0 must be installed as this is currently using Gulp v3 for dev
 
 ### Installation
 
 - Running `yarn` in the app's root directory will install everything you need for development.
+- Rename indexOLD.js to index.js.
+- In src/index.js comment the code for the axios call & switch the `exports.module` to an `export default` by switching the comments at the bottom of the file
 
 ### Development Server
 
 - `yarn start` will run the app's development server at [http://localhost:3000](http://localhost:3000), automatically reloading the page on every JS change.
-- `gulp` will proxy the server to [http://localhost:3001](http://localhost:3001), compile the SCSS and automatically reload the page on every SCSS change
+- `yarn gulp` will proxy the server to [http://localhost:3001](http://localhost:3001), compile the SCSS and automatically reload the page on every SCSS change
 
 ### Building
 
