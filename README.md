@@ -5,7 +5,7 @@
 # Feedback Popup
 ## This version (v2.0.4) contains breaking changes as it no longer sends using smtpjs.
 
-A simple to use popup for collecting feedback from users about the sites that they are using. Currently it captures a screenshot of the page the user is browsing, the users OS and browser name + versions and also a personal message from the user. It then sends all data to an API.
+A simple to use popup for collecting feedback from users about issues with the site that they are using. Currently it captures a screenshot of the page the user is browsing, the users OS and browser name + versions and also a personal message from the user. It then sends all data to an API.
 
 More features to come!
 

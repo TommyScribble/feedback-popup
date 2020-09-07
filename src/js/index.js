@@ -180,7 +180,7 @@ class FeedbackPopup {
 		)
 		// uncomment for local dev
 		// alert('The message has been sent'); 
-		this.showConfirmation();
+		// this.showConfirmation();
 	}
 	
 	init() {
