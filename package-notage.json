@@ -1,0 +1,65 @@
+{
+    "name": "feedback-popup",
+    "version": "2.0.5",
+    "description": "A simple to use popup for collecting feedback from users about issues with the site that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.",
+    "private": false,
+    "scripts": {
+        "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files",
+        "build": "nwb build-web-app",
+        "clean": "rm -rf lib",
+        "start": "nwb serve-web-app --reload",
+        "gulp": "gulp"
+    },
+    "babel": {
+        "presets": [
+            "es2015"
+        ]
+    },
+    "dependencies": {
+        "axios": "^0.18.0",// remove and use native fetch
+        "html2canvas": "^1.0.0-alpha.12", // update to html2canvas-pro
+        "platform": "^1.3.5"// replace with ua-parser-js
+    },
+    "devDependencies": {
+        "autoprefixer": "^9.4.10", // replace with Parcel
+        "babel-cli": "^6.26.0", // replace with Parcel
+        "babel-core": "^6.26.3", // replace with Parcel
+        "babel-preset-es2015": "^6.24.1", // replace with Parcel
+        "browser-sync": "^2.26.3", // replace with Parcel
+        "cssnano": "^4.1.10", // replace with Parcel
+        "eslint": "^4.19.1",
+        "eslint-plugin-react": "^7.7.0",
+        "gulp": "^3.9.1",// replace with Parcel
+        "gulp-plumber": "^1.2.1",// replace with Parcel
+        "gulp-postcss": "^8.0.0",// replace with Parcel
+        "gulp-sass": "^4.0.1",// replace with Parcel
+        "gulp-sourcemaps": "^2.6.5",// replace with Parcel
+        "gulp-watch": "^5.0.0",// replace with Parcel
+        "nwb": "0.21.x",// replace with Parcel
+        "postcss-import": "^12.0.1",// replace with Parcel
+        "precss": "^4.0.0"// replace with Parcel
+    },
+    "engines": {
+        "node": "~10.22.0"
+    },
+    "author": "Tommy Scribble",
+    "email": "tommy@scribbledesign.co.uk",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+git@github.com:TommyScribble/feedback-popup.git"
+    },
+    "homepage": "github.com/TommyScribble/feedback-popup.git#readme",
+    "main": "lib/js/index.js",
+    "keywords": [
+        "feedback",
+        "popup",
+        "widget",
+        "screenshot",
+        "platform",
+        "html2canvas"
+    ],
+    "volta": {
+        "node": "10.22.0"
+    }
+}

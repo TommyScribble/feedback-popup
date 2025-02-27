@@ -1,0 +1,31 @@
+/*COLOURS*/
+
+
+/* text color helpers */
+.white {color: var(--white) !important}
+.black {color: var(--text-color) !important}
+.brand {color: var(--brand-color) !important}
+
+/* bg color helpers */
+.bg-black {
+  background-color: var(--black) !important;
+  color: var(--white);
+
+}
+
+.bg-white {
+  background-color: var(--white) !important;
+  color: var(--black);
+}
+
+::-moz-selection {
+  background: var(--text-color);
+  color: var(--white);
+  text-shadow: none;
+}
+
+::selection {
+  background: var(--text-color);
+  color: var(--white);
+  text-shadow: none;
+}

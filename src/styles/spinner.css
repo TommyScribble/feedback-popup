@@ -1,6 +1,4 @@
-//------------------------------------------------------------\\
-//      ALL STYLES FOR SPINNERS CAN BE FOUND HERE             \\
-//------------------------------------------------------------\\
+/*ALL STYLES FOR SPINNERS CAN BE FOUND HERE*/
 
 .spinner.loading {
 	display: block;
@@ -11,8 +9,8 @@
 	width: 25px;
 	height: 25px;
 	border-radius: 50%;
-	border: 3px solid $white;
-	border-color: $pomegranate transparent;
+	border: 3px solid var(--white);
+	border-color: var(--pomegranate) transparent;
 	animation: spinner 0.7s linear infinite;
 }
 

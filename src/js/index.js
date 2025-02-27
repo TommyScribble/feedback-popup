@@ -1,6 +1,5 @@
-import html2canvas from 'html2canvas';
-import platform from 'platform';
-import axios from 'axios';
+import html2canvas from 'html2canvas-pro'; //  update to html2canvas-pro
+import platform from 'ua-parser-js'; // need a new way of detecting browser/OS shit
 
 class FeedbackPopup {
     constructor(widgetTitle, title, snapshotBody, placeholderText, emailEndpoint) {
@@ -141,7 +140,8 @@ class FeedbackPopup {
 
     buttonWidget() {
         this.container.buttonShowDiv.innerHTML = this.container.buttonHTML;
-        const buttonShow = document.getElementsByClassName("js-feedback-popup-btn-show")[0];
+        const buttonShow = document.querySelector(".js-feedback-popup-btn-show");
+        console.log('SHOW BUTON ELEMENT', buttonShow);
         const that = this;
         buttonShow.addEventListener("click", function () {
             that.showFeedbackModal()
@@ -169,18 +169,18 @@ class FeedbackPopup {
 		
 		const apiConnection = `${this.container.personalEmailEndpoint}`;
 
-		axios.post(`${apiConnection}`, {
-			userPlatform: userPlatform, 
-			userFeedback: userFeedback,
-			screenshotIncluded: screenshotIncluded,
-			userScreenshot: userScreenshot
-		}
-			).then( () => this.showConfirmation()
-			).catch( error => alert(error)
-		)
+		// axios.post(`${apiConnection}`, {
+		// 	userPlatform: userPlatform,
+		// 	userFeedback: userFeedback,
+		// 	screenshotIncluded: screenshotIncluded,
+		// 	userScreenshot: userScreenshot
+		// }
+		// 	).then( () => this.showConfirmation()
+		// 	).catch( error => alert(error)
+		// )
 		// uncomment for local dev
-		// alert('The message has been sent'); 
-		// this.showConfirmation();
+		alert('The message has been sent');
+		this.showConfirmation();
 	}
 	
 	init() {
@@ -189,6 +189,6 @@ class FeedbackPopup {
 }
 
 // swicth comments below for local dev
-// export default FeedbackPopup;
+export default FeedbackPopup;
 
-module.exports = FeedbackPopup;
+// module.exports = FeedbackPopup;

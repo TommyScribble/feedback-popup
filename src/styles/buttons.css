@@ -1,6 +1,4 @@
-//------------------------------------------------------\\
-//      Styles for the Buttons                          \\
-//------------------------------------------------------\\
+/* BUTTONS */
 
 .btn {
     border-radius: 1px;
@@ -10,28 +8,28 @@
     cursor: pointer;
     transition: all .5s ease;
     &.btn-confirm {
-        background-color: $primary-color;
-        border: 1px solid $primary-color;
-        color: $white;
+        background-color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        color: var(--white);
         margin-left: .7em;
         &:hover,
         &:focus {
-            background-color: darken($primary-color, 10%);
+            background-color: rgba(var(--primary-color), 110%);
         }
     }
     &.btn-cancel {
         background-color: transparent;
         border: 1px solid transparent;
-        color: $black;
+        color: var(--black);
         &:hover,
         &:focus {
-            background-color: lighten($text-color, 60%);
+            background-color: rgba(var(--text-color), 60%);
         }
     }
     &.btn-diolog {
         background-color: transparent;
         border: 1px solid transparent;
-        color: $brand-color;
+        color: var(--brand-color);
         font-size: 14px;
     }
 }

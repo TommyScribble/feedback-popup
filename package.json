@@ -4,44 +4,19 @@
     "description": "A simple to use popup for collecting feedback from users about issues with the site that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.",
     "private": false,
     "scripts": {
-        "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files",
-        "build": "nwb build-web-app",
+        "start": "parcel src/index.html -p 3000",
+        "build": "parcel build src/index.html --public-url '.'",
         "clean": "rm -rf lib",
-		"start": "nwb serve-web-app --reload",
-		"gulp": "gulp"
-    },
-    "babel": {
-        "presets": [
-            "es2015"
-        ]
+        "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files"
     },
     "dependencies": {
-        "axios": "^0.18.0",
-        "html2canvas": "^1.0.0-alpha.12",
-        "platform": "^1.3.5"
+        "html2canvas-pro": "^1.5.8",
+        "ua-parser-js": "^2.0.2"
     },
     "devDependencies": {
-        "autoprefixer": "^9.4.10",
-        "babel-cli": "^6.26.0",
-        "babel-core": "^6.26.3",
-        "babel-preset-es2015": "^6.24.1",
-        "browser-sync": "^2.26.3",
-        "cssnano": "^4.1.10",
-        "eslint": "^4.19.1",
-        "eslint-plugin-react": "^7.7.0",
-        "gulp": "^3.9.1",
-        "gulp-plumber": "^1.2.1",
-        "gulp-postcss": "^8.0.0",
-        "gulp-sass": "^4.0.1",
-        "gulp-sourcemaps": "^2.6.5",
-        "gulp-watch": "^5.0.0",
-        "nwb": "0.21.x",
-        "postcss-import": "^12.0.1",
-        "precss": "^4.0.0"
-	},
-	"engines" : { 
-		"node" : "~10.22.0"
-	},
+        "eslint": "^9.21.0",
+        "parcel": "^2.13.3"
+    },
     "author": "Tommy Scribble",
     "email": "tommy@scribbledesign.co.uk",
     "license": "MIT",
@@ -58,5 +33,8 @@
         "screenshot",
         "platform",
         "html2canvas"
-    ]
+    ],
+    "volta": {
+        "node": "22.14.0"
+    }
 }

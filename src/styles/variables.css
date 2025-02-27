@@ -1,0 +1,37 @@
+/* ===================
+Variables
+====================== */
+
+
+:root {
+/*FONTS*/
+    --sans-serif-stack: "Helvetica Neue", Helvetica, sans-serif;
+    --font-size--header: 1.1rem;
+    --font-size--text: 1rem;
+    --font-size--widget: 0.8rem;
+
+/*COLOURS*/
+/* setup */
+    --white: #fff;
+    --black: #1f1f1f;
+
+    --tangaroa: #03163D;
+    --pomegranate: #E84E0F;
+    --pacific-blue: #0C93BC;
+    --outer-space: #30353A;
+
+    --alto-grey: #DFDEDE;
+    --silver-grey: #b8b8b8;
+    --cotton-seed: #c1bdb9;
+
+ /* uses */
+    --disabled-color: var(--alto-grey);
+    --brand-color: var(--tangaroa);
+    --primary-color: var(--pomegranate);
+    --secondary-color: var(--pacific-blue);
+    --text-color: var(--outer-space);
+
+    --link-color: var(--brand-color);
+    --hover-color: var(--primary-color);
+}
+
