@@ -1,10 +1,10 @@
 /*Styles for the Feedback PopUp*/
 
-@import "variables.css";
-@import "colors.css";
-@import "checkbox.css";
-@import "spinner.css";
-@import "buttons.css";
+@import url("variables.css");
+@import url("colors.css");
+@import url("checkbox.css");
+@import url("spinner.css");
+@import url("buttons.css");
 
 html {
 	font-family: sans-serif var(--sans-serif-stack);

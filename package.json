@@ -6,7 +6,7 @@
     "scripts": {
         "start": "parcel src/index.html -p 3000",
         "build": "parcel build src/index.html --public-url '.'",
-        "clean": "rm -rf lib",
+        "clean": "rm -rf .parcel-cache dist",
         "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files"
     },
     "dependencies": {
@@ -14,8 +14,16 @@
         "ua-parser-js": "^2.0.2"
     },
     "devDependencies": {
+        "@parcel/config-default": "^2.13.3",
+        "@parcel/transformer-css": "^2.10.3",
+        "@parcel/transformer-html": "^2.14.4",
+        "@parcel/transformer-postcss": "^2.14.4",
         "eslint": "^9.21.0",
-        "parcel": "^2.13.3"
+        "parcel": "^2.14.4",
+        "postcss": "^8.5.3",
+        "postcss-custom-properties": "^14.0.4",
+        "postcss-import": "^16.1.0",
+        "postcss-nesting": "^13.0.1"
     },
     "author": "Tommy Scribble",
     "email": "tommy@scribbledesign.co.uk",
@@ -25,7 +33,6 @@
         "url": "git+git@github.com:TommyScribble/feedback-popup.git"
     },
     "homepage": "github.com/TommyScribble/feedback-popup.git#readme",
-    "main": "lib/js/index.js",
     "keywords": [
         "feedback",
         "popup",

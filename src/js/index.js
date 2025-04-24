@@ -139,9 +139,10 @@ class FeedbackPopup {
     }
 
     buttonWidget() {
+        console.log('SHOW BUTON ELEMENT');
         this.container.buttonShowDiv.innerHTML = this.container.buttonHTML;
         const buttonShow = document.querySelector(".js-feedback-popup-btn-show");
-        console.log('SHOW BUTON ELEMENT', buttonShow);
+
         const that = this;
         buttonShow.addEventListener("click", function () {
             that.showFeedbackModal()
