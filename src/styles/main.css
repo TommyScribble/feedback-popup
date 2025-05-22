@@ -1,10 +1,10 @@
 /*Styles for the Feedback PopUp*/
 
-@import url("variables.css");
-@import url("colors.css");
-@import url("checkbox.css");
-@import url("spinner.css");
-@import url("buttons.css");
+@import url("./buttons.css");
+@import url("./colors.css");
+@import url("./checkbox.css");
+@import url("./spinner.css");
+@import url("./variables.css");
 
 html {
 	font-family: sans-serif var(--sans-serif-stack);
@@ -18,7 +18,6 @@ html {
 }
 
 .feedback-popup {
-
 	.widget__container {
 		background-color: transparent;
 		.widget__container-inner {
@@ -32,10 +31,16 @@ html {
 				background-repeat: no-repeat;
 				border: var(--primary-color);
 				color: var(--white);
-
 				font-size: var(--font-size--widget);
 				cursor: pointer;
 				padding: 12px 18px;
+				&:hover {
+					background-color: var(--hover-color);
+				}
+				&:disabled {
+					background-color: var(--disabled-color);
+					cursor: not-allowed;
+				}
 			}
 		}
 	}
@@ -91,27 +96,32 @@ html {
 					width: 100%;
 					height: 100%;
 					&::placeholder {
-						color: rgba(var(--text-color), 50%);
+						color: var(--silver-grey);
 						font-size: var(--font-size--text);
 						font-weight: 300;
+					}
+					&:disabled {
+						background-color: var(--disabled-color);
 					}
 				}
 			}
 			.feedback__add-screenshot {
-				background-color: rgba(var(--brand-color), 190%);
-				color: rgba(var(--brand-color), 120%);
+				background-color: var(--secondary-color);
+				color: var(--white);
 				font-size: 15px;
 				font-weight: 300;
 				padding: 9px;
 				height: 37px;
 				width: 100%;
+				&:hover {
+					background-color: var(--hover-color);
+				}
 			}
 			.feedback__screenshot {
 				position: relative;
-				background-color: rgba(var(--brand-color), 195%);
+				background-color: var(--cotton-seed);
 				height: 190px;
 				overflow: scroll;
-
 				canvas {
 					height: auto !important;
 					max-width: 100%;
@@ -146,6 +156,12 @@ html {
 					font-size: var(--font-size--text);
 					color: var(--text-color);
 					margin: 0 0 20px 0;
+					a {
+						color: var(--link-color);
+						&:hover {
+							color: var(--hover-color);
+						}
+					}
 				}
 			}
 			.feedback-popup__confirmation-button {
