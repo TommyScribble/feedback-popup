@@ -1,11 +1,11 @@
 import FeedbackPopup from './js';
 
-let feedbackPopup = new FeedbackPopup(
-	"Spotted a glitch?",
-	"Support our continuous .",
-	"main-body",
-	"Describe your issue or share your ideas",
-	"http://localhost:3004/communications/feedbackPopup"
-);
+const feedbackPopup = new FeedbackPopup({
+    widgetTitle: 'Send Feedback',
+    title: 'Help Us Improve',
+    snapshotBody: 'your-element-id',
+    placeholderText: 'Tell us what you think...',
+    emailEndpoint: 'your-api-endpoint'
+});
 
 feedbackPopup.init();

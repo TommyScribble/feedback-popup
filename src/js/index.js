@@ -2,191 +2,202 @@ import html2canvas from 'html2canvas-pro'; //  update to html2canvas-pro
 import platform from 'ua-parser-js'; // need a new way of detecting browser/OS shit
 
 class FeedbackPopup {
-    constructor(widgetTitle, title, snapshotBody, placeholderText, emailEndpoint) {
-        this.title = title,
-        this.snapshotBody = snapshotBody,
-        this.placeholderText = placeholderText,
-            this.isOpen = false,
-            this.container = {
-                buttonHTML: `
-            <div class="widget__container">
-                <div class="widget__container-inner">
-                    <button class="widget__button">${widgetTitle}</button>
-                </div>
-            </div>`,
-                mainDiv: document.getElementsByClassName("js-feedback-popup")[0],
-                contentDiv: document.getElementsByClassName("js-feedback-popup-content")[0],
-                buttonShowDiv: document.getElementsByClassName("js-feedback-popup-btn-show")[0],
-                confirmationShowDiv: document.getElementsByClassName("js-feedback-popup-confirmation")[0],
-                buttonSend: document.getElementsByClassName("js-feedback-post")[0],
-                popupHTML: `<div class="feedback__container">
-
-                            <div class="feedback__container--inner">
-
-                                <div class="feedback__header">
-
-                                    <h1>${title}</h1>
-
-                                </div>
-
-                                <div class="feedback__textarea">
-
-                                    <textarea autoFocus placeholder="${placeholderText}" name="feedback" id="textarea"></textarea>
-
-                                </div>
-
-                                <div class="feedback__add-screenshot">
-                                    <label class="control control-checkbox">
-                                        <input id="js-checkbox" type="checkbox" checked/> Include a screenshot?
-                                        <div class="control_indicator"></div>
-                                    </label>
-                                </div>
-
-								<div class="feedback__screenshot">
-									<div class="spinner"></div>
-                                </div>
-
-                                <div class="feedback__confirm">
-                                    <ul>
-                                    <li>
-                                        <button class="btn btn-cancel js-feedback-popup-btn-cancel">cancel</button>
-                                    </li>
-                                    <li>
-                                        <button class="btn btn-confirm js-feedback-post">send</button>
-                                    </li>
-                                    </ul>
-
-                                </div>
-
-
-                            </div>
-
-                        </div>`,
-                confirmtionHTML: `<div class="feedback__container">
-                                <div class="feedback-popup__confirmation-inner">
-                                <div class="feedback-popup__confirmation-text">
-                                    <p class="thank-you">Thank you for your help!</p>
-                                </div>
-                                    <div class="feedback-popup__confirmation-button">
-                                    <button class="btn btn-cancel js-feedback-OK">OK</button>
-                                    </div>
-                                </div>
-							</div>`,
-                personalEmailEndpoint: emailEndpoint
+    constructor(config) {
+        this.config = {
+            widgetTitle: config.widgetTitle || 'Feedback',
+            title: config.title || 'Send Feedback',
+            snapshotBody: config.snapshotBody,
+            placeholderText: config.placeholderText || 'Enter your feedback here...',
+            emailEndpoint: config.emailEndpoint,
+            selectors: {
+                main: '.js-feedback-popup',
+                content: '.js-feedback-popup-content',
+                buttonShow: '.js-feedback-popup-btn-show',
+                confirmation: '.js-feedback-popup-confirmation'
             }
+        };
+        
+        this.state = {
+            isOpen: false,
+            screenshot: null
+        };
+        
+        this.templates = this._createTemplates();
+        this._initializeElements();
+    }
+
+    _createTemplates() {
+        return {
+            button: `
+                <div class="widget__container">
+                    <div class="widget__container-inner">
+                        <button class="widget__button">${this.config.widgetTitle}</button>
+                    </div>
+                </div>
+            `,
+            popup: `
+                <div class="feedback__container">
+                    <div class="feedback__container--inner">
+                        <div class="feedback__header">
+                            <h1>${this.config.title}</h1>
+                        </div>
+                        <div class="feedback__textarea">
+                            <textarea autoFocus placeholder="${this.config.placeholderText}" name="feedback" id="textarea"></textarea>
+                        </div>
+                        <div class="feedback__add-screenshot">
+                            <label class="control control-checkbox">
+                                <input id="js-checkbox" type="checkbox" checked/> Include a screenshot?
+                                <div class="control_indicator"></div>
+                            </label>
+                        </div>
+                        <div class="feedback__screenshot">
+                            <div class="spinner"></div>
+                        </div>
+                        <div class="feedback__confirm">
+                            <ul>
+                                <li>
+                                    <button class="btn btn-cancel js-feedback-popup-btn-cancel">cancel</button>
+                                </li>
+                                <li>
+                                    <button class="btn btn-confirm js-feedback-post">send</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `,
+            confirmation: `
+                <div class="feedback__container">
+                    <div class="feedback-popup__confirmation-inner">
+                        <div class="feedback-popup__confirmation-text">
+                            <p class="thank-you">Thank you for your help!</p>
+                        </div>
+                        <div class="feedback-popup__confirmation-button">
+                            <button class="btn btn-cancel js-feedback-OK">OK</button>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+    }
+
+    _initializeElements() {
+        this.elements = {
+            main: document.querySelector(this.config.selectors.main),
+            content: document.querySelector(this.config.selectors.content),
+            buttonShow: document.querySelector(this.config.selectors.buttonShow),
+            confirmation: document.querySelector(this.config.selectors.confirmation)
+        };
+    }
+
+    _bindEvents() {
+        // Button widget events
+        const buttonShow = this.elements.buttonShow.querySelector('.widget__button');
+        buttonShow.addEventListener('click', () => {
+            this.showFeedbackModal();
+            this.createScreenshot();
+        });
+
+        // Popup events
+        this.elements.content.addEventListener('click', (e) => {
+            if (e.target.matches('.js-feedback-popup-btn-cancel')) {
+                this.hideContentDiv();
+            }
+            if (e.target.matches('.js-feedback-post')) {
+                this.sendData();
+            }
+            if (e.target.matches('.js-feedback-OK')) {
+                this.elements.confirmation.style.display = 'none';
+                this.hideContentDiv();
+            }
+        });
+
+        // Screenshot checkbox event
+        const checkbox = document.getElementById('js-checkbox');
+        checkbox.addEventListener('change', () => {
+            const screenshotContainer = document.querySelector('.feedback__screenshot');
+            const canvas = screenshotContainer.querySelector('canvas');
+            
+            if (checkbox.checked) {
+                this.createScreenshot();
+            } else if (canvas) {
+                screenshotContainer.removeChild(canvas);
+            }
+        });
+    }
+
+    _updateSpinner(state) {
+        const spinner = document.querySelector('.spinner');
+        spinner.classList.toggle('loading', state === 'show');
     }
 
     showConfirmation() {
-        this.container.contentDiv.innerHTML = this.container.confirmtionHTML;
-        this.container.contentDiv.style.display = "block";
-        const buttonOK = document.getElementsByClassName("js-feedback-OK")[0];
-        const that = this;
-        buttonOK.addEventListener("click", function () {
-            that.container.confirmationShowDiv.style.display = "none";
-            that.hideContentDiv();
-        });
+        this.elements.content.innerHTML = this.templates.confirmation;
+        this.elements.content.style.display = 'block';
     }
 
     showFeedbackModal() {
-        this.container.contentDiv.innerHTML = this.container.popupHTML;
-        this.container.contentDiv.style.display = "block";
-        const buttonCancel = document.getElementsByClassName("js-feedback-popup-btn-cancel")[0];
-        const buttonSend = document.getElementsByClassName("js-feedback-post")[0];
-        const that = this;
-        this.container.buttonShowDiv.style.display = "none";
-        buttonCancel.addEventListener("click", function () {
-            that.hideContentDiv()
-        });
-        buttonSend.addEventListener("click", function () {
-            that.sendData();
-            
-        });
-        this.toggleScreenshot()
-        return this;
-	}
-	
-	spinner(state) {
-		const spinnerElement = document.querySelector('.spinner');
-		switch (state) {
-			case 'show':
-				spinnerElement.classList.add('loading')
-				break;
-			case 'hide':
-				spinnerElement.classList.remove('loading');
-			break;
-			default:
-				break;
-		}
-	}
+        this.elements.content.innerHTML = this.templates.popup;
+        this.elements.content.style.display = 'block';
+        this.elements.buttonShow.style.display = 'none';
+        this.state.isOpen = true;
+    }
 
     hideContentDiv() {
-        this.container.contentDiv.style.display = "none";
-        this.container.buttonShowDiv.style.display = "block";
+        this.elements.content.style.display = 'none';
+        this.elements.buttonShow.style.display = 'block';
+        this.state.isOpen = false;
     }
 
-    toggleScreenshot() {
-        const checkbox = document.getElementById('js-checkbox');
-        const isChecked = true;
-
-        checkbox.addEventListener('click', () => {
-            if (!isChecked === checkbox.checked) {
-                const screenShotParent = document.getElementsByClassName("feedback__screenshot")[0];
-                screenShotParent.removeChild(document.getElementsByTagName('canvas')[0]);
-            } else if (isChecked === checkbox.checked) {
-                this.createScreenshot();
+    async createScreenshot() {
+        this._updateSpinner('show');
+        try {
+            const canvas = await html2canvas(document.getElementById(this.config.snapshotBody));
+            const screenshotContainer = document.querySelector('.feedback__screenshot');
+            const existingCanvas = screenshotContainer.querySelector('canvas');
+            
+            if (existingCanvas) {
+                screenshotContainer.removeChild(existingCanvas);
             }
-        })
+            
+            screenshotContainer.appendChild(canvas);
+            this.state.screenshot = canvas;
+        } catch (error) {
+            console.error('Failed to create screenshot:', error);
+        } finally {
+            this._updateSpinner('hide');
+        }
     }
 
-    buttonWidget() {
-        console.log('SHOW BUTON ELEMENT');
-        this.container.buttonShowDiv.innerHTML = this.container.buttonHTML;
-        const buttonShow = document.querySelector(".js-feedback-popup-btn-show");
+    async sendData() {
+        const canvas = this.state.screenshot;
+        const userFeedback = document.getElementById('textarea').value;
+        
+        const data = {
+            userPlatform: platform.description,
+            userFeedback,
+            screenshotIncluded: canvas ? 'Included' : 'Not Included',
+            userScreenshot: canvas ? canvas.toDataURL('image/png', 1.0).split(',')[1] : null
+        };
 
-        const that = this;
-        buttonShow.addEventListener("click", function () {
-            that.showFeedbackModal()
-            that.createScreenshot();
-        });
+        try {
+            // For local development
+            alert('The message has been sent');
+            this.showConfirmation();
+            
+            // Uncomment for production
+            // await axios.post(this.config.emailEndpoint, data);
+            // this.showConfirmation();
+        } catch (error) {
+            console.error('Failed to send feedback:', error);
+            alert('Failed to send feedback. Please try again.');
+        }
     }
 
-    createScreenshot() {
-		this.spinner('show');	
-        html2canvas(document.getElementById(`${this.snapshotBody}`)).then(canvas => {
-            document.getElementsByClassName("feedback__screenshot")[0].appendChild(canvas);
-		})
-		this.spinner('hide');
+    init() {
+        this.elements.buttonShow.innerHTML = this.templates.button;
+        this._bindEvents();
     }
-	
-    sendData() {
-		const canvas = document.getElementsByTagName('canvas')[0];
-		
-		const base64result = canvas && canvas.toDataURL('image/png', 1.0),
-		userScreenshot = base64result && base64result.split(',')[1],
-		userPlatform = platform.description,
-		userFeedback = document.getElementById('textarea').value;
-		
-		const screenshotIncluded = canvas ? "Incuded" : "Not Included";
-		
-		const apiConnection = `${this.container.personalEmailEndpoint}`;
-
-		// axios.post(`${apiConnection}`, {
-		// 	userPlatform: userPlatform,
-		// 	userFeedback: userFeedback,
-		// 	screenshotIncluded: screenshotIncluded,
-		// 	userScreenshot: userScreenshot
-		// }
-		// 	).then( () => this.showConfirmation()
-		// 	).catch( error => alert(error)
-		// )
-		// uncomment for local dev
-		alert('The message has been sent');
-		this.showConfirmation();
-	}
-	
-	init() {
-		this.buttonWidget();
-	}
 }
 
 // swicth comments below for local dev
