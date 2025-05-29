@@ -4,14 +4,14 @@ Variables
 
 
 :root {
-/*FONTS*/
+    /*FONTS*/
     --sans-serif-stack: "Helvetica Neue", Helvetica, sans-serif;
     --font-size--header: 1.1rem;
     --font-size--text: 1rem;
     --font-size--widget: 0.8rem;
 
-/*COLOURS*/
-/* setup */
+    /*COLOURS*/
+    /* setup */
     --white: #fff;
     --black: #1f1f1f;
 
@@ -24,14 +24,15 @@ Variables
     --silver-grey: #b8b8b8;
     --cotton-seed: #c1bdb9;
 
- /* uses */
-    --disabled-color: var(--alto-grey);
+    /* uses */
     --brand-color: var(--tangaroa);
     --primary-color: var(--pomegranate);
     --secondary-color: var(--pacific-blue);
+
     --text-color: var(--outer-space);
+
+    --disabled-color: var(--alto-grey);
 
     --link-color: var(--brand-color);
     --hover-color: var(--primary-color);
 }
-
