@@ -4,33 +4,39 @@
     border-radius: 1px;
     font-size: 9px;
     text-transform: uppercase;
-    padding: 0.8em 1.9em;;
+    padding: 0.8em 1.9em;
     cursor: pointer;
     transition: all .5s ease;
-    &.btn-confirm {
-        background-color: var(--primary-color);
-        border: 1px solid var(--primary-color);
-        color: var(--white);
-        margin-left: .7em;
-        &:hover,
-        &:focus {
-            background-color: var(--disabled-color);
-        }
-    }
-    &.btn-cancel {
-        background-color: transparent;
-        border: 1px solid transparent;
-        color: var(--black);
-        &:hover,
-        &:focus {
-            background-color: var(--disabled-color);
-        }
-    }
-    &.btn-diolog {
-        background-color: transparent;
-        border: 1px solid transparent;
-        color: var(--brand-color);
-        font-size: 14px;
-    }
 }
 
+.btn.btn-confirm {
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    color: var(--white);
+    margin-left: .7em;
+}
+
+.btn.btn-confirm:hover,
+.btn.btn-confirm:focus {
+    background-color: var(--disabled-color);
+}
+
+
+.btn.btn-cancel {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: var(--black);
+}
+
+.btn.btn-cancel:hover,
+.btn.btn-cancel:focus {
+    background-color: var(--disabled-color);
+}
+
+
+.btn.btn-diolog {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: var(--brand-color);
+    font-size: 14px;
+}
