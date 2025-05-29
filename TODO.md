@@ -12,7 +12,7 @@
 
 [x] Fix settiings files ( buttons, checkbox, spinner)
 [x] Check variables and colors for issues and dupes
-[ ] Rewrite main coz its shit
+[x] Rewrite main coz its shit
 [ ] Check over all files (variables etc...)
 [ ] Migrate from px to rem
 

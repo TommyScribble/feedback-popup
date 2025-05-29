@@ -1,12 +1,12 @@
-import html2canvas from 'html2canvas-pro'; //  update to html2canvas-pro
-import platform from 'ua-parser-js'; // need a new way of detecting browser/OS shit
+import html2canvas from 'html2canvas'; //  update to html2canvas-pro
+import { UAParser } from 'ua-parser-js'; // update the implementation now this is updated
 
 class FeedbackPopup {
     constructor(config) {
         this.config = {
             widgetTitle: config.widgetTitle || 'Feedback',
             title: config.title || 'Send Feedback',
-            snapshotBody: config.snapshotBody,
+            snapshotBody: config.snapshotBody || 'screenshot-here',
             placeholderText: config.placeholderText || 'Enter your feedback here...',
             emailEndpoint: config.emailEndpoint,
             selectors: {
@@ -151,8 +151,10 @@ class FeedbackPopup {
 
     async createScreenshot() {
         this._updateSpinner('show');
+        console.log(`#${this.config.snapshotBody}`);
+        
         try {
-            const canvas = await html2canvas(document.getElementById(this.config.snapshotBody));
+            const canvas = await html2canvas(document.querySelector(`#${this.config.snapshotBody}`));
             const screenshotContainer = document.querySelector('.feedback__screenshot');
             const existingCanvas = screenshotContainer.querySelector('canvas');
             
@@ -172,13 +174,17 @@ class FeedbackPopup {
     async sendData() {
         const canvas = this.state.screenshot;
         const userFeedback = document.getElementById('textarea').value;
+
+        const platformDescription = UAParser(window.navigator.userAgent);
         
         const data = {
-            userPlatform: platform.description,
+            userPlatform: platformDescription,
             userFeedback,
             screenshotIncluded: canvas ? 'Included' : 'Not Included',
             userScreenshot: canvas ? canvas.toDataURL('image/png', 1.0).split(',')[1] : null
         };
+
+        console.log(data);
 
         try {
             // For local development

@@ -10,8 +10,8 @@
         "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files"
     },
     "dependencies": {
-        "html2canvas-pro": "^1.5.8",
-        "ua-parser-js": "^2.0.2"
+        "html2canvas": "^1.4.1",
+        "ua-parser-js": "^2.0.3"
     },
     "devDependencies": {
         "@parcel/config-default": "^2.13.3",
