@@ -1,8 +1,5 @@
 /* CHECKBOXES */
 
-/*Need to check over all the 100% ++ rgba's and add a background to make them actually darker*/
-
-
 .control {
     display: block;
     position: relative;
@@ -13,48 +10,55 @@
 	font-weight: 400;
     text-align: left;
 }
+
 .control input {
     position: absolute;
     z-index: -1;
     opacity: 0;
 }
+
 .control_indicator {
     position: absolute;
     top: 0;
     left: 0;
     height: 20px;
     width: 20px;
-    background: rgba(var(--text-color), 50%);
+    background: rgba(var(--text-color), 0.5);
     border: 0 solid var(--black);
     border-radius: 3px;
 }
 
 .control:hover input ~ .control_indicator,
 .control input:focus ~ .control_indicator {
-    background: rgba(var(--white), 140%);
+    background: rgba(var(--white), 0.8);
 }
 
 .control input:checked ~ .control_indicator {
-    background: rgba(var(--white), 130%);
+    background: rgba(var(--white), 0.7);
 }
+
 .control:hover input:not([disabled]):checked ~ .control_indicator,
 .control input:checked:focus ~ .control_indicator {
-    background: rgba(var(--text-color), 30%);
+    background: rgba(var(--text-color), 0.3);
 }
+
 .control input:disabled ~ .control_indicator {
-    background: rgba(var(--white), 110%);
+    background: rgba(var(--white), 0.6);
     opacity: 0.6;
     pointer-events: none;
 }
+
 .control_indicator:after {
     box-sizing: unset;
     content: '';
     position: absolute;
     display: none;
 }
+
 .control input:checked ~ .control_indicator:after {
     display: block;
 }
+
 .control-checkbox .control_indicator:after {
     left: 8px;
     top: 4px;
@@ -64,6 +68,7 @@
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
 }
+
 .control-checkbox input:disabled ~ .control_indicator:after {
-    border-color: rgba(var(--text-color), 40%);
+    border-color: rgba(var(--text-color), 0.4);
 }
