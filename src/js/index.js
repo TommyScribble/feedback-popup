@@ -156,11 +156,11 @@ class FeedbackPopup {
     async createScreenshot() {
         this._updateSpinner('show');
         try {
-            const canvas = await html2canvas(document.getElementById(this.config.snapshotBody));
+            const screeenshotElement = document.querySelector('#main-body');
             const screenshotContainer = document.querySelector('.feedback__screenshot');
-            const existingCanvas = screenshotContainer.querySelector('canvas');
+            const canvas = await html2canvas(screeenshotElement);
             
-            if (existingCanvas) {
+            if (screenshotContainer.querySelector('canvas') !== null) {
                 screenshotContainer.removeChild(existingCanvas);
                 this.state.screenshot = null
             }
