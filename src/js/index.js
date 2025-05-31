@@ -111,19 +111,6 @@ class FeedbackPopup {
                 this.hideContentDiv();
             }
         });
-
-        // Screenshot checkbox event
-        const checkbox = document.getElementById('js-checkbox');
-        checkbox.addEventListener('change', () => {
-            const screenshotContainer = document.querySelector('.feedback__screenshot');
-            const canvas = screenshotContainer.querySelector('canvas');
-
-            if (checkbox.checked) {
-                this.createScreenshot();
-            } else if (canvas) {
-                screenshotContainer.removeChild(canvas);
-            }
-        });
     }
 
     _updateSpinner(state) {
@@ -141,6 +128,23 @@ class FeedbackPopup {
         this.elements.content.style.display = 'block';
         this.elements.buttonShow.style.display = 'none';
         this.state.isOpen = true;
+
+        // Bind checkbox event after the element is in the DOM
+        const checkbox = document.getElementById('js-checkbox');
+        
+        if (checkbox) {
+            checkbox.addEventListener('change', () => {
+                const screenshotContainer = document.querySelector('.feedback__screenshot');
+                const canvas = screenshotContainer.querySelector('canvas');
+                console.log('checkbox', checkbox.checked);
+                
+                if (checkbox.checked) {
+                    this.createScreenshot();
+                } else if (canvas) {
+                    screenshotContainer.removeChild(canvas);
+                }
+            });
+        }
     }
 
     hideContentDiv() {
@@ -152,35 +156,35 @@ class FeedbackPopup {
     async createScreenshot() {
         this._updateSpinner('show');
         try {
-            const screeenshotElement = document.querySelector('#main-body');
+            const canvas = await html2canvas(document.getElementById(this.config.snapshotBody));
             const screenshotContainer = document.querySelector('.feedback__screenshot');
-            const canvas = await html2canvas(screeenshotElement);
-
-            if (screenshotContainer.querySelector('canvas') !== null) {
-                screenshotContainer.removeChild(existingScreenshot)
+            const existingCanvas = screenshotContainer.querySelector('canvas');
+            
+            if (existingCanvas) {
+                screenshotContainer.removeChild(existingCanvas);
                 this.state.screenshot = null
             }
-
+            
             screenshotContainer.appendChild(canvas);
-            this.state.screenshot = canvas
+            this.state.screenshot = canvas;
         } catch (error) {
-            console.log('Failed to create screenshot', error)
+            console.error('Failed to create screenshot:', error);
         } finally {
-            this._updateSpinner('hide')
+            this._updateSpinner('hide');
         }
     }
 
     async sendData() {
         const canvas = this.state.screenshot;
         const userFeedback = document.getElementById('textarea').value;
-
-        const platformDescription = UAParser(window.navigator.userAgent);
+        
+        const platform = UAParser(window.navigator.userAgent);
 
         const data = {
-            userPlatform: platformDescription,
+            userPlatform: platform.description,
             userFeedback,
             screenshotIncluded: canvas ? 'Included' : 'Not Included',
-            userScreenshot: this.state.screenshot
+            userScreenshot: canvas ? canvas.toDataURL('image/png', 1.0).split(',')[1] : null
         };
 
         console.log(data);
@@ -189,7 +193,7 @@ class FeedbackPopup {
             // For local development
             alert('The message has been sent');
             this.showConfirmation();
-
+            
             // Uncomment for production
             // await axios.post(this.config.emailEndpoint, data);
             // this.showConfirmation();
