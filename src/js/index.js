@@ -6,7 +6,7 @@ class FeedbackPopup {
         this.config = {
             widgetTitle: config.widgetTitle || 'Feedback',
             title: config.title || 'Send Feedback',
-            snapshotBody: config.snapshotBody || 'screenshot-here',
+            snapshotBody: config.snapshotBody || '#main-body',
             placeholderText: config.placeholderText || 'Enter your feedback here...',
             emailEndpoint: config.emailEndpoint,
             selectors: {
@@ -16,12 +16,12 @@ class FeedbackPopup {
                 confirmation: '.js-feedback-popup-confirmation'
             }
         };
-        
+
         this.state = {
             isOpen: false,
             screenshot: null
         };
-        
+
         this.templates = this._createTemplates();
         this._initializeElements();
     }
@@ -117,7 +117,7 @@ class FeedbackPopup {
         checkbox.addEventListener('change', () => {
             const screenshotContainer = document.querySelector('.feedback__screenshot');
             const canvas = screenshotContainer.querySelector('canvas');
-            
+
             if (checkbox.checked) {
                 this.createScreenshot();
             } else if (canvas) {
@@ -151,23 +151,22 @@ class FeedbackPopup {
 
     async createScreenshot() {
         this._updateSpinner('show');
-        console.log(`#${this.config.snapshotBody}`);
-        
         try {
-            const canvas = await html2canvas(document.querySelector(`#${this.config.snapshotBody}`));
+            const screeenshotElement = document.querySelector('#main-body');
             const screenshotContainer = document.querySelector('.feedback__screenshot');
-            const existingCanvas = screenshotContainer.querySelector('canvas');
-            
-            if (existingCanvas) {
-                screenshotContainer.removeChild(existingCanvas);
+            const canvas = await html2canvas(screeenshotElement);
+
+            if (screenshotContainer.querySelector('canvas') !== null) {
+                screenshotContainer.removeChild(existingScreenshot)
+                this.state.screenshot = null
             }
-            
+
             screenshotContainer.appendChild(canvas);
-            this.state.screenshot = canvas;
+            this.state.screenshot = canvas
         } catch (error) {
-            console.error('Failed to create screenshot:', error);
+            console.log('Failed to create screenshot', error)
         } finally {
-            this._updateSpinner('hide');
+            this._updateSpinner('hide')
         }
     }
 
@@ -176,12 +175,12 @@ class FeedbackPopup {
         const userFeedback = document.getElementById('textarea').value;
 
         const platformDescription = UAParser(window.navigator.userAgent);
-        
+
         const data = {
             userPlatform: platformDescription,
             userFeedback,
             screenshotIncluded: canvas ? 'Included' : 'Not Included',
-            userScreenshot: canvas ? canvas.toDataURL('image/png', 1.0).split(',')[1] : null
+            userScreenshot: this.state.screenshot
         };
 
         console.log(data);
@@ -190,7 +189,7 @@ class FeedbackPopup {
             // For local development
             alert('The message has been sent');
             this.showConfirmation();
-            
+
             // Uncomment for production
             // await axios.post(this.config.emailEndpoint, data);
             // this.showConfirmation();
