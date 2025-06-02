@@ -10,9 +10,6 @@
         "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files"
     },
     "dependencies": {
-        "body-parser": "^2.2.0",
-        "cors": "^2.8.5",
-        "express": "^5.1.0",
         "html2canvas": "^1.4.1",
         "ua-parser-js": "^2.0.3"
     },
@@ -21,8 +18,11 @@
         "@parcel/transformer-css": "^2.10.3",
         "@parcel/transformer-html": "^2.14.4",
         "@parcel/transformer-postcss": "^2.14.4",
+        "body-parser": "^2.2.0",
         "concurrently": "^8.2.2",
+        "cors": "^2.8.5",
         "eslint": "^9.21.0",
+        "express": "^5.1.0",
         "parcel": "^2.14.4",
         "postcss": "^8.5.3",
         "postcss-custom-properties": "^14.0.4",
