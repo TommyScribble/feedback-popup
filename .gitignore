@@ -30,3 +30,6 @@ yarn-error.log*
 # Build
 .parcel-cache
 .cache/
+
+# Local server testing
+feedback/

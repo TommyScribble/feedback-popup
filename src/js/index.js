@@ -6,7 +6,7 @@ class FeedbackPopup {
         this.config = {
             widgetTitle: config.widgetTitle || 'Feedback',
             title: config.title || 'Send Feedback',
-            snapshotBody: config.snapshotBody || '#main-body',
+            snapshotBodyId: config.snapshotBody || '#main-body',
             placeholderText: config.placeholderText || 'Enter your feedback here...',
             emailEndpoint: config.emailEndpoint,
             selectors: {
@@ -156,7 +156,7 @@ class FeedbackPopup {
     async createScreenshot() {
         this._updateSpinner('show');
         try {
-            const screeenshotElement = document.querySelector('#main-body');
+            const screeenshotElement = document.querySelector(this.config.snapshotBodyId);
             const screenshotContainer = document.querySelector('.feedback__screenshot');
             const canvas = await html2canvas(screeenshotElement);
             
@@ -177,11 +177,15 @@ class FeedbackPopup {
     async sendData() {
         const canvas = this.state.screenshot;
         const userFeedback = document.getElementById('textarea').value;
+        if (!window) return
         
         const platform = UAParser(window.navigator.userAgent);
 
+        console.log(platform);
+        
+
         const data = {
-            userPlatform: platform.description,
+            userPlatform: platform,
             userFeedback,
             screenshotIncluded: canvas ? 'Included' : 'Not Included',
             userScreenshot: canvas ? canvas.toDataURL('image/png', 1.0).split(',')[1] : null
@@ -190,16 +194,28 @@ class FeedbackPopup {
         console.log(data);
 
         try {
-            // For local development
-            alert('The message has been sent');
-            this.showConfirmation();
+            this._updateSpinner('show');
             
-            // Uncomment for production
-            // await axios.post(this.config.emailEndpoint, data);
-            // this.showConfirmation();
+            const response = await fetch('http://localhost:3005/api/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log('Success:', result);
+            this.showConfirmation();
         } catch (error) {
             console.error('Failed to send feedback:', error);
             alert('Failed to send feedback. Please try again.');
+        } finally {
+            this._updateSpinner('hide');
         }
     }
 
