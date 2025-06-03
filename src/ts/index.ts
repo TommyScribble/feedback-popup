@@ -1,20 +1,38 @@
-import html2canvas from 'html2canvas'; //  update to html2canvas-pro
-import { UAParser } from 'ua-parser-js'; // update the implementation now this is updated
+import html2canvas from 'html2canvas';
+import { UAParser } from 'ua-parser-js';
+import { FeedbackPopupConfig } from './index.d';
+
+interface ContainerElements {
+    main: HTMLElement | null;
+    content: HTMLElement | null;
+    buttonShow: HTMLElement | null;
+    confirmation: HTMLElement | null;
+}
+
+interface State {
+    isOpen: boolean;
+    screenshot: HTMLCanvasElement | null;
+}
+
+interface Templates {
+    button: string;
+    popup: string;
+    confirmation: string;
+}
 
 class FeedbackPopup {
-    constructor(config) {
+    private config: FeedbackPopupConfig;
+    private state: State;
+    private elements: ContainerElements;
+    private templates: Templates;
+
+    constructor(config: FeedbackPopupConfig) {
         this.config = {
             widgetTitle: config.widgetTitle || 'Feedback',
             title: config.title || 'Send Feedback',
-            snapshotBodyId: config.snapshotBody || '#main-body',
+            snapshotBodyId: config.snapshotBodyId || '#main-body',
             placeholderText: config.placeholderText || 'Enter your feedback here...',
-            emailEndpoint: config.emailEndpoint,
-            selectors: {
-                main: '.js-feedback-popup',
-                content: '.js-feedback-popup-content',
-                buttonShow: '.js-feedback-popup-btn-show',
-                confirmation: '.js-feedback-popup-confirmation'
-            }
+            endpointUrl: config.endpointUrl || 'http://localhost:3005/api/feedback'
         };
 
         this.state = {
@@ -22,11 +40,18 @@ class FeedbackPopup {
             screenshot: null
         };
 
+        this.elements = {
+            main: null,
+            content: null,
+            buttonShow: null,
+            confirmation: null
+        };
+
         this.templates = this._createTemplates();
         this._initializeElements();
     }
 
-    _createTemplates() {
+    private _createTemplates(): Templates {
         return {
             button: `
                 <div class="widget__container">
@@ -81,62 +106,43 @@ class FeedbackPopup {
         };
     }
 
-    _initializeElements() {
+    private _initializeElements(): void {
         this.elements = {
-            main: document.querySelector(this.config.selectors.main),
-            content: document.querySelector(this.config.selectors.content),
-            buttonShow: document.querySelector(this.config.selectors.buttonShow),
-            confirmation: document.querySelector(this.config.selectors.confirmation)
+            main: document.querySelector('.js-feedback-popup'),
+            content: document.querySelector('.js-feedback-popup-content'),
+            buttonShow: document.querySelector('.js-feedback-popup-btn-show'),
+            confirmation: document.querySelector('.js-feedback-popup-confirmation')
         };
     }
 
-    _bindEvents() {
-        // Button widget events
-        const buttonShow = this.elements.buttonShow.querySelector('.widget__button');
-        buttonShow.addEventListener('click', () => {
-            this.showFeedbackModal();
-            this.createScreenshot();
-        });
-
-        // Popup events
-        this.elements.content.addEventListener('click', (e) => {
-            if (e.target.matches('.js-feedback-popup-btn-cancel')) {
-                this.hideContentDiv();
-            }
-            if (e.target.matches('.js-feedback-post')) {
-                this.sendData();
-            }
-            if (e.target.matches('.js-feedback-OK')) {
-                this.elements.confirmation.style.display = 'none';
-                this.hideContentDiv();
-            }
-        });
-    }
-
-    _updateSpinner(state) {
+    private _updateSpinner(state: 'show' | 'hide'): void {
         const spinner = document.querySelector('.spinner');
+        if (!spinner) {
+            console.warn('Spinner element not found in the DOM');
+            return;
+        }
         spinner.classList.toggle('loading', state === 'show');
     }
 
-    showConfirmation() {
+    public showConfirmation(): void {
+        if (!this.elements.content) return;
         this.elements.content.innerHTML = this.templates.confirmation;
         this.elements.content.style.display = 'block';
     }
 
-    showFeedbackModal() {
+    public showFeedbackModal(): void {
+        if (!this.elements.content || !this.elements.buttonShow) return;
         this.elements.content.innerHTML = this.templates.popup;
         this.elements.content.style.display = 'block';
         this.elements.buttonShow.style.display = 'none';
         this.state.isOpen = true;
 
-        // Bind checkbox event after the element is in the DOM
-        const checkbox = document.getElementById('js-checkbox');
-        
+        const checkbox = document.getElementById('js-checkbox') as HTMLInputElement;
         if (checkbox) {
             checkbox.addEventListener('change', () => {
                 const screenshotContainer = document.querySelector('.feedback__screenshot');
+                if (!screenshotContainer) return;
                 const canvas = screenshotContainer.querySelector('canvas');
-                console.log('checkbox', checkbox.checked);
                 
                 if (checkbox.checked) {
                     this.createScreenshot();
@@ -147,22 +153,28 @@ class FeedbackPopup {
         }
     }
 
-    hideContentDiv() {
+    public hideContentDiv(): void {
+        if (!this.elements.content || !this.elements.buttonShow) return;
         this.elements.content.style.display = 'none';
         this.elements.buttonShow.style.display = 'block';
         this.state.isOpen = false;
     }
 
-    async createScreenshot() {
+    public async createScreenshot(): Promise<void> {
         this._updateSpinner('show');
         try {
-            const screeenshotElement = document.querySelector(this.config.snapshotBodyId);
-            const screenshotContainer = document.querySelector('.feedback__screenshot');
-            const canvas = await html2canvas(screeenshotElement);
+            const screenshotElement = document.querySelector(this.config.snapshotBodyId || '') as HTMLElement;
+            if (!screenshotElement) {
+                throw new Error(`Screenshot element not found: ${this.config.snapshotBodyId}`);
+            }
+            const screenshotContainer = document.querySelector('.feedback__screenshot') as HTMLElement;
+            if (!screenshotContainer) return;
+
+            const canvas = await html2canvas(screenshotElement);
+            const existingCanvas = screenshotContainer.querySelector('canvas');
             
-            if (screenshotContainer.querySelector('canvas') !== null) {
+            if (existingCanvas) {
                 screenshotContainer.removeChild(existingCanvas);
-                this.state.screenshot = null
             }
             
             screenshotContainer.appendChild(canvas);
@@ -174,16 +186,14 @@ class FeedbackPopup {
         }
     }
 
-    async sendData() {
+    public async sendData(): Promise<void> {
         const canvas = this.state.screenshot;
-        const userFeedback = document.getElementById('textarea').value;
-        if (!window) return
+        const textarea = document.getElementById('textarea') as HTMLTextAreaElement;
+        if (!textarea || !window) return;
         
+        const userFeedback = textarea.value;
         const platform = UAParser(window.navigator.userAgent);
-
-        console.log(platform);
         
-
         const data = {
             userPlatform: platform,
             userFeedback,
@@ -191,12 +201,10 @@ class FeedbackPopup {
             userScreenshot: canvas ? canvas.toDataURL('image/png', 1.0).split(',')[1] : null
         };
 
-        console.log(data);
-
         try {
             this._updateSpinner('show');
             
-            const response = await fetch('http://localhost:3005/api/feedback', {
+            const response = await fetch(this.config.endpointUrl || '', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -219,9 +227,37 @@ class FeedbackPopup {
         }
     }
 
-    init() {
+    public init(): void {
+        if (!this.elements.buttonShow) return;
         this.elements.buttonShow.innerHTML = this.templates.button;
         this._bindEvents();
+    }
+
+    private _bindEvents(): void {
+        const buttonShow = this.elements.buttonShow?.querySelector('.widget__button');
+        if (!buttonShow) return;
+
+        buttonShow.addEventListener('click', () => {
+            this.showFeedbackModal();
+            this.createScreenshot();
+        });
+
+        if (!this.elements.content) return;
+        this.elements.content.addEventListener('click', (e: Event) => {
+            const target = e.target as HTMLElement;
+            if (target.matches('.js-feedback-popup-btn-cancel')) {
+                this.hideContentDiv();
+            }
+            if (target.matches('.js-feedback-post')) {
+                this.sendData();
+            }
+            if (target.matches('.js-feedback-OK')) {
+                if (this.elements.confirmation) {
+                    this.elements.confirmation.style.display = 'none';
+                }
+                this.hideContentDiv();
+            }
+        });
     }
 }
 
