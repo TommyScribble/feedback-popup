@@ -1,8 +1,16 @@
 # Todo
 
+# Functionality
+
+[ ] click to hide widget button and show on hover
+[ ] pass in custom position
+[ ] auto trigger button when an issue occurs?
+[ ] remove screenshot and just have feedback textare popup
+[ ] add custom content to text area (form/custom html/custom component)
+
 ## JS
 
-[ ] Migrate to TS
+[x] Migrate to TS
 [ ] Add tests
 [ ] Switch dependancies to UnJs modules if possible
 [ ] Make compatable to all frameworks
@@ -18,7 +26,7 @@
 
 ## HTML
 
-[ ] Can it be simplyfied? ( Removed altogher?? )
+[ ] Remove it and inject one element that others can hang off
 
 # NPM
 
