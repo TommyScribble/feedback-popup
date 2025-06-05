@@ -124,6 +124,33 @@ class FeedbackPopup {
         spinner.classList.toggle('loading', state === 'show');
     }
 
+    private _bindEvents(): void {
+        const buttonShow = this.elements.buttonShow?.querySelector('.widget__button');
+        if (!buttonShow) return;
+
+        buttonShow.addEventListener('click', () => {
+            this.showFeedbackModal();
+            this.createScreenshot();
+        });
+
+        if (!this.elements.content) return;
+        this.elements.content.addEventListener('click', (e: Event) => {
+            const target = e.target as HTMLElement;
+            if (target.matches('.js-feedback-popup-btn-cancel')) {
+                this.hideContentDiv();
+            }
+            if (target.matches('.js-feedback-post')) {
+                this.sendData();
+            }
+            if (target.matches('.js-feedback-OK')) {
+                if (this.elements.confirmation) {
+                    this.elements.confirmation.style.display = 'none';
+                }
+                this.hideContentDiv();
+            }
+        });
+    }
+
     public showConfirmation(): void {
         if (!this.elements.content) return;
         this.elements.content.innerHTML = this.templates.confirmation;
@@ -148,6 +175,7 @@ class FeedbackPopup {
                     this.createScreenshot();
                 } else if (canvas) {
                     screenshotContainer.removeChild(canvas);
+                    this.state.screenshot = null;
                 }
             });
         }
@@ -231,33 +259,6 @@ class FeedbackPopup {
         if (!this.elements.buttonShow) return;
         this.elements.buttonShow.innerHTML = this.templates.button;
         this._bindEvents();
-    }
-
-    private _bindEvents(): void {
-        const buttonShow = this.elements.buttonShow?.querySelector('.widget__button');
-        if (!buttonShow) return;
-
-        buttonShow.addEventListener('click', () => {
-            this.showFeedbackModal();
-            this.createScreenshot();
-        });
-
-        if (!this.elements.content) return;
-        this.elements.content.addEventListener('click', (e: Event) => {
-            const target = e.target as HTMLElement;
-            if (target.matches('.js-feedback-popup-btn-cancel')) {
-                this.hideContentDiv();
-            }
-            if (target.matches('.js-feedback-post')) {
-                this.sendData();
-            }
-            if (target.matches('.js-feedback-OK')) {
-                if (this.elements.confirmation) {
-                    this.elements.confirmation.style.display = 'none';
-                }
-                this.hideContentDiv();
-            }
-        });
     }
 }
 

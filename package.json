@@ -9,6 +9,7 @@
         "dev": "parcel src/index.html -p 3000",
         "build": "pnpm run clean && parcel build src/index.html --dist-dir dist --public-url . --no-source-maps",
         "clean": "rm -rf .parcel-cache dist",
+        "clean-feedback": "rm -rf feedback/*",
         "type-check": "tsc --noEmit"
     },
     "dependencies": {
