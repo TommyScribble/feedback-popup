@@ -3,7 +3,6 @@
 [![npm version][npm-badge]][npm]
 
 # Feedback Popup
-## This version (v2.0.4) contains breaking changes as it no longer sends using smtpjs.
 
 A simple to use popup for collecting feedback from users about issues with the site that they are using. It captures a screenshot of the user's browser, the user's OS and browser name + version, and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.
 
@@ -42,6 +41,9 @@ const feedbackPopup = new FeedbackPopup({
     placeholderText: 'Tell us what you think...',
     endpointUrl: 'https://your-api.com/feedback'
 });
+
+// Then run is by calling the init method
+feedbackPopup.init();
 ```
 
 ## Configuration Options
@@ -84,15 +86,6 @@ pnpm build
 
 MIT
 
-## New Features
-There are various ways that this plugin can be updated both in the code and in the UX. Some of my ideas are listed below. If you have requests then please repost an issue and I'll see what I can do
-### Code updates
-- Typescript
-- Testing
-- Update Gulp to version 4
-### Feature updates
-- Choice to use server or personal email endpoint
-
 
 ## Contributing
 
@@ -104,27 +97,21 @@ git@github.com:TommyScribble/feedback-popup.git
 
 ### Prerequisites
 
-[Node.js](http://nodejs.org/) =10.22.0 must be installed as this is currently using Gulp v3 for dev
+[Node.js](http://nodejs.org/) =22.14.0 must be installed. If you are using Volta this is already pinned.
 
 ### Installation
 
-- Running `yarn` in the app's root directory will install everything you need for development.
-- Rename indexOLD.js to index.js.
-- In src/index.js comment the code for the axios call & switch the `exports.module` to an `export default` by switching the comments at the bottom of the file
+- Running `pnpm i` in the app's root directory will install everything you need for development.
 
 ### Development Server
 
-- `yarn start` will run the app's development server at [http://localhost:3000](http://localhost:3000), automatically reloading the page on every JS change.
-- `yarn gulp` will proxy the server to [http://localhost:3001](http://localhost:3001), compile the SCSS and automatically reload the page on every SCSS change
+- `pnpm start` will run the app's development server at [http://localhost:3000](http://localhost:3000), automatically reloading the page on every JS change.
 
 ### Building
 
-- `node_modules/babel-cli/bin/babel.js src --out-dir lib` will transpile the js to es5 in the /lib folder.
-Then copy the styles folder into the /lib folder
+- `pnpn run build` will create a release build in the dist directory
 
-   To create a development build, set the `NODE_ENV` environment variable to `development` while running this command.
-
-- `yarn run clean` will delete built resources.
+- `pnpn run clean` will delete built resources.
 
 
 [npm-badge]: https://img.shields.io/npm/v/feedback-popup.png?style=flat-square
