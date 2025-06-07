@@ -18,6 +18,9 @@ importers:
       '@parcel/config-default':
         specifier: ^2.13.3
         version: 2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))(@swc/helpers@0.5.17)
+      '@parcel/packager-ts':
+        specifier: 2.15.2
+        version: 2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))
       '@parcel/transformer-css':
         specifier: ^2.10.3
         version: 2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))
@@ -29,6 +32,9 @@ importers:
         version: 2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))
       '@parcel/transformer-typescript-tsc':
         specifier: ^2.13.3
+        version: 2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))(typescript@5.8.3)
+      '@parcel/transformer-typescript-types':
+        specifier: 2.15.2
         version: 2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))(typescript@5.8.3)
       '@types/express':
         specifier: ^4.17.21
@@ -628,6 +634,10 @@ packages:
     resolution: {integrity: sha512-oTdoPl1mcJ0JeKPz5/ZZFlM+UM9YNsutRm8l6H2k6dcht2mbOt8e0OZQcRIiHmTcY8eEsF3bXmo/qXWB+PcihA==}
     engines: {node: '>= 16.0.0', parcel: ^2.15.2}
 
+  '@parcel/packager-ts@2.15.2':
+    resolution: {integrity: sha512-y69nPhsTzQ2C148JR8roLr2+ldUnq3e46A9uaVC05Vrlbqwkc/obJNU0u6tekbxEBKI7agA8YZPxYGOai1wOLg==}
+    engines: {node: '>= 16.0.0', parcel: ^2.15.2}
+
   '@parcel/packager-wasm@2.15.2':
     resolution: {integrity: sha512-LqDdXeC/cbjGc4qZjOJvpx4PmuQL0+kQVmO3AvnUIee+C2T2LgdTG7qhzJGJcihdvkvxZjKZI9fQgrjy9EFDuA==}
     engines: {node: '>=16.0.0', parcel: ^2.15.2}
@@ -787,6 +797,12 @@ packages:
 
   '@parcel/transformer-typescript-tsc@2.15.2':
     resolution: {integrity: sha512-YsTtFZkH+la27eKmwNDK1X99KFlBWLRe09Qzo8r2uQ9SeGw8yLhA2OdPCioYFnCjG6nVmtYk1tRei0nyORZtYg==}
+    engines: {node: '>= 16.0.0', parcel: ^2.15.2}
+    peerDependencies:
+      typescript: '>=3.0.0'
+
+  '@parcel/transformer-typescript-types@2.15.2':
+    resolution: {integrity: sha512-fEHw2ONaSPmWHCwtKx8MEc6zELDoAwxHoHFe0uhuMWBERkM2Ntgig7TEl8dQ0Y2UrQdOnPrJlsKu6TsPmr02+g==}
     engines: {node: '>= 16.0.0', parcel: ^2.15.2}
     peerDependencies:
       typescript: '>=3.0.0'
@@ -3609,6 +3625,13 @@ snapshots:
       - '@parcel/core'
       - napi-wasm
 
+  '@parcel/packager-ts@2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))':
+    dependencies:
+      '@parcel/plugin': 2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))
+    transitivePeerDependencies:
+      - '@parcel/core'
+      - napi-wasm
+
   '@parcel/packager-wasm@2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))':
     dependencies:
       '@parcel/plugin': 2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))
@@ -3876,6 +3899,19 @@ snapshots:
       '@parcel/plugin': 2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))
       '@parcel/source-map': 2.1.1
       '@parcel/ts-utils': 2.15.2(typescript@5.8.3)
+      typescript: 5.8.3
+    transitivePeerDependencies:
+      - '@parcel/core'
+      - napi-wasm
+
+  '@parcel/transformer-typescript-types@2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))(typescript@5.8.3)':
+    dependencies:
+      '@parcel/diagnostic': 2.15.2
+      '@parcel/plugin': 2.15.2(@parcel/core@2.15.2(@swc/helpers@0.5.17))
+      '@parcel/source-map': 2.1.1
+      '@parcel/ts-utils': 2.15.2(typescript@5.8.3)
+      '@parcel/utils': 2.15.2
+      nullthrows: 1.1.1
       typescript: 5.8.3
     transitivePeerDependencies:
       - '@parcel/core'
