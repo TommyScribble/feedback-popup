@@ -10,7 +10,9 @@
         "build": "pnpm run clean && parcel build src/index.html --dist-dir dist --public-url . --no-source-maps",
         "clean": "rm -rf .parcel-cache dist",
         "clean-feedback": "rm -rf feedback/*",
-        "type-check": "tsc --noEmit"
+        "type-check": "tsc --noEmit",
+        "test": "jest",
+        "test:watch": "jest --watch"
     },
     "dependencies": {
         "html2canvas": "^1.4.1",
@@ -23,17 +25,22 @@
         "@parcel/transformer-postcss": "^2.14.4",
         "@parcel/transformer-typescript-tsc": "^2.13.3",
         "@types/express": "^4.17.21",
+        "@types/jest": "^29.5.12",
         "@types/node": "^20.11.24",
         "body-parser": "^2.2.0",
         "concurrently": "^8.2.2",
         "cors": "^2.8.5",
         "eslint": "^9.21.0",
         "express": "^5.1.0",
+        "identity-obj-proxy": "^3.0.0",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
         "parcel": "^2.14.4",
         "postcss": "^8.5.3",
         "postcss-custom-properties": "^14.0.4",
         "postcss-import": "^16.1.0",
         "postcss-nesting": "^13.0.1",
+        "ts-jest": "^29.1.2",
         "typescript": "^5.8.3"
     },
     "author": "Tommy Scribble",

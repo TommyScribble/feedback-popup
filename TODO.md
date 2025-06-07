@@ -7,11 +7,12 @@
 [ ] auto trigger button when an issue occurs?
 [ ] remove screenshot and just have feedback textare popup
 [ ] add custom content to text area (form/custom html/custom component)
+[ ] custom error message using using the confirmation dialogue
 
 ## JS
 
 [x] Migrate to TS
-[ ] Add tests
+[x] Add tests
 [ ] Switch dependancies to UnJs modules if possible
 [ ] Make compatable to all frameworks
 [ ] Submit to UnJs

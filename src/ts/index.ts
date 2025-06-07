@@ -249,7 +249,7 @@ class FeedbackPopup {
             this.showConfirmation();
         } catch (error) {
             console.error('Failed to send feedback:', error);
-            alert('Failed to send feedback. Please try again.');
+            alert('Failed to send feedback. Please try again.'); // should show a custom error popup
         } finally {
             this._updateSpinner('hide');
         }
