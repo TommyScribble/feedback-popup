@@ -4,6 +4,14 @@
     "description": "A simple to use popup for collecting feedback from users about issues with the site that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.",
     "private": false,
     "source": "src/index.html",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
     "scripts": {
         "start": "concurrently \"pnpm run dev\" \"node server.js\"",
         "dev": "parcel src/index.html -p 3000",
@@ -12,8 +20,17 @@
         "clean-feedback": "rm -rf feedback/*",
         "type-check": "tsc --noEmit",
         "test": "jest",
-        "test:watch": "jest --watch"
+        "test:watch": "jest --watch",
+        "prepare": "pnpm run build"
     },
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "sideEffects": false,
     "dependencies": {
         "html2canvas": "^1.4.1",
         "ua-parser-js": "^2.0.3"

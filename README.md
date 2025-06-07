@@ -5,7 +5,7 @@
 # Feedback Popup
 ## This version (v2.0.4) contains breaking changes as it no longer sends using smtpjs.
 
-A simple to use popup for collecting feedback from users about issues with the site that they are using. Currently it captures a screenshot of the page the user is browsing, the users OS and browser name + versions and also a personal message from the user. It then sends all data to an API.
+A simple to use popup for collecting feedback from users about issues with the site that they are using. It captures a screenshot of the user's browser, the user's OS and browser name + version, and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.
 
 More features to come!
 
@@ -18,51 +18,71 @@ More features to come!
 
 ## Installation
 
-To use the popup in your project run 
-
-```sh
+```bash
+npm install feedback-popup
+# or
 yarn add feedback-popup
+# or
+pnpm add feedback-popup
 ```
-
-
 
 ## Usage
 
-Import the popup into your project, create a new instance of it and then call the WidgetButton method on it.
-
 ```javascript
-import FeedbackPopup from 'feedback-popup';
+import { FeedbackPopup } from 'feedback-popup';
 
-var newFeedbackPopup = new FeedbackPopup(widgetTitle, title, snapshotBody, placeholderText, emailEndpoint);
+// Initialize with default configuration
+const feedbackPopup = new FeedbackPopup();
 
-newFeedbackPopup.buttonWidget();
+// Or with custom configuration
+const feedbackPopup = new FeedbackPopup({
+    widgetTitle: 'Send Feedback',
+    title: 'Help Us Improve',
+    snapshotBodyId: '#main-body',
+    placeholderText: 'Tell us what you think...',
+    endpointUrl: 'https://your-api.com/feedback'
+});
 ```
 
-#### Parameters in plain english are
+## Configuration Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| widgetTitle | string | 'Feedback' | The title shown on the feedback button |
+| title | string | 'Send Feedback' | The title of the feedback popup |
+| snapshotBodyId | string | '#main-body' | CSS selector for the element to capture in the screenshot |
+| placeholderText | string | 'Enter your feedback here...' | Placeholder text for the feedback textarea |
+| endpointUrl | string | 'http://localhost:3005/api/feedback' | API endpoint to send feedback to |
+
+## API
+
+### Methods
+
+- `init()`: Initialize the feedback popup
+- `showFeedbackModal()`: Show the feedback popup
+- `hideContentDiv()`: Hide the feedback popup
+- `createScreenshot()`: Create a screenshot of the current page
+- `sendData()`: Send feedback data to the configured endpoint
+
+## Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm start
+
+# Run tests
+pnpm test
+
+# Build for production
+pnpm build
 ```
-"Widget button title", "Header welcome message", "div-id-to-screenshot", "Text area placeholder text", "API URL"
-```
 
-Also make sure to add the html below to the component or page that you want the popup to appear on
+## License
 
-```html
-  <div class="feedback-popup js-feedback-popup" data-html2canvas-ignore="true">
-    <div class="js-feedback-popup-btn-show"></div>
-    <div class="js-feedback-popup-content"></div>
-    <div class="js-feedback-popup-confirmation"></div>
-  </div>
-```
-
-If you want to use the styles included with this project be sure to import the main.scss file into your main stylesheet.
-
-### Collecting the info from the popup
-
-The popup now sends an object using axios to the URL of you chosen API. The object sent includes the below keys:
-
-userPlatform  
-userFeedback  
-screenshotIncluded  
-userScreenshot  
+MIT
 
 ## New Features
 There are various ways that this plugin can be updated both in the code and in the UX. Some of my ideas are listed below. If you have requests then please repost an issue and I'll see what I can do
