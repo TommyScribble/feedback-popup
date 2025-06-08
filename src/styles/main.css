@@ -5,15 +5,29 @@
 @import url("./spinner.css");
 
 html {
-	font-family: var(--sans-serif-stack);
+
 	box-sizing: border-box;
+	scroll-behavior: smooth;
+
+	* {
+		box-sizing: border-box;
+	}
 }
 
 *,
 *:before,
 *:after {
-	box-sizing: border-box;
+	box-sizing: inherit;
 }
+
+html,
+body {
+	font-family: var(--sans-serif-stack);
+	-webkit-font-smoothing: antialiased;
+	color: var(--text-color);
+	
+}
+
 
 .feedback-popup .widget__container {
 	background-color: transparent;
