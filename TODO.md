@@ -13,10 +13,12 @@
 
 [x] Migrate to TS
 [x] Add tests
+[ ] Add test watcher
 [ ] Switch dependancies to UnJs modules if possible
 [ ] Make compatable to all frameworks
 [ ] Submit to UnJs
 [ ] enable on a specific new feature that feedback is needed for
+
 
 ## CSS
 
