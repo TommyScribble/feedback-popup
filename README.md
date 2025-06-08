@@ -85,13 +85,7 @@ pnpm build
 MIT
 
 ## New Features
-There are various ways that this plugin can be updated both in the code and in the UX. Some of my ideas are listed below. If you have requests then please repost an issue and I'll see what I can do
-### Code updates
-- Typescript
-- Testing
-- Update Gulp to version 4
-### Feature updates
-- Choice to use server or personal email endpoint
+There is a [TODO.md](./TODO.md) with the current plan of new features, updates etc... that are being checked off as I get to them. Submit a PR if you want to add any suggestions.
 
 
 ## Contributing
@@ -114,17 +108,33 @@ git@github.com:TommyScribble/feedback-popup.git
 
 ### Development Server
 
-- `yarn start` will run the app's development server at [http://localhost:3000](http://localhost:3000), automatically reloading the page on every JS change.
+- `yarn start` will run the app's development server at [http://localhost:3000](http://localhost:3000) and a devlopment API at [http://localhost:3005](http://localhost:3005), automatically reloading the page on every JS change.
 - `yarn gulp` will proxy the server to [http://localhost:3001](http://localhost:3001), compile the SCSS and automatically reload the page on every SCSS change
+
+### Dev API
+
+This api sends the body of the request to the `feedback` folder. This is excluded by the gitignore and will be generated if it doesnt exist. To clean the folder run 
+
+```shell
+    pnpm run clean-fedback
+```
+
+### Testing
+
+Jest is used to test all functionality. To run all the tests run 
+```shell
+    pnpm run test
+```
 
 ### Building
 
-- `node_modules/babel-cli/bin/babel.js src --out-dir lib` will transpile the js to es5 in the /lib folder.
-Then copy the styles folder into the /lib folder
+To test builds locally run
 
-   To create a development build, set the `NODE_ENV` environment variable to `development` while running this command.
+```shell
+    pnpm run build
+```
 
-- `yarn run clean` will delete built resources.
+This will build the output to the dist directory
 
 
 [npm-badge]: https://img.shields.io/npm/v/feedback-popup.png?style=flat-square
