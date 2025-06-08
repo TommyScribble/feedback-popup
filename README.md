@@ -86,6 +86,9 @@ pnpm build
 
 MIT
 
+## New Features
+There is a [TODO.md](./TODO.md) with the current plan of new features, updates etc... that are being checked off as I get to them. Submit a PR if you want to add any suggestions.
+
 
 ## Contributing
 
@@ -105,12 +108,33 @@ git@github.com:TommyScribble/feedback-popup.git
 
 ### Development Server
 
-- `pnpm start` will run the app's development server at [http://localhost:3000](http://localhost:3000), automatically reloading the page on every JS change.
+- `yarn start` will run the app's development server at [http://localhost:3000](http://localhost:3000) and a devlopment API at [http://localhost:3005](http://localhost:3005), automatically reloading the page on every JS change.
+- `yarn gulp` will proxy the server to [http://localhost:3001](http://localhost:3001), compile the SCSS and automatically reload the page on every SCSS change
+
+### Dev API
+
+This api sends the body of the request to the `feedback` folder. This is excluded by the gitignore and will be generated if it doesnt exist. To clean the folder run 
+
+```shell
+    pnpm run clean-fedback
+```
+
+### Testing
+
+Jest is used to test all functionality. To run all the tests run 
+```shell
+    pnpm run test
+```
 
 ### Building
 
-- `pnpn run build` will create a release build in the dist directory
+To test builds locally run
 
+```shell
+    pnpm run build
+```
+
+This will build the output to the dist directory
 - `pnpn run clean` will delete built resources.
 
 
