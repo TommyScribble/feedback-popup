@@ -32,4 +32,4 @@
 
 # NPM
 
-[ ] update package number to a major
+[x] update package number to a major
