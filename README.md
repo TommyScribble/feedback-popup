@@ -12,6 +12,9 @@ More features to come!
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Configuration Options](#configuration-options)
+- [API](#api)
+- [Development](#development)
 - [New-Features](#new-features)
 - [Contributing](#contributing)
 
@@ -108,8 +111,7 @@ git@github.com:TommyScribble/feedback-popup.git
 
 ### Development Server
 
-- `yarn start` will run the app's development server at [http://localhost:3000](http://localhost:3000) and a devlopment API at [http://localhost:3005](http://localhost:3005), automatically reloading the page on every JS change.
-- `yarn gulp` will proxy the server to [http://localhost:3001](http://localhost:3001), compile the SCSS and automatically reload the page on every SCSS change
+- `pnpm start` will run the app's development server at [http://localhost:3000](http://localhost:3000) and a devlopment API at [http://localhost:3005](http://localhost:3005), automatically reloading the page on every JS change.
 
 ### Dev API
 
@@ -134,8 +136,12 @@ To test builds locally run
     pnpm run build
 ```
 
-This will build the output to the dist directory
-- `pnpn run clean` will delete built resources.
+This will first delete and then build the output to the dist directory
+
+```shell
+pnpn run clean
+```
+will delete built resources.
 
 
 [npm-badge]: https://img.shields.io/npm/v/feedback-popup.png?style=flat-square
