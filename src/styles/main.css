@@ -5,7 +5,6 @@
 @import url("./spinner.css");
 
 html {
-
 	box-sizing: border-box;
 	scroll-behavior: smooth;
 
@@ -25,7 +24,7 @@ body {
 	font-family: var(--sans-serif-stack);
 	-webkit-font-smoothing: antialiased;
 	color: var(--text-color);
-	
+	font-size: 10px;
 }
 
 
@@ -37,8 +36,8 @@ body {
 	position: fixed;
 	bottom: 0;
 	right: 8%;
-	width: 136px;
-	min-height: 25px;
+	width: 13.6rem;
+	min-height: 2.55rem;
 }
 
 .feedback-popup .widget__container .widget__container-inner .widget__button {
@@ -51,7 +50,7 @@ body {
 	color: var(--white);
 	font-size: var(--font-size--widget);
 	cursor: pointer;
-	padding: 12px 18px;
+	padding: 1.22rem 1.8rem;
 
 	&:hover {
 		background-color: var(--hover-color);
@@ -80,8 +79,8 @@ body {
 
 .feedback-popup .feedback__container .feedback__container--inner {
 	background-color: var(--white);
-	width: 324px;
-	max-height: calc(100% - 100px);
+	width: 32.4rem;
+	max-height: calc(100% - 10rem);
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -89,30 +88,34 @@ body {
 	overflow: scroll;
 
 	@media screen and (max-width: 575px) {
-		max-height: calc(100% - 8px);
+		max-height: calc(100% - 8rem);
 	}
 }
 
 .feedback-popup .feedback__container .feedback__container--inner .feedback__header {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
 	background-color: var(--brand-color);
-	height: 50px;
+	height: 5rem;
 	width: 100%;
-	padding: 9px;
+	padding: 0 1.5rem;
+
 
 	h1 {
 		color: var(--white);
 		font-size: var(--font-size--header);
 		font-weight: 400;
-		line-height: 1.8em;
+		line-height: 2.2rem;
 		margin: 0;
 	}
 }
 
 .feedback-popup .feedback__container .feedback__container--inner .feedback__textarea {
 	background-color: var(--white);
-	height: 210px;
+	height: 21rem;
 	width: 100%;
-	padding: 10px 9px;
+	padding: 1rem 0.9rem;
 
 	textarea {
 		border: none;
@@ -141,17 +144,17 @@ body {
 .feedback-popup .feedback__container .feedback__container--inner .feedback__add-screenshot {
 	background-color: var(--secondary-color);
 	color: var(--white);
-	font-size: 15px;
+	font-size: 1.5rem;
 	font-weight: 300;
-	padding: 9px;
-	height: 37px;
+	padding: 0.9rem;
+	height: 3.7rem;
 	width: 100%;
 }
 
 .feedback-popup .feedback__container .feedback__container--inner .feedback__screenshot {
 	position: relative;
 	background-color: var(--cotton-seed);
-	height: 190px;
+	height: 19rem;
 	overflow: scroll;
 
 	canvas {
@@ -162,7 +165,7 @@ body {
 
 .feedback-popup .feedback__container .feedback__container--inner .feedback__confirm {
 	background-color: var(--white);
-	padding: 9px;
+	padding: 0.9rem;
 	text-align: right;
 
 	ul {
@@ -178,11 +181,11 @@ body {
 
 
 .feedback-popup .feedback__container .feedback-popup__confirmation-inner {
-	width: 303px;
-	height: 113px;
+	width: 30.3rem;
+	height: 11.3rem;
 	background-color: var(--white);
-	padding: 25px 30px;
-	max-height: calc(100% - 100px);
+	padding: 2.5rem 3rem;
+	max-height: calc(100% - 10rem);
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -193,7 +196,7 @@ body {
 	.thank-you {
 		font-size: var(--font-size--text);
 		color: var(--text-color);
-		margin: 0 0 20px 0;
+			margin: 0 0 2rem 0;
 
 		a {
 			color: var(--link-color);

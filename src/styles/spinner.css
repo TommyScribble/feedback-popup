@@ -6,10 +6,10 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 25px;
-	height: 25px;
+	width: 2.5rem;
+	height: 2.5rem;
 	border-radius: 50%;
-	border: 3px solid var(--white);
+	border: 0.3rem solid var(--white);
 	border-color: var(--pomegranate) transparent;
 }
 

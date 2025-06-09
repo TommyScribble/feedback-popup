@@ -26,7 +26,7 @@
 [x] Check variables and colors for issues and dupes
 [x] Rewrite main coz its shit
 [x] Check over all files (variables etc...)
-[ ] Migrate from px to rem
+[x] Migrate from px to rem
 
 ## HTML
 
