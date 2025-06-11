@@ -452,32 +452,3 @@ describe('FeedbackPopup', () => {
         });
     });
 }); 
-
-/*
-
-- Widget
-    - Should render with correct title
-    - Should render in correct position
-    - When its clicked it should open the popup and dissapear
-    - When the popup is closed the widget should reappear   
-
-- Popup
-    - Should render in correct position
-    - Should render with correct title
-    - render textarea with correct placeholder
-    - render checkbox with correct label
-    - Checkbox should be checked by default
-        - When the checkbox is checked the screenshot should be added to state
-        - When the checkbox is unchecked the screenshot should be removed from state
-    - render cancel button with correct label
-        - clicking the cancel button should close the popup and reset state
-    - render submit button with correct label
-        - Should send the corrrect data shape
-        - Should always send the user message and users details
-        - If checkbox checked should send the screenshot
-        - If checkbox unchecked should not send the screenshot
-        - when message is sent succesfully it should show the success message dialogue
-        - When you close the success dialogue it should close and the widget should appear
-        - when a message is ot sent successfully it should show the error dialogue
-        - When you close the error dialogue it should close and the widget should appear
-    */
