@@ -25,6 +25,7 @@ class FeedbackPopup {
     private state: State;
     private elements: ContainerElements;
     private templates: Templates;
+    private isSubmitting: boolean = false;
 
     constructor(config: FeedbackPopupConfig) {
         this.config = {
@@ -215,23 +216,25 @@ class FeedbackPopup {
     }
 
     public async sendData(): Promise<void> {
+        if (this.isSubmitting) return;
         const canvas = this.state.screenshot;
         const textarea = document.getElementById('textarea') as HTMLTextAreaElement;
         if (!textarea || !window) return;
-        
         const userFeedback = textarea.value;
+        if (!userFeedback || userFeedback.trim() === '') {
+            alert('Please enter your feedback before submitting.');
+            return;
+        }
+        this.isSubmitting = true;
         const platform = UAParser(window.navigator.userAgent);
-        
         const data = {
             userPlatform: platform,
             userFeedback,
             screenshotIncluded: canvas ? 'Included' : 'Not Included',
             userScreenshot: canvas ? canvas.toDataURL('image/png', 1.0).split(',')[1] : null
         };
-
         try {
             this._updateSpinner('show');
-            
             const response = await fetch(this.config.endpointUrl || '', {
                 method: 'POST',
                 headers: {
@@ -239,19 +242,18 @@ class FeedbackPopup {
                 },
                 body: JSON.stringify(data)
             });
-
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
             const result = await response.json();
             console.log('Success:', result);
             this.showConfirmation();
         } catch (error) {
             console.error('Failed to send feedback:', error);
-            alert('Failed to send feedback. Please try again.'); // should show a custom error popup
+            alert('Failed to send feedback. Please try again.');
         } finally {
             this._updateSpinner('hide');
+            this.isSubmitting = false;
         }
     }
 
@@ -262,7 +264,4 @@ class FeedbackPopup {
     }
 }
 
-// swicth comments below for local dev
 export default FeedbackPopup;
-
-// module.exports = FeedbackPopup;
