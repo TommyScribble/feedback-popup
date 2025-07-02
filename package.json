@@ -3,9 +3,7 @@
     "version": "3.0.0",
     "description": "A simple to use popup for collecting feedback from users about issues with the site that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.",
     "private": false,
-    "source": "src/index.html",
-    "main": "src/index.js",
-    "module": "dist/index.js",
+    "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
         "dist",
@@ -21,13 +19,14 @@
         "clean-feedback": "rm -rf feedback/*",
         "type-check": "tsc --noEmit",
         "test:watch": "jest --watch",
-        "prepare": "pnpm run build"
+        "prepare": "pnpm run build",
+        "prepublishOnly": "pnpm run test && pnpm run type-check"
     },
     "exports": {
         ".": {
-            "import": "./dist/esm/index.js",
-            "require": "./dist/cjs/index.js",
-            "types": "./dist/types/index.d.ts"
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
         }
     },
     "sideEffects": false,
@@ -62,21 +61,35 @@
         "ts-jest": "^29.1.2",
         "typescript": "^5.8.3"
     },
-    "author": "Tommy Scribble",
-    "email": "tommy@scribbledesign.co.uk",
+    "author": {
+        "name": "Tommy Scribble",
+        "email": "tommy@scribbledesign.co.uk",
+        "url": "https://github.com/TommyScribble"
+    },
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+git@github.com:TommyScribble/feedback-popup.git"
+        "url": "git+https://github.com/TommyScribble/feedback-popup.git"
     },
-    "homepage": "github.com/TommyScribble/feedback-popup.git#readme",
+    "bugs": {
+        "url": "https://github.com/TommyScribble/feedback-popup/issues"
+    },
+    "homepage": "https://github.com/TommyScribble/feedback-popup#readme",
     "keywords": [
         "feedback",
         "popup",
         "screenshot",
         "user-feedback",
-        "bug-report"
+        "bug-report",
+        "typescript",
+        "javascript",
+        "browser",
+        "ui",
+        "ux"
     ],
+    "engines": {
+        "node": ">=14.0.0"
+    },
     "volta": {
         "node": "22.14.0"
     }
