@@ -20,7 +20,14 @@
         "clean": "rm -rf lib .parcel-cache dist",
         "prepublishOnly": "pnpm run build:all",
         "publish:npm": "pnpm run build:all && npm publish",
-        "test": "jest"
+        "test": "jest",
+        "release": "np",
+        "release:patch": "np patch",
+        "release:minor": "np minor",
+        "release:major": "np major",
+        "release:beta": "np prerelease --tag=beta",
+        "release:preview": "np --preview",
+        "release:any-branch": "np --any-branch"
     },
     "dependencies": {
         "html2canvas": "^1.4.1",
@@ -41,6 +48,7 @@
         "identity-obj-proxy": "^3.0.0",
         "jest": "^29.7.0",
         "jest-environment-jsdom": "^29.7.0",
+        "np": "^10.0.0",
         "parcel": "^2.16.0",
         "postcss": "^8.2.1",
         "ts-jest": "^29.3.4",
