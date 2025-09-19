@@ -11,9 +11,9 @@
         "LICENSE"
     ],
     "scripts": {
-        "start": "parcel src/index.html -p 3000",
-        "build": "parcel build src/index.html --public-url '.'",
-        "clean": "rm -rf lib",
+        "start": "parcel src/index.html -p 3000 --target app",
+        "build": "pnpm run clean && parcel build src/index.html --public-url '.' --target app",
+        "clean": "rm -rf lib .parcel-cache",
         "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files",
         "test": "jest"
     },
@@ -22,8 +22,20 @@
         "ua-parser-js": "^2.0.3"
     },
     "devDependencies": {
+        "@parcel/config-default": "^2.16.0",
+        "@parcel/transformer-css": "^2.16.0",
+        "@parcel/transformer-html": "^2.16.0",
+        "@parcel/transformer-postcss": "^2.16.0",
+        "@parcel/transformer-typescript-tsc": "^2.16.0",
+        "@types/jest": "^29.5.14",
         "eslint": "^9.21.0",
-        "parcel": "^2.13.3"
+        "identity-obj-proxy": "^3.0.0",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "parcel": "^2.16.0",
+        "postcss": "^8.2.1",
+        "ts-jest": "^29.3.4",
+        "typescript": "^5.8.3"
     },
     "author": {
         "name": "Tommy Scribble",
@@ -53,6 +65,12 @@
     ],
     "engines": {
         "node": ">=14.0.0"
+    },
+    "targets": {
+        "app": {
+            "context": "browser",
+            "publicUrl": "."
+        }
     },
     "volta": {
         "node": "22.14.0"
