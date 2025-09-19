@@ -1,43 +1,59 @@
 {
     "name": "feedback-popup",
-    "version": "2.0.5",
+    "version": "3.0.0",
     "description": "A simple to use popup for collecting feedback from users about issues with the site that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.",
     "private": false,
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
     "scripts": {
-        "start": "concurrently \"pnpm run dev\" \"pnpm run server\"",
-        "dev": "parcel serve src/index.html -p 3000",
+        "start": "parcel src/index.html -p 3000",
         "build": "parcel build src/index.html --public-url '.'",
-        "clean": "rm -rf dist .parcel-cache",
-        "server": "node server.js",
-        "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files"
+        "clean": "rm -rf lib",
+        "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files",
+        "test": "jest"
     },
     "dependencies": {
-        "html2canvas-pro": "^1.5.8",
-        "ua-parser-js": "^2.0.2"
+        "html2canvas": "^1.4.1",
+        "ua-parser-js": "^2.0.3"
     },
     "devDependencies": {
-        "concurrently": "^9.2.1",
-        "cors": "^2.8.5",
         "eslint": "^9.21.0",
-        "express": "^5.1.0",
         "parcel": "^2.13.3"
     },
-    "author": "Tommy Scribble",
-    "email": "tommy@scribbledesign.co.uk",
+    "author": {
+        "name": "Tommy Scribble",
+        "email": "tommy@scribbledesign.co.uk",
+        "url": "https://github.com/TommyScribble"
+    },
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+git@github.com:TommyScribble/feedback-popup.git"
+        "url": "git+https://github.com/TommyScribble/feedback-popup.git"
+    },
+    "bugs": {
+        "url": "https://github.com/TommyScribble/feedback-popup/issues"
     },
     "homepage": "github.com/TommyScribble/feedback-popup.git#readme",
     "keywords": [
         "feedback",
         "popup",
-        "widget",
         "screenshot",
-        "platform",
-        "html2canvas"
+        "user-feedback",
+        "bug-report",
+        "typescript",
+        "javascript",
+        "browser",
+        "ui",
+        "ux"
     ],
+    "engines": {
+        "node": ">=14.0.0"
+    },
     "volta": {
         "node": "22.14.0"
     }

@@ -2,19 +2,26 @@
 
 
 /* text color helpers */
-.white {color: var(--white) !important}
-.black {color: var(--text-color) !important}
-.brand {color: var(--brand-color) !important}
+.white {
+  color: var(--white);
+}
+
+.black {
+  color: var(--text-color);
+}
+
+.brand {
+  color: var(--brand-color);
+}
 
 /* bg color helpers */
 .bg-black {
-  background-color: var(--black) !important;
+  background-color: var(--black);
   color: var(--white);
-
 }
 
 .bg-white {
-  background-color: var(--white) !important;
+  background-color: var(--white);
   color: var(--black);
 }
 

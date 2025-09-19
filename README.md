@@ -3,9 +3,8 @@
 [![npm version][npm-badge]][npm]
 
 # Feedback Popup
-## This version (v2.0.4) contains breaking changes as it no longer sends using smtpjs.
 
-A simple to use popup for collecting feedback from users about issues with the site that they are using. Currently it captures a screenshot of the page the user is browsing, the users OS and browser name + versions and also a personal message from the user. It then sends all data to an API.
+A simple to use popup for collecting feedback from users about issues with the site that they are using. It captures a screenshot of the user's browser, the user's OS and browser name + version, and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.
 
 More features to come!
 
@@ -13,65 +12,85 @@ More features to come!
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Configuration Options](#configuration-options)
+- [API](#api)
+- [Development](#development)
 - [New-Features](#new-features)
 - [Contributing](#contributing)
 
 ## Installation
 
-To use the popup in your project run 
-
-```sh
+```bash
+npm install feedback-popup
+# or
 yarn add feedback-popup
+# or
+pnpm add feedback-popup
 ```
-
-
 
 ## Usage
 
-Import the popup into your project, create a new instance of it and then call the WidgetButton method on it.
-
 ```javascript
-import FeedbackPopup from 'feedback-popup';
+import { FeedbackPopup } from 'feedback-popup';
 
-var newFeedbackPopup = new FeedbackPopup(widgetTitle, title, snapshotBody, placeholderText, emailEndpoint);
+// Initialize with default configuration
+const feedbackPopup = new FeedbackPopup();
 
-newFeedbackPopup.buttonWidget();
+// Or with custom configuration
+const feedbackPopup = new FeedbackPopup({
+    widgetTitle: 'Send Feedback',
+    title: 'Help Us Improve',
+    snapshotBodyId: '#main-body',
+    placeholderText: 'Tell us what you think...',
+    endpointUrl: 'https://your-api.com/feedback'
+});
+
+// Then run is by calling the init method
+feedbackPopup.init();
 ```
 
-#### Parameters in plain english are
+## Configuration Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| widgetTitle | string | 'Feedback' | The title shown on the feedback button |
+| title | string | 'Send Feedback' | The title of the feedback popup |
+| snapshotBodyId | string | '#main-body' | CSS selector for the element to capture in the screenshot |
+| placeholderText | string | 'Enter your feedback here...' | Placeholder text for the feedback textarea |
+| endpointUrl | string | 'http://localhost:3005/api/feedback' | API endpoint to send feedback to |
+
+## API
+
+### Methods
+
+- `init()`: Initialize the feedback popup
+- `showFeedbackModal()`: Show the feedback popup
+- `hideContentDiv()`: Hide the feedback popup
+- `createScreenshot()`: Create a screenshot of the current page
+- `sendData()`: Send feedback data to the configured endpoint
+
+## Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm start
+
+# Run tests
+pnpm test
+
+# Build for production
+pnpm build
 ```
-"Widget button title", "Header welcome message", "div-id-to-screenshot", "Text area placeholder text", "API URL"
-```
 
-Also make sure to add the html below to the component or page that you want the popup to appear on
+## License
 
-```html
-  <div class="feedback-popup js-feedback-popup" data-html2canvas-ignore="true">
-    <div class="js-feedback-popup-btn-show"></div>
-    <div class="js-feedback-popup-content"></div>
-    <div class="js-feedback-popup-confirmation"></div>
-  </div>
-```
-
-If you want to use the styles included with this project be sure to import the main.scss file into your main stylesheet.
-
-### Collecting the info from the popup
-
-The popup now sends an object using axios to the URL of you chosen API. The object sent includes the below keys:
-
-userPlatform  
-userFeedback  
-screenshotIncluded  
-userScreenshot  
+MIT
 
 ## New Features
-There are various ways that this plugin can be updated both in the code and in the UX. Some of my ideas are listed below. If you have requests then please repost an issue and I'll see what I can do
-### Code updates
-- Typescript
-- Testing
-- Update Gulp to version 4
-### Feature updates
-- Choice to use server or personal email endpoint
+There is a [TODO.md](./TODO.md) with the current plan of new features, updates etc... that are being checked off as I get to them. Submit a PR if you want to add any suggestions.
 
 
 ## Contributing
@@ -84,27 +103,45 @@ git@github.com:TommyScribble/feedback-popup.git
 
 ### Prerequisites
 
-[Node.js](http://nodejs.org/) =10.22.0 must be installed as this is currently using Gulp v3 for dev
+[Node.js](http://nodejs.org/) =22.14.0 must be installed. If you are using Volta this is already pinned.
 
 ### Installation
 
-- Running `yarn` in the app's root directory will install everything you need for development.
-- Rename indexOLD.js to index.js.
-- In src/index.js comment the code for the axios call & switch the `exports.module` to an `export default` by switching the comments at the bottom of the file
+- Running `pnpm i` in the app's root directory will install everything you need for development.
 
 ### Development Server
 
-- `yarn start` will run the app's development server at [http://localhost:3000](http://localhost:3000), automatically reloading the page on every JS change.
-- `yarn gulp` will proxy the server to [http://localhost:3001](http://localhost:3001), compile the SCSS and automatically reload the page on every SCSS change
+- `pnpm start` will run the app's development server at [http://localhost:3000](http://localhost:3000) and a devlopment API at [http://localhost:3005](http://localhost:3005), automatically reloading the page on every JS change.
+
+### Dev API
+
+This api sends the body of the request to the `feedback` folder. This is excluded by the gitignore and will be generated if it doesnt exist. To clean the folder run 
+
+```shell
+    pnpm run clean-fedback
+```
+
+### Testing
+
+Jest is used to test all functionality. To run all the tests run 
+```shell
+    pnpm run test
+```
 
 ### Building
 
-- `node_modules/babel-cli/bin/babel.js src --out-dir lib` will transpile the js to es5 in the /lib folder.
-Then copy the styles folder into the /lib folder
+To test builds locally run
 
-   To create a development build, set the `NODE_ENV` environment variable to `development` while running this command.
+```shell
+    pnpm run build
+```
 
-- `yarn run clean` will delete built resources.
+This will first delete and then build the output to the dist directory
+
+```shell
+pnpn run clean
+```
+will delete built resources.
 
 
 [npm-badge]: https://img.shields.io/npm/v/feedback-popup.png?style=flat-square
