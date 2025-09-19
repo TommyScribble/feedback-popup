@@ -59,7 +59,7 @@
     "bugs": {
         "url": "https://github.com/TommyScribble/feedback-popup/issues"
     },
-    "homepage": "github.com/TommyScribble/feedback-popup.git#readme",
+    "homepage": "https://github.com/TommyScribble/feedback-popup#readme",
     "keywords": [
         "feedback",
         "popup",
@@ -72,6 +72,7 @@
         "ui",
         "ux"
     ],
+    "sideEffects": false,
     "engines": {
         "node": ">=14.0.0"
     },
