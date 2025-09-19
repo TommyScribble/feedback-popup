@@ -4,9 +4,11 @@
     "description": "A simple to use popup for collecting feedback from users about issues with the site that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.",
     "private": false,
     "scripts": {
-        "start": "parcel src/index.html -p 3000",
+        "start": "concurrently \"pnpm run dev\" \"pnpm run server\"",
+        "dev": "parcel serve src/index.html -p 3000",
         "build": "parcel build src/index.html --public-url '.'",
-        "clean": "rm -rf lib",
+        "clean": "rm -rf dist .parcel-cache",
+        "server": "node server.js",
         "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files"
     },
     "dependencies": {
@@ -14,7 +16,10 @@
         "ua-parser-js": "^2.0.2"
     },
     "devDependencies": {
+        "concurrently": "^9.2.1",
+        "cors": "^2.8.5",
         "eslint": "^9.21.0",
+        "express": "^5.1.0",
         "parcel": "^2.13.3"
     },
     "author": "Tommy Scribble",
@@ -25,7 +30,6 @@
         "url": "git+git@github.com:TommyScribble/feedback-popup.git"
     },
     "homepage": "github.com/TommyScribble/feedback-popup.git#readme",
-    "main": "lib/js/index.js",
     "keywords": [
         "feedback",
         "popup",
