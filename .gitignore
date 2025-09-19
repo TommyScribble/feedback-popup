@@ -28,7 +28,7 @@ yarn-error.log*
 *.swo
 
 # Build
-.parcel-cache
+.parcel-cache/*
 .cache/
 
 # Local server testing
