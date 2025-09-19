@@ -3,8 +3,8 @@
     "version": "3.0.0",
     "description": "A simple to use popup for collecting feedback from users about issues with the site that they are using. Currently it captures a screenshot of the users browser, the users OS and browser name + version and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.",
     "private": false,
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "dist/library.js",
+    "types": "dist/library.d.ts",
     "files": [
         "dist",
         "README.md",
@@ -15,8 +15,11 @@
         "api": "node server.js",
         "dev": "concurrently \"pnpm run api\" \"pnpm start\"",
         "build": "pnpm run clean && parcel build src/index.html --public-url '.' --target app",
-        "clean": "rm -rf lib .parcel-cache",
-        "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --copy-files",
+        "build:lib": "pnpm run clean && tsc --project tsconfig.lib.json",
+        "build:all": "pnpm run build && pnpm run build:lib",
+        "clean": "rm -rf lib .parcel-cache dist",
+        "prepublishOnly": "pnpm run build:all",
+        "publish:npm": "pnpm run build:all && npm publish",
         "test": "jest"
     },
     "dependencies": {
