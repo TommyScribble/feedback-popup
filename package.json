@@ -41,7 +41,7 @@
         "@parcel/transformer-postcss": "^2.16.0",
         "@parcel/transformer-typescript-tsc": "^2.16.0",
         "@types/jest": "^29.5.14",
-        "body-parser": "^2.2.0",
+        "body-parser": "^2.2.1",
         "cors": "^2.8.5",
         "concurrently": "^8.2.2",
         "eslint": "^9.21.0",
