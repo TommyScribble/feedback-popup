@@ -1,20 +1,23 @@
-/// <reference types="jest" />
+/// <reference types="vitest/globals" />
+import { vi, type Mock } from 'vitest';
 import FeedbackPopup from '../../ts/index';
 import html2canvas from 'html2canvas';
 import { UAParser } from 'ua-parser-js';
 
 // Mock html2canvas
-jest.mock('html2canvas', () => {
-    return jest.fn().mockImplementation(() => {
-        // Return a real canvas element for DOM insertion
-        const canvas = document.createElement('canvas');
-        canvas.toDataURL = jest.fn().mockReturnValue('data:image/png;base64,mockImageData');
-        return Promise.resolve(canvas);
-    });
+vi.mock('html2canvas', () => {
+    return {
+        default: vi.fn().mockImplementation(() => {
+            // Return a real canvas element for DOM insertion
+            const canvas = document.createElement('canvas');
+            canvas.toDataURL = vi.fn().mockReturnValue('data:image/png;base64,mockImageData');
+            return Promise.resolve(canvas);
+        }),
+    };
 });
 
 // Mock fetch
-global.fetch = jest.fn();
+global.fetch = vi.fn();
 
 describe('FeedbackPopup', () => {
     let feedbackPopup: FeedbackPopup;
@@ -22,10 +25,10 @@ describe('FeedbackPopup', () => {
 
     beforeEach(() => {
         // Mock window.alert
-        window.alert = jest.fn();
+        window.alert = vi.fn();
         // Mock console.warn and console.error
-        console.warn = jest.fn();
-        console.error = jest.fn();
+        console.warn = vi.fn();
+        console.error = vi.fn();
         // Set up the DOM
         document.body.innerHTML = `
             <div id="feedback-container">
@@ -52,7 +55,7 @@ describe('FeedbackPopup', () => {
     afterEach(() => {
         // Clean up
         document.body.innerHTML = '';
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     describe('Widget', () => {
@@ -196,7 +199,7 @@ describe('FeedbackPopup', () => {
 
     describe('Form Submission', () => {
         test('should send correct data shape', async () => {
-            (global.fetch as jest.Mock).mockResolvedValueOnce({
+            (global.fetch as Mock).mockResolvedValueOnce({
                 ok: true,
                 json: () => Promise.resolve({ success: true })
             });
@@ -225,7 +228,7 @@ describe('FeedbackPopup', () => {
         });
 
         test('should always send user message and user details', async () => {
-            (global.fetch as jest.Mock).mockResolvedValueOnce({
+            (global.fetch as Mock).mockResolvedValueOnce({
                 ok: true,
                 json: () => Promise.resolve({ success: true })
             });
@@ -241,7 +244,7 @@ describe('FeedbackPopup', () => {
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
-            const fetchCall = (global.fetch as jest.Mock).mock.calls[0][1];
+            const fetchCall = (global.fetch as Mock).mock.calls[0][1];
             const body = JSON.parse(fetchCall.body);
             
             expect(body).toHaveProperty('userFeedback', 'Test feedback');
@@ -249,7 +252,7 @@ describe('FeedbackPopup', () => {
         });
 
         test('should send screenshot when checkbox is checked', async () => {
-            (global.fetch as jest.Mock).mockResolvedValueOnce({
+            (global.fetch as Mock).mockResolvedValueOnce({
                 ok: true,
                 json: () => Promise.resolve({ success: true })
             });
@@ -265,14 +268,14 @@ describe('FeedbackPopup', () => {
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
-            const fetchCall = (global.fetch as jest.Mock).mock.calls[0][1];
+            const fetchCall = (global.fetch as Mock).mock.calls[0][1];
             const body = JSON.parse(fetchCall.body);
             
             expect(body).toHaveProperty('screenshotIncluded');
         });
 
         test('should not send screenshot when checkbox is unchecked', async () => {
-            (global.fetch as jest.Mock).mockResolvedValueOnce({
+            (global.fetch as Mock).mockResolvedValueOnce({
                 ok: true,
                 json: () => Promise.resolve({ success: true })
             });
@@ -292,14 +295,14 @@ describe('FeedbackPopup', () => {
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
-            const fetchCall = (global.fetch as jest.Mock).mock.calls[0][1];
+            const fetchCall = (global.fetch as Mock).mock.calls[0][1];
             const body = JSON.parse(fetchCall.body);
             
             expect(body.screenshotIncluded).toBe('Not Included');
         });
 
         test('should show success message after successful submission', async () => {
-            (global.fetch as jest.Mock).mockResolvedValueOnce({
+            (global.fetch as Mock).mockResolvedValueOnce({
                 ok: true,
                 json: () => Promise.resolve({ success: true })
             });
@@ -320,7 +323,7 @@ describe('FeedbackPopup', () => {
         });
 
         test('should show error message after failed submission', async () => {
-            (global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
+            (global.fetch as Mock).mockRejectedValueOnce(new Error('Network error'));
 
             const button = container.querySelector('.widget__button') as HTMLElement;
             button?.click();
@@ -337,7 +340,7 @@ describe('FeedbackPopup', () => {
         });
 
         test('should close success message and show widget', async () => {
-            (global.fetch as jest.Mock).mockResolvedValueOnce({
+            (global.fetch as Mock).mockResolvedValueOnce({
                 ok: true,
                 json: () => Promise.resolve({ success: true })
             });
@@ -361,7 +364,7 @@ describe('FeedbackPopup', () => {
         });
 
         test('should close error message and show widget', async () => {
-            (global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
+            (global.fetch as Mock).mockRejectedValueOnce(new Error('Network error'));
 
             const button = container.querySelector('.widget__button') as HTMLElement;
             button?.click();
@@ -404,7 +407,7 @@ describe('FeedbackPopup', () => {
         });
 
         test('should not send multiple submissions on rapid submit clicks', async () => {
-            (global.fetch as jest.Mock).mockResolvedValue({ ok: true, json: () => Promise.resolve({ success: true }) });
+            (global.fetch as Mock).mockResolvedValue({ ok: true, json: () => Promise.resolve({ success: true }) });
             const button = container.querySelector('.widget__button') as HTMLElement;
             button?.click();
             const textarea = container.querySelector('textarea') as HTMLTextAreaElement;
@@ -413,11 +416,11 @@ describe('FeedbackPopup', () => {
             submitButton?.click();
             submitButton?.click();
             await new Promise(resolve => setTimeout(resolve, 0));
-            expect((global.fetch as jest.Mock).mock.calls.length).toBe(1);
+            expect((global.fetch as Mock).mock.calls.length).toBe(1);
         });
 
         test('should handle network timeout/failure gracefully', async () => {
-            (global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Timeout'));
+            (global.fetch as Mock).mockRejectedValueOnce(new Error('Timeout'));
             const button = container.querySelector('.widget__button') as HTMLElement;
             button?.click();
             const textarea = container.querySelector('textarea') as HTMLTextAreaElement;
@@ -429,7 +432,7 @@ describe('FeedbackPopup', () => {
         });
 
         test('should not submit if feedback is empty', async () => {
-            (global.fetch as jest.Mock).mockClear();
+            (global.fetch as Mock).mockClear();
             const button = container.querySelector('.widget__button') as HTMLElement;
             button?.click();
             const textarea = container.querySelector('textarea') as HTMLTextAreaElement;
@@ -442,7 +445,7 @@ describe('FeedbackPopup', () => {
 
         test('should handle html2canvas failure gracefully', async () => {
             // Temporarily override html2canvas mock to throw
-            const originalHtml2canvas = (html2canvas as unknown as jest.Mock);
+            const originalHtml2canvas = (html2canvas as unknown as Mock);
             originalHtml2canvas.mockImplementationOnce(() => Promise.reject(new Error('Canvas error')));
             const button = container.querySelector('.widget__button') as HTMLElement;
             button?.click();
