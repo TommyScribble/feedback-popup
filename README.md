@@ -111,7 +111,7 @@ git@github.com:TommyScribble/feedback-popup.git
 
 ### Development Server
 
-- `pnpm start` will run the app's development server at [http://localhost:3000](http://localhost:3000) and a devlopment API at [http://localhost:3005](http://localhost:3005), automatically reloading the page on every JS change.
+- `pnpm run dev` will run the app's development server at [http://localhost:3000](http://localhost:3000) and a devlopment API at [http://localhost:3005](http://localhost:3005), automatically reloading the page on every JS change.
 
 ### Dev API
 
@@ -123,7 +123,7 @@ This api sends the body of the request to the `feedback` folder. This is exclude
 
 ### Testing
 
-Jest is used to test all functionality. To run all the tests run 
+Vitest is used to test all functionality. To run all the tests run 
 ```shell
     pnpm run test
 ```
