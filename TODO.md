@@ -13,7 +13,7 @@
 
 [x] Migrate to TS
 [x] Add tests
-[ ] Add test watcher
+[x] Add test watcher
 [ ] Switch dependancies to UnJs modules if possible
 [ ] Make compatable to all frameworks
 [ ] Submit to UnJs
