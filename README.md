@@ -1,10 +1,8 @@
 # feedback-popup
 
-[![npm version][npm-badge]][npm]
+[![npm version][npm-badge]][npm] [![npm downloads][npm-downloads-badge]][npm] [![License: MIT][license-badge]][license] [![GitHub issues][issues-badge]][issues]
 
-# Feedback Popup
-
-A simple to use popup for collecting feedback from users about issues with the site that they are using. It captures a screenshot of the user's browser, the user's OS and browser name + version, and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.
+**Feedback Popup** is a simple to use popup for collecting feedback from users about issues with the site that they are using. It captures a screenshot of the user's browser, the user's OS and browser name + version, and also a message from the user. This is all then sent to an API, where you can do whatever you like with the information.
 
 More features to come!
 
@@ -197,5 +195,10 @@ pnpn run clean
 will delete built resources.
 
 
-[npm-badge]: https://img.shields.io/npm/v/feedback-popup.png?style=flat-square
+[npm-badge]: https://img.shields.io/npm/v/feedback-popup.svg?style=flat-square
+[npm-downloads-badge]: https://img.shields.io/npm/dm/feedback-popup.svg?style=flat-square
+[license-badge]: https://img.shields.io/npm/l/feedback-popup.svg?style=flat-square
+[license]: https://github.com/TommyScribble/feedback-popup/blob/master/LICENSE
+[issues-badge]: https://img.shields.io/github/issues/TommyScribble/feedback-popup.svg?style=flat-square
+[issues]: https://github.com/TommyScribble/feedback-popup/issues
 [npm]: https://www.npmjs.org/package/feedback-popup
