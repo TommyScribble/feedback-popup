@@ -11,6 +11,7 @@ More features to come!
 ## Table of Contents
 
 - [Installation](#installation)
+- [Breaking changes in v4](#breaking-changes-in-v4)
 - [Usage](#usage)
 - [Configuration Options](#configuration-options)
 - [API](#api)
@@ -28,31 +29,83 @@ yarn add feedback-popup
 pnpm add feedback-popup
 ```
 
+## Breaking changes in v4
+
+- **DOM setup runs in `init()`, not in the constructor.** The constructor only stores configuration; the first `init()` call creates or finds the widget root, injects inner placeholder elements if needed, renders the floating button, and binds events.
+- **Calling `init()` more than once** on the same instance is ignored (with a console warning).
+- **Recommended integration** is an explicit **`mount`** (selector string or `HTMLElement`) or **no HTML at all** (the library appends a root to `document.body`). Relying on a pre-placed `.js-feedback-popup` node in your markup still works in v4 but is **deprecated** and will be removed in a future major version.
+
 ## Usage
 
+### Recommended: explicit `mount`
+
+Place a single empty container where you want the widget to live (layout, sidebar, footer, etc.). You can use a CSS selector or pass the element directly (e.g. from a framework ref). Missing widget classes and `data-html2canvas-ignore` on that node are added for you when `init()` runs.
+
+```html
+<body>
+  <div id="main-body"><!-- page content --></div>
+  <div id="feedback-root"></div>
+  <script type="module">
+    import FeedbackPopup from 'feedback-popup';
+
+    const feedbackPopup = new FeedbackPopup({
+      mount: '#feedback-root',
+      widgetTitle: 'Send Feedback',
+      title: 'Help Us Improve',
+      snapshotBodyId: '#main-body',
+      placeholderText: 'Tell us what you think...',
+      endpointUrl: 'https://your-api.com/feedback'
+    });
+
+    feedbackPopup.init();
+  </script>
+</body>
+```
+
+With a direct element reference:
+
 ```javascript
-import { FeedbackPopup } from 'feedback-popup';
+import FeedbackPopup from 'feedback-popup';
 
-// Initialize with default configuration
-const feedbackPopup = new FeedbackPopup();
-
-// Or with custom configuration
+const root = document.getElementById('feedback-root');
 const feedbackPopup = new FeedbackPopup({
-    widgetTitle: 'Send Feedback',
-    title: 'Help Us Improve',
-    snapshotBodyId: '#main-body',
-    placeholderText: 'Tell us what you think...',
-    endpointUrl: 'https://your-api.com/feedback'
+  mount: root,
+  snapshotBodyId: '#main-body'
 });
-
-// Then run is by calling the init method
 feedbackPopup.init();
+```
+
+### Zero markup: auto-inject on `document.body`
+
+If you omit `mount` and there is **no** `.js-feedback-popup` in the document, `init()` creates a root element, adds the `feedback-popup` and `js-feedback-popup` classes, sets `data-html2canvas-ignore`, and appends it to **`document.body`**. This is ideal for quick demos; the widget usually appears at the end of the body.
+
+```javascript
+import FeedbackPopup from 'feedback-popup';
+
+const feedbackPopup = new FeedbackPopup({
+  snapshotBodyId: '#main-body',
+  endpointUrl: 'https://your-api.com/feedback'
+});
+feedbackPopup.init();
+```
+
+### Legacy: pre-built `.js-feedback-popup` in HTML (deprecated)
+
+If you already ship the old wrapper and inner placeholder divs, you can still omit `mount` and `init()` will use the first matching `.js-feedback-popup`. **Migrate to `mount` or auto-inject** when you can; this pattern will be removed in a future major release.
+
+```html
+<div class="feedback-popup js-feedback-popup" data-html2canvas-ignore="true">
+  <div class="js-feedback-popup-btn-show"></div>
+  <div class="js-feedback-popup-content"></div>
+  <div class="js-feedback-popup-confirmation"></div>
+</div>
 ```
 
 ## Configuration Options
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
+| mount | `string` \| `HTMLElement` | (none) | Root element for the widget (selector or element). If omitted, the first `.js-feedback-popup` is used, or a new root is appended to `document.body`. |
 | widgetTitle | string | 'Feedback' | The title shown on the feedback button |
 | title | string | 'Send Feedback' | The title of the feedback popup |
 | snapshotBodyId | string | '#main-body' | CSS selector for the element to capture in the screenshot |
@@ -63,7 +116,7 @@ feedbackPopup.init();
 
 ### Methods
 
-- `init()`: Initialize the feedback popup
+- `init()`: Initialize the feedback popup (DOM scaffold, button, event listeners). Safe to call once per instance.
 - `showFeedbackModal()`: Show the feedback popup
 - `hideContentDiv()`: Hide the feedback popup
 - `createScreenshot()`: Create a screenshot of the current page

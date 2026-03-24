@@ -30,7 +30,7 @@
 
 ## HTML
 
-[ ] Remove it and inject one element that others can hang off
+[x] Remove it and inject one element that others can hang off
 
 # NPM
 

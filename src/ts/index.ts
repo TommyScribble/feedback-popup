@@ -1,6 +1,15 @@
 import html2canvas from 'html2canvas';
 import { UAParser } from 'ua-parser-js';
-import { FeedbackPopupConfig } from './index.d';
+
+export interface FeedbackPopupConfig {
+    widgetTitle?: string;
+    title?: string;
+    snapshotBodyId?: string;
+    placeholderText?: string;
+    endpointUrl?: string;
+    /** Root element for the widget; if omitted, uses the first `.js-feedback-popup` or injects one on `document.body`. */
+    mount?: string | HTMLElement;
+}
 
 interface ContainerElements {
     main: HTMLElement | null;
@@ -26,8 +35,9 @@ class FeedbackPopup {
     private elements: ContainerElements;
     private templates: Templates;
     private isSubmitting: boolean = false;
+    private initialized: boolean = false;
 
-    constructor(config: FeedbackPopupConfig) {
+    constructor(config: FeedbackPopupConfig = {}) {
         this.config = {
             widgetTitle: config.widgetTitle || 'Feedback',
             title: config.title || 'Send Feedback',
@@ -35,6 +45,9 @@ class FeedbackPopup {
             placeholderText: config.placeholderText || 'Enter your feedback here...',
             endpointUrl: config.endpointUrl || 'http://localhost:3005/api/feedback'
         };
+        if (config.mount !== undefined) {
+            this.config.mount = config.mount;
+        }
 
         this.state = {
             isOpen: false,
@@ -49,7 +62,6 @@ class FeedbackPopup {
         };
 
         this.templates = this._createTemplates();
-        this._initializeElements();
     }
 
     private _createTemplates(): Templates {
@@ -107,17 +119,62 @@ class FeedbackPopup {
         };
     }
 
-    private _initializeElements(): void {
+    private _resolveMain(): HTMLElement {
+        const { mount } = this.config;
+        if (typeof mount === 'string') {
+            const el = document.querySelector(mount);
+            if (!el || !(el instanceof HTMLElement)) {
+                throw new Error(
+                    `FeedbackPopup: mount selector "${mount}" did not match an HTMLElement in the document`
+                );
+            }
+            return el;
+        }
+        if (mount instanceof HTMLElement) {
+            return mount;
+        }
+        const existing = document.querySelector('.js-feedback-popup');
+        if (existing instanceof HTMLElement) {
+            return existing;
+        }
+        const injected = document.createElement('div');
+        document.body.appendChild(injected);
+        return injected;
+    }
+
+    private _normalizeRoot(el: HTMLElement): void {
+        el.classList.add('feedback-popup', 'js-feedback-popup');
+        el.setAttribute('data-html2canvas-ignore', 'true');
+    }
+
+    private _ensureInnerScaffold(main: HTMLElement): void {
+        const slots = [
+            'js-feedback-popup-btn-show',
+            'js-feedback-popup-content',
+            'js-feedback-popup-confirmation'
+        ];
+        for (const cls of slots) {
+            if (!main.querySelector(`.${cls}`)) {
+                const div = document.createElement('div');
+                div.className = cls;
+                main.appendChild(div);
+            }
+        }
+    }
+
+    private _wireElements(main: HTMLElement): void {
         this.elements = {
-            main: document.querySelector('.js-feedback-popup'),
-            content: document.querySelector('.js-feedback-popup-content'),
-            buttonShow: document.querySelector('.js-feedback-popup-btn-show'),
-            confirmation: document.querySelector('.js-feedback-popup-confirmation')
+            main,
+            content: main.querySelector('.js-feedback-popup-content'),
+            buttonShow: main.querySelector('.js-feedback-popup-btn-show'),
+            confirmation: main.querySelector('.js-feedback-popup-confirmation')
         };
     }
 
     private _updateSpinner(state: 'show' | 'hide'): void {
-        const spinner = document.querySelector('.spinner');
+        const root = this.elements.content;
+        if (!root) return;
+        const spinner = root.querySelector('.spinner');
         if (!spinner) {
             console.warn('Spinner element not found in the DOM');
             return;
@@ -165,13 +222,14 @@ class FeedbackPopup {
         this.elements.buttonShow.style.display = 'none';
         this.state.isOpen = true;
 
-        const checkbox = document.getElementById('js-checkbox') as HTMLInputElement;
+        const root = this.elements.content;
+        const checkbox = root.querySelector('#js-checkbox') as HTMLInputElement;
         if (checkbox) {
             checkbox.addEventListener('change', () => {
-                const screenshotContainer = document.querySelector('.feedback__screenshot');
+                const screenshotContainer = root.querySelector('.feedback__screenshot');
                 if (!screenshotContainer) return;
                 const canvas = screenshotContainer.querySelector('canvas');
-                
+
                 if (checkbox.checked) {
                     this.createScreenshot();
                 } else if (canvas) {
@@ -196,16 +254,18 @@ class FeedbackPopup {
             if (!screenshotElement) {
                 throw new Error(`Screenshot element not found: ${this.config.snapshotBodyId}`);
             }
-            const screenshotContainer = document.querySelector('.feedback__screenshot') as HTMLElement;
+            const root = this.elements.content;
+            if (!root) return;
+            const screenshotContainer = root.querySelector('.feedback__screenshot') as HTMLElement;
             if (!screenshotContainer) return;
 
             const canvas = await html2canvas(screenshotElement);
             const existingCanvas = screenshotContainer.querySelector('canvas');
-            
+
             if (existingCanvas) {
                 screenshotContainer.removeChild(existingCanvas);
             }
-            
+
             screenshotContainer.appendChild(canvas);
             this.state.screenshot = canvas;
         } catch (error) {
@@ -218,7 +278,8 @@ class FeedbackPopup {
     public async sendData(): Promise<void> {
         if (this.isSubmitting) return;
         const canvas = this.state.screenshot;
-        const textarea = document.getElementById('textarea') as HTMLTextAreaElement;
+        const root = this.elements.content;
+        const textarea = root?.querySelector('#textarea') as HTMLTextAreaElement;
         if (!textarea || !window) return;
         const userFeedback = textarea.value;
         if (!userFeedback || userFeedback.trim() === '') {
@@ -258,9 +319,24 @@ class FeedbackPopup {
     }
 
     public init(): void {
-        if (!this.elements.buttonShow) return;
+        if (this.initialized) {
+            console.warn('FeedbackPopup: init() was already called; skipping.');
+            return;
+        }
+
+        const main = this._resolveMain();
+        this._normalizeRoot(main);
+        this._ensureInnerScaffold(main);
+        this._wireElements(main);
+
+        if (!this.elements.buttonShow || !this.elements.content || !this.elements.confirmation) {
+            console.warn('FeedbackPopup: required inner slots missing after scaffold');
+            return;
+        }
+
         this.elements.buttonShow.innerHTML = this.templates.button;
         this._bindEvents();
+        this.initialized = true;
     }
 }
 

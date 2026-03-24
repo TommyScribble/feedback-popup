@@ -2,7 +2,6 @@
 import { vi, type Mock } from 'vitest';
 import FeedbackPopup from '../../ts/index';
 import html2canvas from 'html2canvas';
-import { UAParser } from 'ua-parser-js';
 
 // Mock html2canvas
 vi.mock('html2canvas', () => {
@@ -32,17 +31,14 @@ describe('FeedbackPopup', () => {
         // Set up the DOM
         document.body.innerHTML = `
             <div id="feedback-container">
-                <div class="js-feedback-popup"></div>
-                <div class="js-feedback-popup-content"></div>
-                <div class="js-feedback-popup-btn-show"></div>
-                <div class="js-feedback-popup-confirmation"></div>
+                <div id="feedback-root"></div>
                 <div id="main-body">Test content</div>
             </div>
         `;
         container = document.getElementById('feedback-container')!;
-        
-        // Initialize the feedback popup
+
         feedbackPopup = new FeedbackPopup({
+            mount: '#feedback-root',
             widgetTitle: 'Send Feedback',
             title: 'Help Us Improve',
             snapshotBodyId: '#main-body',
@@ -452,6 +448,93 @@ describe('FeedbackPopup', () => {
             await expect(feedbackPopup.createScreenshot()).resolves.not.toThrow();
             // Restore mock
             originalHtml2canvas.mockClear();
+        });
+
+        test('second init() is a no-op and warns', () => {
+            const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+            feedbackPopup.init();
+            expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('already'));
+            warnSpy.mockRestore();
+        });
+    });
+
+    describe('Legacy markup (deprecated)', () => {
+        let legacyContainer: HTMLElement;
+
+        beforeEach(() => {
+            document.body.innerHTML = `
+                <div id="feedback-container">
+                    <div class="feedback-popup js-feedback-popup" data-html2canvas-ignore="true">
+                        <div class="js-feedback-popup-btn-show"></div>
+                        <div class="js-feedback-popup-content"></div>
+                        <div class="js-feedback-popup-confirmation"></div>
+                    </div>
+                    <div id="main-body">Test content</div>
+                </div>
+            `;
+            legacyContainer = document.getElementById('feedback-container')!;
+            feedbackPopup = new FeedbackPopup({
+                widgetTitle: 'Send Feedback',
+                title: 'Help Us Improve',
+                snapshotBodyId: '#main-body',
+                placeholderText: 'Tell us what you think...',
+                endpointUrl: 'http://localhost:3000/feedback'
+            });
+            feedbackPopup.init();
+        });
+
+        afterEach(() => {
+            document.body.innerHTML = '';
+            vi.clearAllMocks();
+        });
+
+        test('finds existing .js-feedback-popup and renders widget', () => {
+            const button = legacyContainer.querySelector('.widget__button');
+            expect(button?.textContent).toBe('Send Feedback');
+        });
+    });
+
+    describe('Auto-injected root', () => {
+        let injectedRoot: HTMLElement;
+
+        beforeEach(() => {
+            document.body.innerHTML = `
+                <div id="feedback-container">
+                    <div id="main-body">Test content</div>
+                </div>
+            `;
+            feedbackPopup = new FeedbackPopup({
+                widgetTitle: 'Send Feedback',
+                title: 'Help Us Improve',
+                snapshotBodyId: '#main-body',
+                placeholderText: 'Tell us what you think...',
+                endpointUrl: 'http://localhost:3000/feedback'
+            });
+            feedbackPopup.init();
+            injectedRoot = document.body.querySelector('.js-feedback-popup') as HTMLElement;
+        });
+
+        afterEach(() => {
+            document.body.innerHTML = '';
+            vi.clearAllMocks();
+        });
+
+        test('appends root to body and renders widget', () => {
+            expect(injectedRoot).toBeTruthy();
+            expect(injectedRoot.parentElement).toBe(document.body);
+            const button = injectedRoot.querySelector('.widget__button');
+            expect(button?.textContent).toBe('Send Feedback');
+        });
+    });
+
+    describe('Mount selector errors', () => {
+        test('throws when mount selector does not match an element', () => {
+            document.body.innerHTML = '<div id="main-body">Test</div>';
+            const popup = new FeedbackPopup({
+                mount: '#does-not-exist',
+                widgetTitle: 'Send Feedback'
+            });
+            expect(() => popup.init()).toThrow(/did not match/);
         });
     });
 }); 
