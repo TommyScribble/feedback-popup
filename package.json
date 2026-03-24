@@ -23,14 +23,14 @@
         "test": "vitest",
         "test:ui": "vitest --ui",
         "test:run": "vitest run",
-        "release": "np --no-release-draft",
-        "release:gh": "np --no-release-draft && gh release create v$(node -p \"require('./package.json').version\") --generate-notes",
-        "release:patch": "np patch --no-release-draft",
-        "release:minor": "np minor --no-release-draft",
-        "release:major": "np major --no-release-draft",
-        "release:beta": "np prerelease --tag=beta",
-        "release:preview": "np --preview",
-        "release:any-branch": "np --any-branch"
+        "release": "pnpm run build:lib && np --no-release-draft",
+        "release:gh": "pnpm run build:lib && np --no-release-draft && gh release create v$(node -p \"require('./package.json').version\") --generate-notes",
+        "release:patch": "pnpm run build:lib && np patch --no-release-draft",
+        "release:minor": "pnpm run build:lib && np minor --no-release-draft",
+        "release:major": "pnpm run build:lib && np major --no-release-draft",
+        "release:beta": "pnpm run build:lib && np prerelease --tag=beta",
+        "release:preview": "pnpm run build:lib && np --preview",
+        "release:any-branch": "pnpm run build:lib && np --any-branch"
     },
     "dependencies": {
         "html2canvas": "^1.4.1",
