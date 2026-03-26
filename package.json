@@ -90,7 +90,8 @@
     "targets": {
         "app": {
             "context": "browser",
-            "publicUrl": "."
+            "publicUrl": ".",
+            "scopeHoist": false
         }
     },
     "volta": {
