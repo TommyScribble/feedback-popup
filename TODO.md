@@ -3,7 +3,7 @@
 # Functionality
 
 [ ] click to hide widget button and show on hover
-[ ] pass in custom position
+[x] pass in custom position
 [ ] auto trigger button when an issue occurs?
 [ ] remove screenshot and just have feedback textare popup
 [ ] add custom content to text area (form/custom html/custom component)
