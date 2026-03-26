@@ -1,43 +1,44 @@
-/* BUTTONS */
+/* BUTTONS — scoped to widget; theming via .feedback-popup { --feedback-* } */
 
-.btn {
-    border-radius: var(--border-radius);
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    padding: 0.8rem 1.9rem;
-    cursor: pointer;
-    transition: all .5s ease;
+.feedback-popup .btn {
+	border-radius: var(--feedback-button-radius);
+	font-size: var(--feedback-button-font-size);
+	text-transform: var(--feedback-button-text-transform);
+	padding: var(--feedback-button-padding-y) var(--feedback-button-padding-x);
+	cursor: pointer;
+	transition: var(--feedback-button-transition);
+	font-family: var(--feedback-font-family);
 }
 
-.btn.btn-confirm {
-    background-color: var(--primary-color);
-    border: 0.1rem solid var(--primary-color);
-    color: var(--white);
-    margin-left: .7rem;
+.feedback-popup .btn.btn-confirm {
+	background-color: var(--feedback-button-confirm-bg);
+	border: 0.1rem solid var(--feedback-button-confirm-border);
+	color: var(--feedback-button-confirm-text);
+	margin-left: var(--feedback-button-gap);
 }
 
-.btn.btn-confirm:hover,
-.btn.btn-confirm:focus {
-    background-color: var(--disabled-color);
-    color: var(--primary-color);
-}
-
-
-.btn.btn-cancel {
-    background-color: transparent;
-    border: 0.1rem solid transparent;
-    color: var(--black);
-}
-
-.btn.btn-cancel:hover,
-.btn.btn-cancel:focus {
-    background-color: var(--disabled-color);
+.feedback-popup .btn.btn-confirm:hover,
+.feedback-popup .btn.btn-confirm:focus {
+	background-color: var(--feedback-button-confirm-hover-bg);
+	color: var(--feedback-button-confirm-hover-text);
 }
 
 
-.btn.btn-diolog {
-    background-color: transparent;
-    border: 0.1rem solid transparent;
-    color: var(--brand-color);
-    font-size: 1.4rem;
+.feedback-popup .btn.btn-cancel {
+	background-color: var(--feedback-button-cancel-bg);
+	border: 0.1rem solid var(--feedback-button-cancel-border);
+	color: var(--feedback-button-cancel-text);
+}
+
+.feedback-popup .btn.btn-cancel:hover,
+.feedback-popup .btn.btn-cancel:focus {
+	background-color: var(--feedback-button-cancel-hover-bg);
+}
+
+
+.feedback-popup .btn.btn-diolog {
+	background-color: transparent;
+	border: 0.1rem solid transparent;
+	color: var(--feedback-button-dialog-text);
+	font-size: var(--feedback-button-dialog-font-size);
 }

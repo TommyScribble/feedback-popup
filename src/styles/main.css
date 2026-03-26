@@ -34,38 +34,39 @@ body {
 
 .feedback-popup .widget__container .widget__container-inner {
 	position: fixed;
-	bottom: 0;
-	right: 8%;
-	width: 13.6rem;
-	min-height: 2.55rem;
+	bottom: var(--feedback-widget-offset-bottom);
+	right: var(--feedback-widget-offset-right);
+	width: var(--feedback-widget-width);
+	min-height: var(--feedback-widget-min-height);
 }
 
 .feedback-popup .widget__container .widget__container-inner .widget__button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--primary-color);
+	background-color: var(--feedback-widget-button-bg);
 	background-repeat: no-repeat;
-	border: var(--primary-color);
-	color: var(--white);
-	font-size: var(--font-size--widget);
+	border: var(--feedback-widget-button-bg);
+	color: var(--feedback-widget-button-text);
+	font-size: var(--feedback-font-size-widget);
+	font-family: var(--feedback-font-family);
 	cursor: pointer;
-	padding: 1.22rem 1.8rem;
+	padding: var(--feedback-widget-padding-y) var(--feedback-widget-padding-x);
 
 	&:hover {
-		background-color: var(--hover-color);
+		background-color: var(--feedback-widget-button-hover-bg);
 	}
 
 
 	&:disabled {
-		background-color: var(--disabled-color);
+		background-color: var(--feedback-widget-button-disabled-bg);
 		cursor: not-allowed;
 	}
 }
 
 
 .feedback-popup .feedback__container {
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: var(--feedback-overlay-bg);
 	height: 100vh;
 	width: auto;
 	position: fixed;
@@ -73,14 +74,15 @@ body {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	z-index: 10000000;
-	transition: all 0.3s ease;
+	z-index: var(--feedback-overlay-z-index);
+	transition: var(--feedback-overlay-transition);
 }
 
 .feedback-popup .feedback__container .feedback__container--inner {
-	background-color: var(--white);
-	width: 32.4rem;
-	max-height: calc(100% - 10rem);
+	background-color: var(--feedback-dialog-bg);
+	border-radius: var(--feedback-dialog-border-radius);
+	width: var(--feedback-dialog-width);
+	max-height: calc(100% - var(--feedback-dialog-max-height-offset));
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -88,7 +90,7 @@ body {
 	overflow: scroll;
 
 	@media screen and (max-width: 575px) {
-		max-height: calc(100% - 8rem);
+		max-height: calc(100% - var(--feedback-dialog-max-height-offset-mobile));
 	}
 }
 
@@ -96,32 +98,34 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-	background-color: var(--brand-color);
-	height: 5rem;
+	background-color: var(--feedback-header-bg);
+	height: var(--feedback-header-height);
 	width: 100%;
-	padding: 0 1.5rem;
+	padding: 0 var(--feedback-header-padding-x);
 
 
 	h1 {
-		color: var(--white);
-		font-size: var(--font-size--header);
-		font-weight: 400;
-		line-height: 2.2rem;
+		color: var(--feedback-header-text);
+		font-size: var(--feedback-font-size-header);
+		font-weight: var(--feedback-font-weight-header);
+		line-height: var(--feedback-line-height-header);
+		font-family: var(--feedback-font-family);
 		margin: 0;
 	}
 }
 
 .feedback-popup .feedback__container .feedback__container--inner .feedback__textarea {
-	background-color: var(--white);
-	height: 21rem;
+	background-color: var(--feedback-textarea-bg);
+	height: var(--feedback-textarea-height);
 	width: 100%;
-	padding: 1rem 0.9rem;
+	padding: var(--feedback-textarea-padding-y) var(--feedback-textarea-padding-x);
 
 	textarea {
 		border: none;
-		color: var(--text-color);
-		font-size: var(--font-size--text);
-		font-weight: 300;
+		color: var(--feedback-color-text);
+		font-size: var(--feedback-font-size-body);
+		font-weight: var(--feedback-font-weight-body);
+		font-family: var(--feedback-font-family);
 		outline: none;
 		padding: 0;
 		resize: none;
@@ -129,43 +133,48 @@ body {
 		height: 100%;
 
 		&::placeholder {
-			color: var(--silver-grey);
-			font-size: var(--font-size--text);
-			font-weight: 300;
+			color: var(--feedback-color-text-muted);
+			font-size: var(--feedback-font-size-body);
+			font-weight: var(--feedback-font-weight-body);
 		}
 
 		&:disabled {
-			background-color: var(--disabled-color);
+			background-color: var(--feedback-color-disabled);
 		}
 	}
 }
 
 
 .feedback-popup .feedback__container .feedback__container--inner .feedback__add-screenshot {
-	background-color: var(--secondary-color);
-	color: var(--white);
-	font-size: 1.5rem;
-	font-weight: 300;
-	padding: 0.9rem;
-	height: 3.7rem;
+	background-color: var(--feedback-add-screenshot-bg);
+	color: var(--feedback-add-screenshot-text);
+	font-size: var(--feedback-font-size-screenshot-label);
+	font-weight: var(--feedback-font-weight-body);
+	font-family: var(--feedback-font-family);
+	padding: var(--feedback-add-screenshot-padding);
+	height: var(--feedback-add-screenshot-height);
 	width: 100%;
 }
 
 .feedback-popup .feedback__container .feedback__container--inner .feedback__screenshot {
 	position: relative;
-	background-color: var(--cotton-seed);
-	height: 19rem;
+	background-color: var(--feedback-screenshot-area-bg);
+	height: var(--feedback-screenshot-area-height);
 	overflow: scroll;
 
+	/* html2canvas sets inline width/height on the canvas; !important is required so
+	   max-width can shrink the image without a distorted aspect ratio. */
 	canvas {
-		height: auto !important;
+		display: block;
 		max-width: 100%;
+		width: auto !important;
+		height: auto !important;
 	}
 }
 
 .feedback-popup .feedback__container .feedback__container--inner .feedback__confirm {
-	background-color: var(--white);
-	padding: 0.9rem;
+	background-color: var(--feedback-footer-bg);
+	padding: var(--feedback-footer-padding);
 	text-align: right;
 
 	ul {
@@ -181,11 +190,12 @@ body {
 
 
 .feedback-popup .feedback__container .feedback-popup__confirmation-inner {
-	width: 30.3rem;
-	height: 11.3rem;
-	background-color: var(--white);
-	padding: 2.5rem 3rem;
-	max-height: calc(100% - 10rem);
+	width: var(--feedback-confirmation-width);
+	height: var(--feedback-confirmation-height);
+	background-color: var(--feedback-confirmation-bg);
+	border-radius: var(--feedback-dialog-border-radius);
+	padding: var(--feedback-confirmation-padding-y) var(--feedback-confirmation-padding-x);
+	max-height: calc(100% - var(--feedback-dialog-max-height-offset));
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -194,15 +204,16 @@ body {
 
 .feedback-popup .feedback__container .feedback-popup__confirmation-inner .feedback-popup__confirmation-text {
 	.thank-you {
-		font-size: var(--font-size--text);
-		color: var(--text-color);
-			margin: 0 0 2rem 0;
+		font-size: var(--feedback-font-size-body);
+		color: var(--feedback-color-text);
+		font-family: var(--feedback-font-family);
+		margin: 0 0 var(--feedback-confirmation-thank-you-margin-bottom) 0;
 
 		a {
-			color: var(--link-color);
+			color: var(--feedback-color-link);
 
 			&:hover {
-				color: var(--hover-color);
+				color: var(--feedback-color-link-hover);
 			}
 		}
 	}

@@ -10,7 +10,9 @@ More features to come!
 
 - [Installation](#installation)
 - [Breaking changes in v4](#breaking-changes-in-v4)
+- [Breaking changes in v5 (CSS theming)](#breaking-changes-in-v5-css-theming)
 - [Usage](#usage)
+- [Styling & Theming](#styling--theming)
 - [Configuration Options](#configuration-options)
 - [API](#api)
 - [Development](#development)
@@ -32,6 +34,14 @@ pnpm add feedback-popup
 - **DOM setup runs in `init()`, not in the constructor.** The constructor only stores configuration; the first `init()` call creates or finds the widget root, injects inner placeholder elements if needed, renders the floating button, and binds events.
 - **Calling `init()` more than once** on the same instance is ignored (with a console warning).
 - **Recommended integration** is an explicit **`mount`** (selector string or `HTMLElement`) or **no HTML at all** (the library appends a root to `document.body`). Relying on a pre-placed `.js-feedback-popup` node in your markup still works in v4 but is **deprecated** and will be removed in a future major version.
+
+## Breaking changes in v5 (CSS theming)
+
+These changes apply when you adopt the **v5** stylesheet (namespaced theming). Bump your major version when you ship this CSS to consumers.
+
+- **Theming is done via `--feedback-*` CSS variables** on `.feedback-popup` (or any ancestor of the widget). You do not need to override `:root` for the popup look.
+- **`.btn`, `.control`, and `.spinner` are scoped under `.feedback-popup`.** Styles from this package no longer apply to generic `.btn` / `.control` / `.spinner` classes elsewhere on the page. If you relied on those global rules, add your own styles for those classes outside the widget.
+- **Checkbox styling uses `color-mix()`** for semi-transparent states. Use a [browser that supports `color-mix`](https://caniuse.com/mdn-css_types_color_color-mix) or override the `--feedback-checkbox-*` variables with solid colors.
 
 ## Usage
 
@@ -97,6 +107,160 @@ If you already ship the old wrapper and inner placeholder divs, you can still om
   <div class="js-feedback-popup-content"></div>
   <div class="js-feedback-popup-confirmation"></div>
 </div>
+```
+
+## Styling & Theming
+
+The widget root is always an element with class **`feedback-popup`** (added automatically by `init()` if missing). All public theme tokens are **CSS custom properties** prefixed with **`--feedback-`**, with defaults set on `.feedback-popup` in [`src/styles/variables.css`](src/styles/variables.css).
+
+### Loading the CSS
+
+The published npm package ships the **JS library** from `dist/`; **stylesheet files live in the repo** under `src/styles/`. Include them in your app (copy, submodule, or bundle `main.css` and its imports) the same way you do today. The entry file is `src/styles/main.css`.
+
+### How to override
+
+Add rules that target the widget root (or a wrapper you pass as `mount`) and set variables:
+
+```css
+.feedback-popup {
+  --feedback-color-primary: #5c6bc0;
+  --feedback-color-brand: #283593;
+  --feedback-header-bg: var(--feedback-color-brand);
+  --feedback-widget-button-bg: var(--feedback-color-primary);
+  --feedback-widget-button-hover-bg: #3949ab;
+}
+```
+
+Because variables inherit, you can also set them on a parent container if the widget is nested:
+
+```css
+#feedback-root.feedback-popup,
+#feedback-root .feedback-popup {
+  --feedback-dialog-width: 36rem;
+}
+```
+
+### Variables reference (defaults in `variables.css`)
+
+| Variable | Role |
+|----------|------|
+| **Typography** | |
+| `--feedback-font-family` | Font stack for widget UI |
+| `--feedback-font-size-header` | Modal title |
+| `--feedback-font-size-body` | Body / textarea / confirmation text |
+| `--feedback-font-size-widget` | Floating button label |
+| `--feedback-font-size-screenshot-label` | “Include a screenshot?” row |
+| `--feedback-font-weight-header` | Title weight |
+| `--feedback-font-weight-body` | Body weight |
+| `--feedback-font-weight-label` | Checkbox label weight |
+| `--feedback-line-height-header` | Title line height |
+| **Core colors** | |
+| `--feedback-color-surface` | White / surfaces |
+| `--feedback-color-text` | Main text |
+| `--feedback-color-text-muted` | Placeholder |
+| `--feedback-color-brand` | Brand / header |
+| `--feedback-color-primary` | Primary actions, widget button |
+| `--feedback-color-secondary` | Screenshot row background |
+| `--feedback-color-on-primary` | Text on primary-colored bars |
+| `--feedback-color-on-brand` | Text on header |
+| `--feedback-color-disabled` | Disabled / muted UI |
+| `--feedback-color-link` | Links in confirmation text |
+| `--feedback-color-link-hover` | Link hover |
+| **Overlay** | |
+| `--feedback-overlay-bg` | Backdrop behind modal |
+| `--feedback-overlay-z-index` | Stacking order |
+| `--feedback-overlay-transition` | Backdrop transition |
+| **Floating button** | |
+| `--feedback-widget-offset-right` | Horizontal inset from right |
+| `--feedback-widget-offset-bottom` | Offset from bottom |
+| `--feedback-widget-width` | Button strip width |
+| `--feedback-widget-min-height` | Min height |
+| `--feedback-widget-padding-x` / `--feedback-widget-padding-y` | Padding |
+| `--feedback-widget-button-bg` | Button background |
+| `--feedback-widget-button-text` | Button label color |
+| `--feedback-widget-button-hover-bg` | Hover background |
+| `--feedback-widget-button-disabled-bg` | Disabled background |
+| **Dialog** | |
+| `--feedback-dialog-bg` | Panel background |
+| `--feedback-dialog-width` | Panel width |
+| `--feedback-dialog-max-height-offset` | `calc(100% - offset)` on tall viewports |
+| `--feedback-dialog-max-height-offset-mobile` | Same under 575px width |
+| `--feedback-dialog-border-radius` | Panel and confirmation card corner radius |
+| **Header** | |
+| `--feedback-header-bg` | Header bar |
+| `--feedback-header-text` | Title color |
+| `--feedback-header-height` | Bar height |
+| `--feedback-header-padding-x` | Horizontal padding |
+| **Textarea** | |
+| `--feedback-textarea-bg` | Textarea area background |
+| `--feedback-textarea-height` | Textarea block height |
+| `--feedback-textarea-padding-x` / `--feedback-textarea-padding-y` | Inner padding |
+| **Screenshot UI** | |
+| `--feedback-add-screenshot-bg` | Blue bar behind checkbox |
+| `--feedback-add-screenshot-text` | Label color on that bar |
+| `--feedback-add-screenshot-height` | Row height |
+| `--feedback-add-screenshot-padding` | Row padding |
+| `--feedback-screenshot-area-bg` | Canvas preview area |
+| `--feedback-screenshot-area-height` | Preview height |
+| **Footer** | |
+| `--feedback-footer-bg` | Row behind Send/Cancel |
+| `--feedback-footer-padding` | Footer padding |
+| **Confirmation card** | |
+| `--feedback-confirmation-bg` | Thank-you card background |
+| `--feedback-confirmation-width` / `--feedback-confirmation-height` | Card size |
+| `--feedback-confirmation-padding-x` / `--feedback-confirmation-padding-y` | Card padding |
+| `--feedback-confirmation-thank-you-margin-bottom` | Space below thank-you line |
+| **Dialog buttons** | |
+| `--feedback-button-radius` | Border radius |
+| `--feedback-button-confirm-bg` / `--feedback-button-confirm-border` / `--feedback-button-confirm-text` | Send button |
+| `--feedback-button-confirm-hover-bg` / `--feedback-button-confirm-hover-text` | Send hover |
+| `--feedback-button-cancel-bg` / `--feedback-button-cancel-border` / `--feedback-button-cancel-text` | Cancel |
+| `--feedback-button-cancel-hover-bg` | Cancel hover |
+| `--feedback-button-dialog-text` / `--feedback-button-dialog-font-size` | Alternate dialog-style button (e.g. `.btn-diolog`) |
+| `--feedback-button-padding-x` / `--feedback-button-padding-y` | Action button padding |
+| `--feedback-button-gap` | Space between Send and Cancel |
+| `--feedback-button-font-size` | Button font size |
+| `--feedback-button-transition` | Button transitions |
+| `--feedback-button-text-transform` | e.g. `uppercase` |
+| **Checkbox** | |
+| `--feedback-checkbox-label-font-size` | Label size |
+| `--feedback-checkbox-indicator-size` | Box size |
+| `--feedback-checkbox-indicator-border` | Border color |
+| `--feedback-checkbox-indicator-radius` | Radius |
+| `--feedback-checkbox-indicator-default` / `hover` / `checked` / `checked-hover` / `disabled` | Indicator backgrounds (`color-mix` by default) |
+| `--feedback-checkbox-check-color` | Checkmark color |
+| `--feedback-checkbox-check-disabled-border` | Checkmark border when disabled |
+| **Spinner** | |
+| `--feedback-spinner-size` | Diameter |
+| `--feedback-spinner-border-width` | Ring thickness |
+| `--feedback-spinner-track-color` / `--feedback-spinner-accent-color` | Two-tone ring |
+| `--feedback-spinner-animation-duration` | Rotation speed |
+
+### Examples
+
+**Dark header and primary accent**
+
+```css
+.feedback-popup {
+  --feedback-color-brand: #1a237e;
+  --feedback-color-primary: #ff6f00;
+  --feedback-header-bg: var(--feedback-color-brand);
+  --feedback-widget-button-bg: var(--feedback-color-primary);
+  --feedback-widget-button-hover-bg: #ff8f00;
+  --feedback-button-confirm-bg: var(--feedback-color-primary);
+  --feedback-button-confirm-border: var(--feedback-color-primary);
+}
+```
+
+**Wider dialog, more padding**
+
+```css
+.feedback-popup {
+  --feedback-dialog-width: 40rem;
+  --feedback-textarea-height: 24rem;
+  --feedback-header-padding-x: 2rem;
+  --feedback-footer-padding: 1.2rem;
+}
 ```
 
 ## Configuration Options

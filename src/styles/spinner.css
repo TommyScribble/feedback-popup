@@ -1,24 +1,24 @@
-/*ALL STYLES FOR SPINNERS CAN BE FOUND HERE*/
+/* SPINNER — scoped to widget; theming via .feedback-popup { --feedback-* } */
 
-.spinner {
+.feedback-popup .spinner {
 	display: none;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 2.5rem;
-	height: 2.5rem;
+	width: var(--feedback-spinner-size);
+	height: var(--feedback-spinner-size);
 	border-radius: 50%;
-	border: 0.3rem solid var(--white);
-	border-color: var(--pomegranate) transparent;
+	border: var(--feedback-spinner-border-width) solid var(--feedback-spinner-track-color);
+	border-color: var(--feedback-spinner-accent-color) transparent;
 }
 
-.spinner.loading {
+.feedback-popup .spinner.loading {
 	display: block;
-	animation: spinner 0.7s linear infinite;
+	animation: feedback-popup-spinner var(--feedback-spinner-animation-duration) linear infinite;
 }
 
-@keyframes spinner {
+@keyframes feedback-popup-spinner {
 	0% {
 		transform: translate(-50%, -50%) rotate(0deg);
 	}

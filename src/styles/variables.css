@@ -1,39 +1,167 @@
 /* ===================
-Variables
-====================== */
-
+ * Internal palette & page defaults (:root)
+ * Not part of the public widget theming API — use --feedback-* on .feedback-popup instead.
+ * ================== */
 
 :root {
-    /*FONTS*/
-    --sans-serif-stack: "Helvetica Neue", Helvetica, sans-serif;
-    --font-size--header: 1.8rem;
-    --font-size--text: 1.6rem;
-    --font-size--widget: 1.3rem;
-    --border-radius: 0.3rem;
+	/* FONTS (demo page / legacy helpers) */
+	--sans-serif-stack: "Helvetica Neue", Helvetica, sans-serif;
+	--font-size--header: 1.8rem;
+	--font-size--text: 1.6rem;
+	--font-size--widget: 1.3rem;
+	--border-radius: 0.3rem;
 
-    /*COLOURS*/
-    /* setup */
-    --white: #fff;
-    --black: #1f1f1f;
+	/* COLOURS — setup */
+	--white: #fff;
+	--black: #1f1f1f;
 
-    --tangaroa: #03163D;
-    --pomegranate: #E84E0F;
-    --pacific-blue: #0C93BC;
-    --outer-space: #30353A;
+	--tangaroa: #03163d;
+	--pomegranate: #e84e0f;
+	--pacific-blue: #0c93bc;
+	--outer-space: #30353a;
 
-    --alto-grey: #DFDEDE;
-    --silver-grey: #b8b8b8;
-    --cotton-seed: #c1bdb9;
+	--alto-grey: #dfdede;
+	--silver-grey: #b8b8b8;
+	--cotton-seed: #c1bdb9;
 
-    /* uses */
-    --brand-color: var(--tangaroa);
-    --primary-color: var(--pomegranate);
-    --secondary-color: var(--pacific-blue);
+	/* COLOURS — semantic aliases (page-level) */
+	--brand-color: var(--tangaroa);
+	--primary-color: var(--pomegranate);
+	--secondary-color: var(--pacific-blue);
 
-    --text-color: var(--outer-space);
+	--text-color: var(--outer-space);
 
-    --disabled-color: var(--alto-grey);
+	--disabled-color: var(--alto-grey);
 
-    --link-color: var(--brand-color);
-    --hover-color: var(--primary-color);
+	--link-color: var(--brand-color);
+	--hover-color: var(--primary-color);
+}
+
+/* ===================
+ * Public theming API — set these on .feedback-popup { ... }
+ * Defaults match the built-in look; no :root overrides required.
+ * ================== */
+
+.feedback-popup {
+	/* Typography */
+	--feedback-font-family: "Helvetica Neue", Helvetica, sans-serif;
+	--feedback-font-size-header: 1.8rem;
+	--feedback-font-size-body: 1.6rem;
+	--feedback-font-size-widget: 1.3rem;
+	--feedback-font-size-screenshot-label: 1.5rem;
+	--feedback-font-weight-header: 400;
+	--feedback-font-weight-body: 300;
+	--feedback-font-weight-label: 400;
+	--feedback-line-height-header: 2.2rem;
+
+	/* Core colors */
+	--feedback-color-surface: #fff;
+	--feedback-color-text: #30353a;
+	--feedback-color-text-muted: #b8b8b8;
+	--feedback-color-brand: #03163d;
+	--feedback-color-primary: #e84e0f;
+	--feedback-color-secondary: #0c93bc;
+	--feedback-color-on-primary: #fff;
+	--feedback-color-on-brand: #fff;
+	--feedback-color-disabled: #dfdede;
+	--feedback-color-link: var(--feedback-color-brand);
+	--feedback-color-link-hover: var(--feedback-color-primary);
+
+	/* Overlay & shell */
+	--feedback-overlay-bg: rgba(0, 0, 0, 0.2);
+	--feedback-overlay-z-index: 10000000;
+	--feedback-overlay-transition: all 0.3s ease;
+
+	/* Floating widget button */
+	--feedback-widget-offset-right: 8%;
+	--feedback-widget-offset-bottom: 0;
+	--feedback-widget-width: 13.6rem;
+	--feedback-widget-min-height: 2.55rem;
+	--feedback-widget-padding-y: 1.22rem;
+	--feedback-widget-padding-x: 1.8rem;
+	--feedback-widget-button-bg: var(--feedback-color-primary);
+	--feedback-widget-button-text: var(--feedback-color-on-primary);
+	--feedback-widget-button-hover-bg: var(--feedback-color-primary);
+	--feedback-widget-button-disabled-bg: var(--feedback-color-disabled);
+
+	/* Dialog panel */
+	--feedback-dialog-bg: var(--feedback-color-surface);
+	--feedback-dialog-width: 32.4rem;
+	--feedback-dialog-max-height-offset: 10rem;
+	--feedback-dialog-max-height-offset-mobile: 8rem;
+	--feedback-dialog-border-radius: 0;
+
+	/* Header */
+	--feedback-header-bg: var(--feedback-color-brand);
+	--feedback-header-text: var(--feedback-color-on-brand);
+	--feedback-header-height: 5rem;
+	--feedback-header-padding-x: 1.5rem;
+
+	/* Textarea */
+	--feedback-textarea-bg: var(--feedback-color-surface);
+	--feedback-textarea-height: 21rem;
+	--feedback-textarea-padding-y: 1rem;
+	--feedback-textarea-padding-x: 0.9rem;
+
+	/* Add screenshot row */
+	--feedback-add-screenshot-bg: var(--feedback-color-secondary);
+	--feedback-add-screenshot-text: var(--feedback-color-on-primary);
+	--feedback-add-screenshot-height: 3.7rem;
+	--feedback-add-screenshot-padding: 0.9rem;
+
+	/* Screenshot preview area */
+	--feedback-screenshot-area-bg: #c1bdb9;
+	--feedback-screenshot-area-height: 19rem;
+
+	/* Footer / confirm row */
+	--feedback-footer-bg: var(--feedback-color-surface);
+	--feedback-footer-padding: 0.9rem;
+
+	/* Confirmation card */
+	--feedback-confirmation-bg: var(--feedback-color-surface);
+	--feedback-confirmation-width: 30.3rem;
+	--feedback-confirmation-height: 11.3rem;
+	--feedback-confirmation-padding-y: 2.5rem;
+	--feedback-confirmation-padding-x: 3rem;
+	--feedback-confirmation-thank-you-margin-bottom: 2rem;
+
+	/* Buttons (dialog actions) */
+	--feedback-button-radius: 0.3rem;
+	--feedback-button-confirm-bg: var(--feedback-color-primary);
+	--feedback-button-confirm-border: var(--feedback-color-primary);
+	--feedback-button-confirm-text: var(--feedback-color-on-primary);
+	--feedback-button-confirm-hover-bg: var(--feedback-color-disabled);
+	--feedback-button-confirm-hover-text: var(--feedback-color-primary);
+	--feedback-button-cancel-bg: transparent;
+	--feedback-button-cancel-border: transparent;
+	--feedback-button-cancel-text: #1f1f1f;
+	--feedback-button-cancel-hover-bg: var(--feedback-color-disabled);
+	--feedback-button-dialog-text: var(--feedback-color-brand);
+	--feedback-button-dialog-font-size: 1.4rem;
+	--feedback-button-padding-y: 0.8rem;
+	--feedback-button-padding-x: 1.9rem;
+	--feedback-button-gap: 0.7rem;
+	--feedback-button-font-size: 0.9rem;
+	--feedback-button-transition: all 0.5s ease;
+	--feedback-button-text-transform: uppercase;
+
+	/* Checkbox */
+	--feedback-checkbox-label-font-size: 1.5rem;
+	--feedback-checkbox-indicator-size: 2rem;
+	--feedback-checkbox-indicator-border: var(--feedback-color-surface);
+	--feedback-checkbox-indicator-radius: 0.3rem;
+	--feedback-checkbox-indicator-default: color-mix(in srgb, var(--feedback-color-text) 50%, transparent);
+	--feedback-checkbox-indicator-hover: color-mix(in srgb, var(--feedback-color-surface) 80%, transparent);
+	--feedback-checkbox-indicator-checked: color-mix(in srgb, var(--feedback-color-surface) 70%, transparent);
+	--feedback-checkbox-indicator-checked-hover: color-mix(in srgb, var(--feedback-color-text) 30%, transparent);
+	--feedback-checkbox-indicator-disabled: color-mix(in srgb, var(--feedback-color-surface) 60%, transparent);
+	--feedback-checkbox-check-color: var(--feedback-color-surface);
+	--feedback-checkbox-check-disabled-border: color-mix(in srgb, var(--feedback-color-text) 40%, transparent);
+
+	/* Spinner */
+	--feedback-spinner-size: 2.5rem;
+	--feedback-spinner-border-width: 0.3rem;
+	--feedback-spinner-track-color: var(--feedback-color-surface);
+	--feedback-spinner-accent-color: var(--feedback-color-primary);
+	--feedback-spinner-animation-duration: 0.7s;
 }
