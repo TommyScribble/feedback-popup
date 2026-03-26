@@ -1,7 +1,6 @@
 {
   "plugins": {
     "postcss-import": {},
-    "postcss-nesting": {},
-    "postcss-custom-properties": {}
+    "postcss-nesting": {}
   }
 } 
