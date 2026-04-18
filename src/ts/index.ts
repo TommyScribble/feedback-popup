@@ -259,7 +259,11 @@ class FeedbackPopup {
             const screenshotContainer = root.querySelector('.feedback__screenshot') as HTMLElement;
             if (!screenshotContainer) return;
 
-            const canvas = await html2canvas(screenshotElement);
+            const canvas = await html2canvas(screenshotElement, {
+                ignoreElements: (element) =>
+                    typeof element.closest === 'function' &&
+                    Boolean(element.closest('[data-html2canvas-ignore]'))
+            });
             const existingCanvas = screenshotContainer.querySelector('canvas');
 
             if (existingCanvas) {

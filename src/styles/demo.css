@@ -1,0 +1,106 @@
+/* Demo site only — not part of the published widget bundle. */
+
+:root {
+	--demo-font-stack: "Trebuchet MS", "Arial Black", Arial, sans-serif;
+	--demo-text: #6b5d7a;
+	--demo-ink: #45395a;
+	--demo-ink-mid: #6b5d7a;
+	--demo-surface: #fff6e0;
+	--demo-cyan: #2ee8cf;
+	--demo-magenta: #ff2a6d;
+}
+
+html {
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+
+	* {
+		box-sizing: border-box;
+	}
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+html,
+body {
+	font-family: var(--demo-font-stack);
+	-webkit-font-smoothing: antialiased;
+	color: var(--demo-text);
+	font-size: 10px;
+	margin: 0;
+	padding: 0;
+	background:
+		radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--demo-cyan) 22%, transparent) 0, transparent 35%),
+		radial-gradient(circle at 82% 12%, color-mix(in srgb, var(--demo-magenta) 20%, transparent) 0, transparent 32%),
+		linear-gradient(158deg, #fff8ed 0%, #ffecf5 48%, #e8fffc 100%);
+	min-height: 100vh;
+}
+
+#main-body {
+	min-height: 100vh;
+}
+
+.demo-page {
+	max-width: 96rem;
+	margin: 0 auto;
+	padding: 4rem 2rem 11rem;
+}
+
+.demo-hero {
+	border: 0.3rem solid var(--demo-ink-mid);
+	border-radius: 1.2rem;
+	background: var(--demo-surface);
+	box-shadow: 0.8rem 0.8rem 0 var(--demo-ink);
+	padding: 2.2rem;
+
+	h1 {
+		margin: 0 0 1.2rem;
+		font-size: clamp(2.8rem, 4vw, 4.8rem);
+		line-height: 1;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+	}
+
+	p {
+		margin: 0;
+		margin-bottom: 2rem;
+		font-size: 1.5rem;
+		line-height: 1.4;
+		max-width: 56rem;
+	}
+}
+
+.demo-kicker {
+	display: inline-block;
+	margin: 0 0 1.2rem;
+	padding: 0.5rem 0.9rem;
+	font-size: 1.2rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.09em;
+	background: var(--demo-cyan);
+	color: var(--demo-ink);
+	border: 0.2rem solid var(--demo-ink);
+	border-radius: 999px;
+}
+
+@media screen and (max-width: 575px) {
+	.demo-page {
+		padding: 2rem 1.2rem 10rem;
+	}
+
+	.demo-hero {
+		padding: 1.6rem;
+		box-shadow: 0.5rem 0.5rem 0 var(--demo-ink);
+	}
+}
+
+::selection {
+	background: var(--demo-ink-mid);
+	color: #fff;
+	text-shadow: none;
+}

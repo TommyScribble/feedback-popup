@@ -1,4 +1,4 @@
-import FeedbackPopup from './ts/index';
+import FeedbackPopup from '../ts/index';
 
 const isLocalDev = (): boolean => {
     if (typeof window === 'undefined') return true;
@@ -8,10 +8,10 @@ const isLocalDev = (): boolean => {
 
 const feedbackPopup = new FeedbackPopup({
     mount: '#feedback-root',
-    widgetTitle: 'Send Feedback',
-    title: 'Help Us Improve',
+    widgetTitle: 'Drop Feedback',
+    title: 'Arcade Feedback Booth',
     snapshotBodyId: '#main-body',
-    placeholderText: 'Tell us what you think...',
+    placeholderText: 'What should we tune next?',
     ...(!isLocalDev() ? { endpointUrl: 'https://httpbin.org/post' } : {})
 });
 

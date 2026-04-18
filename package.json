@@ -11,10 +11,10 @@
         "LICENSE"
     ],
     "scripts": {
-        "start": "parcel src/index.html -p 3000 --target app",
+        "start": "parcel src/demo/index.html -p 3000 --target app",
         "api": "node server.js",
         "dev": "concurrently \"pnpm run api\" \"pnpm start\"",
-        "build": "pnpm run clean && parcel build src/index.html --public-url '.' --target app",
+        "build": "pnpm run clean && parcel build src/demo/index.html --public-url '.' --target app",
         "build:lib": "pnpm run clean && tsc --project tsconfig.lib.json",
         "build:all": "pnpm run build && pnpm run build:lib",
         "clean": "rm -rf lib .parcel-cache dist",

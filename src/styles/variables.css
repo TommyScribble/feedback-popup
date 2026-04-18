@@ -1,50 +1,25 @@
 /* ===================
- * Internal palette & page defaults (:root)
- * Not part of the public widget theming API — use --feedback-* on .feedback-popup instead.
- * ================== */
-
-:root {
-	/* FONTS (demo page / legacy helpers) */
-	--sans-serif-stack: "Helvetica Neue", Helvetica, sans-serif;
-	--font-size--header: 1.8rem;
-	--font-size--text: 1.6rem;
-	--font-size--widget: 1.3rem;
-	--border-radius: 0.3rem;
-
-	/* COLOURS — setup */
-	--white: #fff;
-	--black: #1f1f1f;
-
-	--tangaroa: #03163d;
-	--pomegranate: #e84e0f;
-	--pacific-blue: #0c93bc;
-	--outer-space: #30353a;
-
-	--alto-grey: #dfdede;
-	--silver-grey: #b8b8b8;
-	--cotton-seed: #c1bdb9;
-
-	/* COLOURS — semantic aliases (page-level) */
-	--brand-color: var(--tangaroa);
-	--primary-color: var(--pomegranate);
-	--secondary-color: var(--pacific-blue);
-
-	--text-color: var(--outer-space);
-
-	--disabled-color: var(--alto-grey);
-
-	--link-color: var(--brand-color);
-	--hover-color: var(--primary-color);
-}
-
-/* ===================
  * Public theming API — set these on .feedback-popup { ... }
- * Defaults match the built-in look; no :root overrides required.
+ * Defaults match the built-in look. Internal palette uses --_fp-* (not public API).
  * ================== */
 
 .feedback-popup {
+	/* Internal default palette (override via --feedback-* on the same node) */
+	--_fp-ink: #45395a;
+	--_fp-ink-mid: #6b5d7a;
+	--_fp-surface: #fff6e0;
+	--_fp-surface-alt: #ffefd0;
+	--_fp-magenta: #ff2a6d;
+	--_fp-magenta-hot: #ff5a9a;
+	--_fp-cyan: #2ee8cf;
+	--_fp-teal-bar: #1a9e8a;
+	--_fp-muted: #9588a3;
+	--_fp-disabled: #d8cec4;
+	--_fp-on-dark: #fffef8;
+	--_fp-overlay: color-mix(in srgb, var(--_fp-ink) 32%, transparent);
+
 	/* Typography */
-	--feedback-font-family: "Helvetica Neue", Helvetica, sans-serif;
+	--feedback-font-family: "Trebuchet MS", "Arial Black", Arial, sans-serif;
 	--feedback-font-size-header: 1.8rem;
 	--feedback-font-size-body: 1.6rem;
 	--feedback-font-size-widget: 1.3rem;
@@ -55,67 +30,67 @@
 	--feedback-line-height-header: 2.2rem;
 
 	/* Core colors */
-	--feedback-color-surface: #fff;
-	--feedback-color-text: #30353a;
-	--feedback-color-text-muted: #b8b8b8;
-	--feedback-color-brand: #03163d;
-	--feedback-color-primary: #e84e0f;
-	--feedback-color-secondary: #0c93bc;
-	--feedback-color-on-primary: #fff;
-	--feedback-color-on-brand: #fff;
-	--feedback-color-disabled: #dfdede;
+	--feedback-color-surface: var(--_fp-surface);
+	--feedback-color-text: var(--_fp-ink-mid);
+	--feedback-color-text-muted: var(--_fp-muted);
+	--feedback-color-brand: var(--_fp-ink);
+	--feedback-color-primary: var(--_fp-magenta);
+	--feedback-color-secondary: var(--_fp-teal-bar);
+	--feedback-color-on-primary: var(--_fp-on-dark);
+	--feedback-color-on-brand: var(--_fp-on-dark);
+	--feedback-color-disabled: var(--_fp-disabled);
 	--feedback-color-link: var(--feedback-color-brand);
 	--feedback-color-link-hover: var(--feedback-color-primary);
 
 	/* Overlay & shell */
-	--feedback-overlay-bg: rgba(0, 0, 0, 0.2);
+	--feedback-overlay-bg: var(--_fp-overlay);
 	--feedback-overlay-z-index: 10000000;
 	--feedback-overlay-transition: all 0.3s ease;
 
 	/* Floating widget button */
-	--feedback-widget-offset-right: 8%;
+	--feedback-widget-offset-right: 3rem;
 	--feedback-widget-offset-bottom: 0;
-	--feedback-widget-width: 13.6rem;
-	--feedback-widget-min-height: 2.55rem;
-	--feedback-widget-padding-y: 1.22rem;
-	--feedback-widget-padding-x: 1.8rem;
+	--feedback-widget-width: 15.2rem;
+	--feedback-widget-min-height: 2.9rem;
+	--feedback-widget-padding-y: 1.1rem;
+	--feedback-widget-padding-x: 2rem;
 	--feedback-widget-button-bg: var(--feedback-color-primary);
 	--feedback-widget-button-text: var(--feedback-color-on-primary);
-	--feedback-widget-button-hover-bg: var(--feedback-color-primary);
+	--feedback-widget-button-hover-bg: var(--_fp-magenta-hot);
 	--feedback-widget-button-disabled-bg: var(--feedback-color-disabled);
 
 	/* Dialog panel */
 	--feedback-dialog-bg: var(--feedback-color-surface);
-	--feedback-dialog-width: 32.4rem;
+	--feedback-dialog-width: 33.6rem;
 	--feedback-dialog-max-height-offset: 10rem;
 	--feedback-dialog-max-height-offset-mobile: 8rem;
-	--feedback-dialog-border-radius: 0;
+	--feedback-dialog-border-radius: 1rem;
 
 	/* Header */
 	--feedback-header-bg: var(--feedback-color-brand);
 	--feedback-header-text: var(--feedback-color-on-brand);
-	--feedback-header-height: 5rem;
-	--feedback-header-padding-x: 1.5rem;
+	--feedback-header-height: 5.4rem;
+	--feedback-header-padding-x: 1.8rem;
 
 	/* Textarea */
-	--feedback-textarea-bg: var(--feedback-color-surface);
-	--feedback-textarea-height: 21rem;
-	--feedback-textarea-padding-y: 1rem;
-	--feedback-textarea-padding-x: 0.9rem;
+	--feedback-textarea-bg: var(--_fp-surface-alt);
+	--feedback-textarea-height: 19rem;
+	--feedback-textarea-padding-y: 1.2rem;
+	--feedback-textarea-padding-x: 1.2rem;
 
 	/* Add screenshot row */
 	--feedback-add-screenshot-bg: var(--feedback-color-secondary);
-	--feedback-add-screenshot-text: var(--feedback-color-on-primary);
-	--feedback-add-screenshot-height: 3.7rem;
+	--feedback-add-screenshot-text: var(--_fp-on-dark);
+	--feedback-add-screenshot-height: 4.2rem;
 	--feedback-add-screenshot-padding: 0.9rem;
 
 	/* Screenshot preview area */
-	--feedback-screenshot-area-bg: #c1bdb9;
+	--feedback-screenshot-area-bg: #958ca8;
 	--feedback-screenshot-area-height: 19rem;
 
 	/* Footer / confirm row */
 	--feedback-footer-bg: var(--feedback-color-surface);
-	--feedback-footer-padding: 0.9rem;
+	--feedback-footer-padding: 1rem;
 
 	/* Confirmation card */
 	--feedback-confirmation-bg: var(--feedback-color-surface);
@@ -126,23 +101,23 @@
 	--feedback-confirmation-thank-you-margin-bottom: 2rem;
 
 	/* Buttons (dialog actions) */
-	--feedback-button-radius: 0.3rem;
+	--feedback-button-radius: 0.7rem;
 	--feedback-button-confirm-bg: var(--feedback-color-primary);
 	--feedback-button-confirm-border: var(--feedback-color-primary);
 	--feedback-button-confirm-text: var(--feedback-color-on-primary);
-	--feedback-button-confirm-hover-bg: var(--feedback-color-disabled);
-	--feedback-button-confirm-hover-text: var(--feedback-color-primary);
+	--feedback-button-confirm-hover-bg: color-mix(in srgb, var(--_fp-magenta) 28%, var(--_fp-surface));
+	--feedback-button-confirm-hover-text: var(--_fp-ink);
 	--feedback-button-cancel-bg: transparent;
 	--feedback-button-cancel-border: transparent;
-	--feedback-button-cancel-text: #1f1f1f;
-	--feedback-button-cancel-hover-bg: var(--feedback-color-disabled);
+	--feedback-button-cancel-text: var(--_fp-ink-mid);
+	--feedback-button-cancel-hover-bg: color-mix(in srgb, var(--_fp-cyan) 18%, var(--_fp-surface));
 	--feedback-button-dialog-text: var(--feedback-color-brand);
-	--feedback-button-dialog-font-size: 1.4rem;
-	--feedback-button-padding-y: 0.8rem;
-	--feedback-button-padding-x: 1.9rem;
-	--feedback-button-gap: 0.7rem;
-	--feedback-button-font-size: 0.9rem;
-	--feedback-button-transition: all 0.5s ease;
+	--feedback-button-dialog-font-size: 1.3rem;
+	--feedback-button-padding-y: 0.9rem;
+	--feedback-button-padding-x: 1.5rem;
+	--feedback-button-gap: 0.9rem;
+	--feedback-button-font-size: 1rem;
+	--feedback-button-transition: all 0.25s ease;
 	--feedback-button-text-transform: uppercase;
 
 	/* Checkbox */

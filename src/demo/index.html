@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/demo.css">
+  <title>Feedback Popup Demo</title>
+  <meta name="description" content="A widget for collecting feedback">
+</head>
+
+<body>
+  <!-- Preferred: one empty mount node; init() scaffolds the widget inside it -->
+  <div id="feedback-root"></div>
+
+  <!-- Page-only region for screenshots (modal lives outside this node) -->
+  <div id="main-body">
+    <main class="demo-page">
+      <section class="demo-hero">
+        <p class="demo-kicker">Feedback Popup Demo</p>
+        <h1>Retro Mode: On</h1>
+        <p>
+          Use the floating button in the corner. Send a note, optionally include a screenshot,
+          and try the full flow end to end.
+        </p>
+      </section>
+    </main>
+  </div>
+</body>
+<script src="./bootstrap.ts" type="module"></script>
+
+</html>

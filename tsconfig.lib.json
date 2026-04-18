@@ -20,7 +20,6 @@
   "exclude": [
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
-    "src/index.html",
-    "src/index.ts"
+    "src/demo/**"
   ]
 }
