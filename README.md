@@ -16,6 +16,7 @@ More features to come!
 - [Configuration Options](#configuration-options)
 - [API](#api)
 - [Development](#development)
+- [Demo app](#demo-app)
 - [Build scripts](#build-scripts)
 - [New-Features](#new-features)
 - [Contributing](#contributing)
@@ -287,7 +288,7 @@ Only pass the options you need; anything omitted uses the default above. **`moun
 - `showFeedbackModal()`: Show the feedback popup
 - `hideContentDiv()`: Hide the feedback popup
 - `createScreenshot()`: Create a screenshot of the current page
-- `sendData()`: Send feedback data to the configured endpoint
+- `sendData()`: Send feedback data to the configured endpoint. On success the parsed JSON body is logged to the console as described in [Demo app → Inspecting the API response](#inspecting-the-api-response).
 
 ## Development
 
@@ -306,6 +307,20 @@ pnpm test
 ```
 
 Use **`pnpm dev`** when you want the demo app and the dev API together (matches the default `endpointUrl` of `http://localhost:3005/api/feedback`). Use **`pnpm start`** alone only when you do not need the API or you run **`pnpm api`** in another terminal.
+
+## Demo app
+
+The interactive sample site lives under **`src/demo/`**:
+
+- **`src/demo/index.html`** — Parcel entry page: a mount node (`#feedback-root`), the screenshot region (`#main-body`), and a short “retro” layout so you can try the widget end to end.
+- **`src/demo/bootstrap.ts`** — Creates `FeedbackPopup`, calls `init()`, and tweaks config for local vs non-local hosts (on localhost it uses the default dev API URL; otherwise it posts to **https://httpbin.org/post** for a safe public smoke test).
+- **`src/demo/demo.css`** — Demo-only layout and hero styling (the widget itself still uses **`src/styles/main.css`**).
+
+Run it with **`pnpm dev`** or **`pnpm start`** as described in [Development](#development), then open [http://localhost:3000](http://localhost:3000).
+
+### Inspecting the API response
+
+After a **successful** submit, the library parses the response as JSON and logs it to the **browser developer console** as a single object (prefixed with `Success:`). Open **DevTools → Console** to see that object and confirm what your endpoint returned (for example `{ success: true, message: 'Feedback received' }` from the dev server, or **httpbin**’s echo payload when testing off localhost). Errors are logged separately and the UI shows an alert; they do not go through the same success log path.
 
 ## Build scripts
 
