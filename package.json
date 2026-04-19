@@ -18,6 +18,7 @@
         "build:lib": "pnpm run clean && tsc --project tsconfig.lib.json",
         "build:all": "pnpm run build && pnpm run build:lib",
         "clean": "rm -rf lib .parcel-cache dist",
+        "clean:feedback": "rm -rf feedback",
         "prepublishOnly": "pnpm run build:all",
         "publish:npm": "pnpm run build:all && npm publish",
         "test": "vitest",

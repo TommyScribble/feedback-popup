@@ -16,6 +16,7 @@ More features to come!
 - [Configuration Options](#configuration-options)
 - [API](#api)
 - [Development](#development)
+- [Build scripts](#build-scripts)
 - [New-Features](#new-features)
 - [Contributing](#contributing)
 
@@ -69,6 +70,8 @@ Place a single empty container where you want the widget to live (layout, sideba
   </script>
 </body>
 ```
+
+The values above override the [defaults](#configuration-options): by default the floating button label (`widgetTitle`) is **Feedback** and the modal heading (`title`) is **Send Feedback**. Here they are swapped for illustration so you can see both options.
 
 With a direct element reference:
 
@@ -274,6 +277,8 @@ Because variables inherit, you can also set them on a parent container if the wi
 | placeholderText | string | 'Enter your feedback here...' | Placeholder text for the feedback textarea |
 | endpointUrl | string | 'http://localhost:3005/api/feedback' | API endpoint to send feedback to |
 
+Only pass the options you need; anything omitted uses the default above. **`mount`** is optional: see [Usage](#usage) for the three integration patterns (explicit mount, auto-inject on `document.body`, or legacy `.js-feedback-popup` markup).
+
 ## API
 
 ### Methods
@@ -290,15 +295,31 @@ Because variables inherit, you can also set them on a parent container if the wi
 # Install dependencies
 pnpm install
 
-# Start development server
+# Demo + local API (recommended for hacking on the widget with default endpointUrl)
+pnpm dev
+
+# Demo only (Parcel on port 3000; no API — use if you do not need localhost:3005)
 pnpm start
 
 # Run tests
 pnpm test
-
-# Build for production
-pnpm build
 ```
+
+Use **`pnpm dev`** when you want the demo app and the dev API together (matches the default `endpointUrl` of `http://localhost:3005/api/feedback`). Use **`pnpm start`** alone only when you do not need the API or you run **`pnpm api`** in another terminal.
+
+## Build scripts
+
+These match `package.json` (see there for the exact commands).
+
+| Script | What it does |
+|--------|----------------|
+| **`pnpm clean`** | Deletes `dist/`, `lib/`, and `.parcel-cache/` so the next build starts fresh. |
+| **`pnpm build`** | Runs **`clean`**, then **Parcel** production build of the **demo** (`src/demo/index.html`) into **`dist/`** (static demo site, not the npm library entry on its own). |
+| **`pnpm build:lib`** | Runs **`clean`**, then **`tsc`** with `tsconfig.lib.json` to emit the **npm library** (`dist/library.js`, types, source maps) from `src/library.ts` and `src/ts/`. |
+| **`pnpm build:all`** | Runs **`build`** then **`build:lib`**. Because **`build:lib`** starts with **`clean`**, the **final `dist/` contents are the library build only** — the demo output from the first step is removed. This is what **`prepublishOnly`** runs before publish, so the published `dist/` matches the package entry points. |
+| **`pnpm clean:feedback`** | Deletes the repo-root **`feedback/`** directory (JSON and screenshots written by the dev API). Safe if the folder is missing. |
+
+For a **local demo build** without publishing, use **`pnpm build`** if you only care about the demo site. For **library-only** output in `dist/`, use **`pnpm build:lib`**. For **the same artifact npm will ship**, use **`pnpm build:all`** (or rely on `pnpm publish`, which runs `prepublishOnly`).
 
 ## License
 
@@ -318,7 +339,7 @@ git@github.com:TommyScribble/feedback-popup.git
 
 ### Prerequisites
 
-[Node.js](http://nodejs.org/) =22.14.0 must be installed. If you are using Volta this is already pinned.
+[Node.js](http://nodejs.org/) **>= 14** as declared in `package.json` under **`engines`**. This repo’s toolchain is tested with the Volta pin (**22.14.0**); if you use [Volta](https://volta.sh/), that version is applied automatically from `package.json`.
 
 ### Installation
 
@@ -326,37 +347,34 @@ git@github.com:TommyScribble/feedback-popup.git
 
 ### Development Server
 
-- `pnpm run dev` will run the app's development server at [http://localhost:3000](http://localhost:3000) and a devlopment API at [http://localhost:3005](http://localhost:3005), automatically reloading the page on every JS change.
+- **`pnpm run dev`** runs the Parcel demo at [http://localhost:3000](http://localhost:3000) and the development API at [http://localhost:3005](http://localhost:3005), with reload on JS changes. This is the usual command when exercising the default `endpointUrl`.
+- **`pnpm start`** runs **only** the Parcel demo (no API). Use **`pnpm run api`** in another terminal if you still need port 3005.
 
 ### Dev API
 
-This api sends the body of the request to the `feedback` folder. This is excluded by the gitignore and will be generated if it doesnt exist. To clean the folder run 
+The API writes submissions under a repo-root **`feedback/`** directory (gitignored). The server creates that folder on first use. To remove saved JSON and screenshots:
 
 ```shell
-    pnpm run clean-fedback
+pnpm run clean:feedback
 ```
 
 ### Testing
 
-Vitest is used to test all functionality. To run all the tests run 
+Vitest is used to test all functionality. To run all the tests:
+
 ```shell
-    pnpm run test
+pnpm run test
 ```
 
 ### Building
 
-To test builds locally run
+See [Build scripts](#build-scripts) for how **`clean`**, **`build`**, **`build:lib`**, and **`build:all`** relate. In short: **`pnpm run build`** is the demo site; **`pnpm run build:lib`** is the library; **`pnpm run build:all`** matches what runs before **`npm publish`**.
 
 ```shell
-    pnpm run build
+pnpm run clean
 ```
 
-This will first delete and then build the output to the dist directory
-
-```shell
-pnpn run clean
-```
-will delete built resources.
+removes **`dist/`**, **`lib/`**, and **`.parcel-cache/`** (not the **`feedback/`** folder — use **`pnpm run clean:feedback`** for that).
 
 
 [npm-badge]: https://img.shields.io/npm/v/feedback-popup.svg?style=flat-square
